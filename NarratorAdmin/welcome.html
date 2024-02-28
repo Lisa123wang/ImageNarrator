@@ -118,6 +118,7 @@
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 15px;
+
         }
 
         /* Controls the size and alignment of images to make them the same */
@@ -132,14 +133,25 @@
             flex-wrap: nowrap; /* Ensures no wrapping occurs */
         }
 
-        .text-content22, .code-content {
+        .text-content22{
             flex: 1; /* Allows these sections to grow and fill the available space */
-            max-width: 35%; /* Adjusts maximum width to balance space */
+            max-width: 20%; /* Adjusts maximum width to balance space */
+        }
+        .code-content {
+            flex: 1; /* Allows these sections to grow and fill the available space */
+            max-width: 50%; /* Adjusts maximum width to balance space */
         }
 
         .scrollable-content22 {
             overflow-y: auto;
+           
             max-height: 250px; /* Ensures scrollable area if content is too long */
+        }
+        .scrollable-content23 {
+            overflow-y: auto;
+            
+            max-height: 250px; /* Ensures scrollable area if content is too long */
+            max-width: 100%;
         }
 
         .image-style {
@@ -255,7 +267,7 @@
                 </div>
                 <!-- Code Snippet Container -->
                 <div class="column22 code-content">
-                    <div class="scrollable-content22">
+                    <div class="scrollable-content23">
                         <pre>
 # draw triangle 
 print("triangle") 
@@ -287,7 +299,7 @@ print("******")
                 </div>
                 <!-- Code Snippet Container -->
                 <div class="column22 code-content">
-                    <div class="scrollable-content22">
+                    <div class="scrollable-content23">
                         <pre>
 # Give the initial amount 
 allowance = int(float(input("x = "))) 
@@ -327,7 +339,7 @@ print("Total residual is", allowance)
                 </div>
                 <!-- Code Snippet Container -->
                 <div class="column22 code-content">
-                    <div class="scrollable-content22">
+                    <div class="scrollable-content23">
                         <pre>
 iii. floor(4.00) = 4
 c. Next, if the input integer is:
@@ -384,7 +396,7 @@ else:
                 </div>
                 <!-- Code Snippet Container -->
                 <div class="column22 code-content">
-                    <div class="scrollable-content22">
+                    <div class="scrollable-content23">
                         <pre>
 if (num % 3 == 0) and (num % 5 == 0):
     print("FizzBuzz")
@@ -421,7 +433,7 @@ Buzz
                 </div>
                 <!-- Code Snippet Container -->
                 <div class="column22 code-content">
-                    <div class="scrollable-content22">
+                    <div class="scrollable-content23">
                         <pre>
 #input movie ratings 
 rate1 = float(input("please input the first movie's rating: ")) 
