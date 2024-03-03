@@ -337,6 +337,7 @@ h6 {
 }
 
 /* Breadcrumbs */
+
 .breadcrumb {
   font-size: 14px;
   font-family: "Nunito", sans-serif;
@@ -353,8 +354,13 @@ h6 {
   color: #51678f;
 }
 
-.breadcrumb .breadcrumb-item::before {
-  color: #899bbd;
+.breadcrumb-item {
+  color: #51678f;
+  
+}
+.breadcrumb-item2 {
+  color: #51678f;
+  
 }
 
 .breadcrumb .active {
