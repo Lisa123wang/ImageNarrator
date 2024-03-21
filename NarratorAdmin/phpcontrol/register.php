@@ -20,7 +20,7 @@
         if(mysqli_query($link,$sql))
         {
             $message = "新增完成";
-                echo "<script type='text/javascript'>alert('$message'); location.href = '../pages-register.html'</script>";
+                echo "<script type='text/javascript'>alert('$message'); location.href = '../index.html'</script>";
         }
         else
         {
