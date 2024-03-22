@@ -1,5 +1,5 @@
 <div align = center>
-    <form action="logincheck.php" method = post>
+    <form action="logincheck.php" method = "post">
         <table>
             <tr>
                 <td>電子信箱</td>
