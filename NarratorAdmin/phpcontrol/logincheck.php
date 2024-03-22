@@ -12,8 +12,8 @@
     {
         $_SESSION['name'] = $row['name'];
         $_SESSION['level'] = $row['level'];
-        header("location:welcome.html?method=message&message=登入成功");
+        header("location:index.html?method=message&message=登入成功");
     }else{
-        header("location:index.php?method=message&message=帳號密碼錯誤");
+        header("location:welcome.html?method=message&message=帳號密碼錯誤");
     }
 ?>

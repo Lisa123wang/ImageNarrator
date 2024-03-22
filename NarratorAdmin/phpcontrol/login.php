@@ -3,7 +3,7 @@
         <table>
             <tr>
                 <td>電子信箱</td>
-                <td><input type="text" name = "account" required></td>
+                <td><input type="email" name = "account" required></td>
             </tr>
             <tr>
                 <td>密碼</td>
