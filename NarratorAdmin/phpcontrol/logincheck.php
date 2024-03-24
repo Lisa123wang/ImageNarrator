@@ -11,7 +11,7 @@
     if($row=mysqli_fetch_assoc($result))
     {
         header("location:index.html");
-        echo "<script>alert('登入成功');</script>";
+
     }else{
         header("location:welcome.html?method=message&message=帳號密碼錯誤");
     }
