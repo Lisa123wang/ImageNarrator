@@ -4,7 +4,7 @@
     $pw = $_POST['pw'];
 
 
-    $link = mysqli_connect('localhost', 'root', '', 'imagenarrator');
+    $link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
     $sql = "SELECT distinct * FROM user WHERE account = '$account' and pw = '$pw'";
 
     $result = mysqli_query($link, $sql);
