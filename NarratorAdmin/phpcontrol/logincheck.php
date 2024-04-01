@@ -1,11 +1,11 @@
 <?php
     session_start();
-    $account = $_POST['account'];
-    $pw = $_POST['pw'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
 
-    $link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
-    $sql = "SELECT distinct * FROM user WHERE account = '$account' and pw = '$pw'";
+    $link = mysqli_connect('localhost', 'root', '', 'imagenarrator');
+    $sql = "SELECT distinct * FROM account WHERE email = '$email' and password = '$password'";
 
     $result = mysqli_query($link, $sql);
     if($row=mysqli_fetch_assoc($result))
