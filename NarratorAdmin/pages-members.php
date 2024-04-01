@@ -215,7 +215,7 @@
                     <tbody>
                         
                         <?php
-                    $link = mysqli_connect('localhost', 'root', 'fallnight5137', 'imagenarrator');
+                    $link = mysqli_connect('localhost', 'root', '', 'imagenarrator');
 
                     // 檢查連接
                     if(!$link) {
