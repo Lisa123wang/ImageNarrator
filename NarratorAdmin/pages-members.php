@@ -215,14 +215,14 @@
                     <tbody>
                         
                         <?php
-                    $link = mysqli_connect('localhost', 'root', '', 'imagenarrator');
+                    $link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
 
                     // 檢查連接
                     if(!$link) {
                         die("Database connection failed: " . mysqli_connect_error());
                     }
 
-                    $sql = "select * from user";
+                    $sql = "select * from profile";
 
                     $result =mysqli_query($link,$sql);
 
@@ -234,13 +234,13 @@
                     {
                             echo 
                             "<tr>" .
-                            "<td>" . htmlspecialchars($row['name']) . "</td>" .
+                            "<td>" . htmlspecialchars($row['nickname']) . "</td>" .
                             "<td>" . htmlspecialchars($row['email']) . "</td>" .
                             "<td>" . htmlspecialchars($row['gender']) . "</td>" .
                             "<td>" . htmlspecialchars($row['education']) . "</td>" .
-                            "<td>" . htmlspecialchars($row['level_of_visual_impairment']) . "</td>" .
+                            "<td>" . htmlspecialchars($row['visualImp_LV']) . "</td>" .
                             "<td>" . htmlspecialchars($row['country']) . "</td>" .
-                            "<td>" . htmlspecialchars($row['assistive_devices']) . "</td>" .
+                            "<td>" . htmlspecialchars($row['assistiveDevice']) . "</td>" .
                             "<td><a href='pages-profile.html?email=" . urlencode($row['email']) . "'>[修改]</a> " .
                             "<a href='members_delete.php?email=" . urlencode($row['email']) . "' onclick='return confirm(\"Are you sure?\");'>[刪除]</a></td>" .
                             "</tr>"; 
