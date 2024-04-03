@@ -1,7 +1,7 @@
 <?php
     session_start();
-    $_SESSION['account'] = "";
-    $_SESSION['pw'] = "";
+    $_SESSION['email'] = "";
+    $_SESSION['password'] = "";
     $_SESSION['level'] = "";
-    header("location:welcome.html");
+    header("location:../index.html?method=message&message=登出成功");
 ?>
