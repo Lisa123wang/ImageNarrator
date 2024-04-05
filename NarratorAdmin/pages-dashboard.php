@@ -50,17 +50,6 @@
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
 
-        <!--<div class="search-bar">
-            <form class="search-form d-flex align-items-center" method="POST" action="#">
-              <label for="query">Search</label>
-              <input type="text" id="query" name="query" placeholder="Search">
-              <button type="submit" title="Search">
-                <i class="bi bi-search"></i>
-              </button>
-            </form>
-          </div>
-            -->
-
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
 
@@ -220,17 +209,11 @@
 
             <nav>
 
-                <ol class="breadcrumb">
-                    <!--<li class="breadcrumb-item"><a href="index.html">Home</a></li>-->
-                    <li class="breadcrumb-item"><a href="index.html"><font color="#333">Home</font></a></li>
+                <ol class="breadcrumb">       
                     <li class="breadcrumb-item active">Dashboard</li>
-                    <!--<li class="breadcrumb-item active">Data</li>-->
                 </ol>
-
             </nav>
-            <!-- End Page Title -->
-            <!--<h1>Dashboard</h1>-->
-
+            
             <p>
                 Using AI technology combined with image recognition and video content analysis,
                 we provide a barrier-free and personalized online learning experience for visually impaired individuals.

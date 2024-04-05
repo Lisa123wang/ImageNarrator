@@ -11,11 +11,11 @@
  <body>
 <?php
     $dbaction=$_POST['dbaction'];
-    $account=$_POST['account'];
-    $pw=$_POST['pw'];
-    $link=mysqli_connect('localhost','root','','imagenarrator');
+    $email=$_POST['email'];
+    $password=$_POST['password'];
+    $link=mysqli_connect('localhost','root','','narratordb_test1');
     if($dbaction=="insert")
-    {	$sql = "insert into user (account, pw) values ('$account', '$pw')";
+    {	$sql = "insert into user (email, password) values ('$email', '$password')";
         //echo $sql;
         if(mysqli_query($link,$sql))
         {
