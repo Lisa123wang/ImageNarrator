@@ -10,6 +10,7 @@
     $result = mysqli_query($link, $sql);
     if($row=mysqli_fetch_assoc($result))
     {
+        $_SESSION['email'] = $row['email'];
         header("Location:../pages-dashboard.php?method=message&message=登入成功");
         exit;
 
