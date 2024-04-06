@@ -10,7 +10,7 @@
     $result = mysqli_query($link, $sql);
     if($row=mysqli_fetch_assoc($result))
     {
-        header("Location:../pages-dashboard.html?method=message&message=登入成功");
+        header("Location:../pages-dashboard.php?method=message&message=登入成功");
         exit;
 
     }else{

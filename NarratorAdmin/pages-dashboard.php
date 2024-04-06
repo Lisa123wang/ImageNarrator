@@ -178,7 +178,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="index.html">
+                <a class="nav-link " href="#">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -223,23 +223,31 @@
         <div style="display: flex; justify-content: space-between;">
 
             <!-- Left Div with Simple Table -->
-            <div style="width: 49%; background-color: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <h5><b>Total Daily Reading Duration</b></h5>
+            <div style="width: 100%; background-color: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <h5><b>Total Daily Screenshot Count</b></h5>
                 <table id="subjectsTable2" class="display" style="width: 100%;">
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Hours</th>
+                            <th>Count</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>2024/2/22</td>
-                            <td>2 hours</td>
+                            <td>6</td>
                         </tr>
                         <tr>
-                            <td>2024/2/23</td>
-                            <td>1.5 hours</td>
+                            <td>2024/3/15</td>
+                            <td>23</td>
+                        </tr>
+                        <tr>
+                            <td>2024/3/28</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <td>2024/4/1</td>
+                            <td>3</td>
                         </tr>
                     </tbody>
                 </table>
@@ -248,32 +256,7 @@
             <!-- Optional Divider -->
             <div style="width: 2%;"></div>
 
-            <!-- Right Div with DataTable -->
-            <div style="width: 49%; background-color: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <h5><b>Proportion of Study Time by Subject</b></h5>
-                <table id="subjectsTable" class="display" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Subjects</th>
-                            <th>Percentage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Python</td>
-                            <td>20%</td>
-                        </tr>
-                        <tr>
-                            <td>Java</td>
-                            <td>30%</td>
-                        </tr>
-                        <tr>
-                            <td>HTML</td>
-                            <td>50%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            
         </div>
     </main>
     <script>
