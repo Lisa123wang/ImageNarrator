@@ -42,137 +42,136 @@
 
 <body>
     <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header fixed-top d-flex align-items-center">
 
-        <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
-                <img src="assets/img/imageNarrator logo.png" alt="">
-                <span class="d-none d-lg-block">IMAGE NARRATOR</span>
-            </a>
-            <i class="bi bi-list toggle-sidebar-btn"></i>
-        </div><!-- End Logo -->
+<div class="d-flex align-items-center justify-content-between">
+  <a href="index.html" class="logo d-flex align-items-center">
+    <img src="assets/img/imageNarrator logo.png" alt="">
+    <span class="d-none d-lg-block">IMAGE NARRATOR</span>
+  </a>
+  <i class="bi bi-list toggle-sidebar-btn"></i>
+</div><!-- End Logo -->
 
-        <nav class="header-nav ms-auto">
-            <ul class="d-flex align-items-center">
+<nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center">
 
-                <li class="nav-item d-block d-lg-none">
-                    <a class="nav-link nav-icon search-bar-toggle " href="#">
-                        <i class="bi bi-search"></i><font color="#333">Search</font>
-                    </a>
+        <li>
+            <a class="nav-link nav-icon" href="https://chrome.google.com/webstore/detail/summary-for-google-with-c/cmnlolelipjlhfkhpohphpedmkfbobjc">
+                <i class="bx bxl-google"></i>
 
-                </li><!-- End Search Icon-->
+            </a><!-- End chrome Icon -->
+        </li>
 
+        <li class="nav-item dropdown">
+
+            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                <i class="bi bi-bell"></i>
+                <span class="badge bg-primary badge-number">1</span>
+            </a><!-- End Notification Icon -->
+
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                <li class="dropdown-header">
+                    You have 1 new notifications
+                    <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                </li>
                 <li>
-                    <a class="nav-link nav-icon" href="https://chrome.google.com/webstore/detail/summary-for-google-with-c/cmnlolelipjlhfkhpohphpedmkfbobjc" aria-label="add our Google Chrome extension on Chrome Web Store">
-                        <i class="bx bxl-google"></i>
-                    </a><!-- End chrome Icon -->
+                    <hr class="dropdown-divider">
                 </li>
 
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
 
-                <li class="nav-item dropdown">
+                <li class="notification-item">
+                    <i class="bi bi-info-circle text-primary"></i>
+                    <div>
+                        <h4>Dicta reprehenderit</h4>
+                        <p>Quae dolorem earum veritatis oditseno</p>
+                        <p>4 hrs. ago</p>
+                    </div>
+                </li>
 
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" aria-label="notification">
-                        <i class="bi bi-bell"></i>
-                        <span class="badge bg-primary badge-number">1</span>
-                    </a><!-- End Notification Icon -->
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <!--
+        <li class="dropdown-footer">
+          <a href="#">Show all notifications</a>
+        </li>
+        -->
+            </ul><!-- End Notification Dropdown Items -->
 
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-                        <li class="dropdown-header">
-                            You have 1 new notifications
-                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li class="notification-item">
-                            <i class="bi bi-info-circle text-primary"></i>
-                            <div>
-                                <h4>Dicta reprehenderit</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>4 hrs. ago</p>
-                            </div>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <!--
-                        <li class="dropdown-footer">
-                          <a href="#">Show all notifications</a>
-                        </li>
-                        -->
-                    </ul><!-- End Notification Dropdown Items -->
+        </li><!-- End Notification Nav -->
 
-                </li><!-- End Notification Nav -->
+        <li class="nav-item dropdown">
 
-                <li class="nav-item dropdown">
+            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                <i class="bi bi-clock"></i>
+                <span class="badge bg-success badge-number">3.5</span>
+            </a><!-- End Messages Icon -->
 
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" aria-label="total reading hours for today">
-                        <i class="bi bi-clock"></i>
-                        <span class="badge bg-success badge-number">3.5</span>
-                    </a><!-- End Messages Icon -->
-                </li><!-- End Messages Nav -->
-                <li class="nav-item dropdown pe-3">
+        </li><!-- End Messages Nav -->
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" aria-label="account image and name">
-                        <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">Image Narrator</span>
-                    </a><!-- End Profile Iamge Icon -->
+        <li class="nav-item dropdown pe-3">
 
-                    
-                        <li class="dropdown-header">
-                            <h6>Image Narrator</h6>
-                            <span>Web Designer</span>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="pages-profile.php">
-                                <i class="bi bi-person"></i>
-                                <span>My Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                <span class="d-none d-md-block dropdown-toggle ps-2">ImageNarrator</span>
+            </a><!-- End Profile Iamge Icon -->
 
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="pagess-profile.html">
-                                <i class="bi bi-gear"></i>
-                                <span>Account Settings</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                <li class="dropdown-header">
+                    <h6>ImageNarrator</h6>
+                    <span>user</span>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
 
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                                <i class="bi bi-question-circle"></i>
-                                <span>Need Help?</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                <li>
+                    <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                        <i class="bi bi-person"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
 
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="phpcontrol/logout.php">
-                                <i class="bi bi-box-arrow-right"></i>
-                                <span>Sign Out</span>
-                            </a>
-                        </li>
+                <li>
+                    <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                        <i class="bi bi-gear"></i>
+                        <span>Account Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
 
-                    </ul><!-- End Profile Dropdown Items -->
-                </li><!-- End Profile Nav -->
+                <li>
+                    <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                        <i class="bi bi-question-circle"></i>
+                        <span>Need Help?</span>
+                    </a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
 
-            </ul>
-        </nav><!-- End Icons Navigation -->
+                <li>
+                    <a class="dropdown-item d-flex align-items-center" href="welcome.html">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Sign Out</span>
+                    </a>
+                </li>
 
-    </header><!-- End Header -->
+            </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+    </ul>
+</nav><!-- End Icons Navigation -->
+
+</header><!-- End Header -->
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
 
