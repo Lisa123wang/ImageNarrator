@@ -39,38 +39,6 @@
     ======================================================== -->
 </head>
 
-<?php
-session_start();
-
-// 检查用户是否登录
-if (isset($_SESSION['email'])) {
-    // 用户已登录
-    $email = $_SESSION['email'];
-
-    // 从数据库获取用户的个人数据
-    // 注意：在此步骤之前，您需要建立数据库连接
-    $query = "SELECT * FROM user WHERE email = ?";
-    if ($stmt = $db->prepare($query)) {
-        $stmt->bind_param("s", $email); // 使用 "s" 因为 email 是字符串
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($user = $result->fetch_assoc()) {
-            // 显示用户的个人数据
-            echo "welcome, " . htmlspecialchars($user['name']) . "!";
-            // 在这里添加更多HTML/PHP代码以显示其他个人数据
-        } else {
-            // 未找到用户
-            echo "未找到用户。";
-        }
-    } else {
-        echo "查詢準備失敗。";
-    }
-} else {
-    // 用户未登录，重定向到登录页面
-    header("Location: pages-login.php");
-    exit;
-}
-?>
 
 <body>
     <!-- ======= Header ======= -->
@@ -153,52 +121,8 @@ if (isset($_SESSION['email'])) {
                         <span class="d-none d-md-block dropdown-toggle ps-2">Image Narrator</span>
                     </a><!-- End Profile Iamge Icon -->
 
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                    <li class="dropdown-header">
-                    <h6><?php echo htmlspecialchars($userData['name']); ?></h6>
-                    <span><?php echo htmlspecialchars($userData['role']); ?></span>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li>
-                    <a class="dropdown-item d-flex align-items-center" href="pages-profile.php">
-                        <i class="bi bi-person"></i>
-                        <span>My Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-
-                <li>
-                    <a class="dropdown-item d-flex align-items-center" href="pages-account-settings.php"> <!-- 注意修正了链接地址 -->
-                        <i class="bi bi-gear"></i>
-                        <span>Account Settings</span>
-                    </a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-
-                <li>
-                    <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                        <i class="bi bi-question-circle"></i>
-                        <span>Need Help?</span>
-                    </a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-
-                <li>
-                    <a class="dropdown-item d-flex align-items-center" href="phpcontrol/logout.php">
-                        <i class="bi bi-box-arrow-right"></i>
-                        <span>Sign Out</span>
-                    </a>
-                </li>
-
-                        <!-- <li class="dropdown-header">
+                    
+                        <li class="dropdown-header">
                             <h6>Image Narrator</h6>
                             <span>Web Designer</span>
                         </li>
@@ -240,7 +164,7 @@ if (isset($_SESSION['email'])) {
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>
-                        </li> -->
+                        </li>
 
                     </ul><!-- End Profile Dropdown Items -->
                 </li><!-- End Profile Nav -->
