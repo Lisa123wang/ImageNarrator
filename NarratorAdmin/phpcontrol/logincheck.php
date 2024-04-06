@@ -2,6 +2,7 @@
     session_start();
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $nickname = $_POST['nickname'];
 
 
     $link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
