@@ -42,29 +42,32 @@
 <?php
 session_start();
 
-// 檢查使用者是否登入
+// 检查用户是否登录
 if (isset($_SESSION['email'])) {
-    // 使用者已登入
-    $userId = $_SESSION['email'];
+    // 用户已登录
+    $email = $_SESSION['email'];
 
-    // 從數據庫獲取使用者的個人數據
-    // 注意：在此步驟之前，您需要建立數據庫連接
+    // 从数据库获取用户的个人数据
+    // 注意：在此步骤之前，您需要建立数据库连接
     $query = "SELECT * FROM user WHERE email = ?";
-    $stmt = $db->prepare($query);
-    $stmt->bind_param("i", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($user = $result->fetch_assoc()) {
-        // 顯示使用者的個人數據
-        echo "歡迎, " . htmlspecialchars($user['name']) . "!";
-        // 在這裡添加更多HTML/PHP代碼以顯示其他個人數據
+    if ($stmt = $db->prepare($query)) {
+        $stmt->bind_param("s", $email); // 使用 "s" 因为 email 是字符串
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($user = $result->fetch_assoc()) {
+            // 显示用户的个人数据
+            echo "welcome, " . htmlspecialchars($user['name']) . "!";
+            // 在这里添加更多HTML/PHP代码以显示其他个人数据
+        } else {
+            // 未找到用户
+            echo "未找到用户。";
+        }
     } else {
-        // 未找到使用者
-        echo "未找到使用者。";
+        echo "查詢準備失敗。";
     }
 } else {
-    // 使用者未登入，重定向到登入頁面
-    header("Location:pages-login.php");
+    // 用户未登录，重定向到登录页面
+    header("Location: pages-login.php");
     exit;
 }
 ?>
