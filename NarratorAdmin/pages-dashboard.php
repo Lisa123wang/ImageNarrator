@@ -49,7 +49,7 @@ if (isset($_SESSION['userID'])) {
 
     // 從數據庫獲取使用者的個人數據
     // 注意：在此步驟之前，您需要建立數據庫連接
-    $query = "SELECT * FROM users WHERE userID = ?";
+    $query = "SELECT * FROM user WHERE userID = ?";
     $stmt = $db->prepare($query);
     $stmt->bind_param("i", $userID);
     $stmt->execute();
