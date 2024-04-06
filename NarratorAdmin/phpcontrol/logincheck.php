@@ -6,7 +6,6 @@
     
     $link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
     $sql = "SELECT distinct * FROM user WHERE email = '$email' and password = '$password'";
-    $sql = "SELECT user.email, profile.nickname FROM user INNER JOIN profile ON user.id = profile.user_id WHERE user.email = '$email' AND user.password = '$password' LIMIT 1";
     
     $result = mysqli_query($link, $sql);
     if($row=mysqli_fetch_assoc($result))
