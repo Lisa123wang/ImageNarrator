@@ -41,6 +41,9 @@
 
 <?php
     session_start();
+
+    $link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
+
     if(!isset($_SESSION['email'])) {
         // 如果未設置 email，重定向到登入頁面
         header("Location: pages-login.php");
