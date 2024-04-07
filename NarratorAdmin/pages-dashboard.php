@@ -59,15 +59,12 @@
     }
 
     // 查询scshot表以獲得數據
-    $sql = "SELECT date, scshotCount FROM scshot WHERE userID = ? ORDER BY date DESC"; 
-    $stmt = mysqli_prepare($link, $sql);
+    $sqlScshot = "SELECT date, scshotCount FROM scshot WHERE userID = ? ORDER BY date DESC"; 
+    $stmtScshot = mysqli_prepare($link, $sqlScshot);
+    mysqli_stmt_bind_param($stmtScshot, "i", $userID);
 
-    
-    $userID = $_SESSION['userID']; 
-    mysqli_stmt_bind_param($stmt, "i", $userID);
-
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_execute($stmtScshot);
+    $resultScshot = mysqli_stmt_get_result($stmtScshot);
 
 ?>
 
@@ -266,10 +263,10 @@
                     <tbody>
                         <?php
             
-                            while ($row = mysqli_fetch_assoc($result)) {
+                            while ($rowScshot = mysqli_fetch_assoc($resultScshot)) {
                                 echo "<tr>";
-                                echo "<td>" . htmlspecialchars($row['date']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['scshotCount']) . "</td>";
+                                echo "<td>" . htmlspecialchars($rowScshot['date']) . "</td>";
+                                echo "<td>" . htmlspecialchars($rowScshot['scshotCount']) . "</td>";
                                 echo "</tr>";
                             }
                         ?>
