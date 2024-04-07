@@ -15,7 +15,7 @@
     {
         $_SESSION['email'] = $rowUser['email'];
 
-        $sqlProfile = "SELECT nickname FROM profile WHERE userID = userID";
+        $sqlProfile = "SELECT nickname FROM profile WHERE userID = ? ";
         $stmtProfile = mysqli_prepare($link, $sqlProfile);
         mysqli_stmt_bind_param($stmtProfile, "i", $rowUser['userID']);
         mysqli_stmt_execute($stmtProfile);
