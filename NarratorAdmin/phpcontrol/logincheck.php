@@ -11,7 +11,7 @@
     mysqli_stmt_execute($stmtUser);
     $resultUser = mysqli_stmt_get_result($stmtUser);
     
-    if($rowUser=mysqli_fetch_assoc($result))
+    if($rowUser=mysqli_fetch_assoc($resultUser))
     {
         $_SESSION['email'] = $row['email'];
 
