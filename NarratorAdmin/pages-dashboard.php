@@ -50,7 +50,7 @@
         exit;
     }
 
-    $_SESSION['email'] = $rowUser['email'];
+    $email = $_SESSION['email'];
 
     // 從這裡開始，用戶已經登入
     // 你可以從 $_SESSION 變量中取得用戶名等信息來顯示
