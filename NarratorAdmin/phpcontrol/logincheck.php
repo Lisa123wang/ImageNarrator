@@ -13,7 +13,7 @@
     
     if($rowUser=mysqli_fetch_assoc($resultUser))
     {
-        $_SESSION['email'] = $row['email'];
+        $_SESSION['email'] = $rowUser['email'];
 
         $sqlProfile = "SELECT nickname FROM profile WHERE userID = userID";
         $stmtProfile = mysqli_prepare($link, $sqlProfile);
