@@ -13,6 +13,10 @@
         $_SESSION['email'] = $row['email'];
 
         $sqlProfile = "SELECT nickname FROM profile WHERE userID = userID";
+        $stmtProfile = mysqli_prepare($link, $sqlProfile);
+        mysqli_stmt_bind_param($stmtProfile, "i", $rowUser['userID']);
+        mysqli_stmt_execute($stmtProfile);
+        $resultProfile = mysqli_stmt_get_result($stmtProfile);
 
         if ($rowProfile = mysqli_fetch_assoc($resultProfile)) {
             $_SESSION['nickname'] = $rowProfile['nickname'];
