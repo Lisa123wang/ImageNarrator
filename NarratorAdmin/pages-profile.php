@@ -40,6 +40,9 @@
 
 <?php
     session_start();
+
+    $link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
+
     if(!isset($_SESSION['email'])) {
         // 如果未設置 email，重定向到登入頁面
         header("Location: pages-login.php");
@@ -48,7 +51,21 @@
 
     // 從這裡開始，用戶已經登入
     // 你可以從 $_SESSION 變量中取得用戶名等信息來顯示
-    echo "welcome, " . htmlspecialchars($_SESSION['nickname']);
+    echo "welcome, " . htmlspecialchars($_SESSION['email']);
+    
+    if (isset($_SESSION['nickname'])) {
+        echo " (" . htmlspecialchars($_SESSION['nickname']) . ")";
+    }
+
+    // 根据 email 獲取 userID
+    $email = $_SESSION['email'];
+    $sqlUser = "SELECT userID FROM user WHERE email = ?";
+    $stmtUser = mysqli_prepare($link, $sqlUser);
+    mysqli_stmt_bind_param($stmtUser, "s", $email);
+    mysqli_stmt_execute($stmtUser);
+    $resultUser = mysqli_stmt_get_result($stmtUser);
+    $user = mysqli_fetch_assoc($resultUser);
+    $userID = $user['userID'];
 
 ?>
 
@@ -129,12 +146,12 @@
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">ImageNarrator</span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($_SESSION['nickname']);?></span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6>ImageNarrator</h6>
+                        <h6><?php echo htmlspecialchars($_SESSION['nickname']);?></h6>
                         <span>user</span>
                     </li>
                     <li>
@@ -142,7 +159,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                        <a class="dropdown-item d-flex align-items-center" href="pages-profile.php">
                             <i class="bi bi-person"></i>
                             <span>My Profile</span>
                         </a>
@@ -172,7 +189,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="welcome.html">
+                        <a class="dropdown-item d-flex align-items-center" href="phpcontrol/loguout.php">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Sign Out</span>
                         </a>
@@ -192,7 +209,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link  collapsed" href="pages-dashboard.html">
+            <a class="nav-link  collapsed" href="pages-dashboard.php">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
@@ -201,7 +218,7 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link" href="pages-profile.html">
+            <a class="nav-link" href="pages-profile.php">
                 <i class="bi bi-person"></i>
                 <span>Profile</span>
             </a>
@@ -222,7 +239,7 @@
       <h1>Profile</h1>
        <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="pages-dashboard.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="pages-dashboard.php">Home</a></li>
           
           <li class="breadcrumb-item active">Profile</li>
         </ol>
