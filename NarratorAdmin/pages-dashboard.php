@@ -54,6 +54,18 @@
     if (isset($_SESSION['nickname'])) {
         echo " (" . htmlspecialchars($_SESSION['nickname']) . ")";
     }
+
+    // 查询scshot表以獲得數據
+    $sql = "SELECT date, count FROM scshot WHERE userID = ? ORDER BY date DESC"; 
+    $stmt = mysqli_prepare($link, $sql);
+
+    
+    $userID = $_SESSION['userID']; 
+    mysqli_stmt_bind_param($stmt, "i", $userID);
+
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
 ?>
 
 <body>
@@ -145,7 +157,7 @@
                 </li>
 
                 <li>
-                    <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                    <a class="dropdown-item d-flex align-items-center" href="pages-profile.php">
                         <i class="bi bi-person"></i>
                         <span>My Profile</span>
                     </a>
@@ -249,22 +261,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>2024/2/22</td>
-                            <td>6</td>
-                        </tr>
-                        <tr>
-                            <td>2024/3/15</td>
-                            <td>23</td>
-                        </tr>
-                        <tr>
-                            <td>2024/3/28</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td>2024/4/1</td>
-                            <td>3</td>
-                        </tr>
+                        <?php
+            
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo "<tr>";
+                                echo "<td>" . htmlspecialchars($row['date']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['scshotCount']) . "</td>";
+                                echo "</tr>";
+                            }
+                        ?>
                     </tbody>
                 </table>
             </div>
