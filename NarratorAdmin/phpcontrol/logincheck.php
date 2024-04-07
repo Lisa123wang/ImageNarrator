@@ -11,7 +11,15 @@
     if($row=mysqli_fetch_assoc($result))
     {
         $_SESSION['email'] = $row['email'];
-        $_SESSION['nickname'] = $row['nickname'];
+
+        $sqlProfile = "SELECT nickname FROM profile WHERE userID = userID";
+
+        if ($rowProfile = mysqli_fetch_assoc($resultProfile)) {
+            $_SESSION['nickname'] = $rowProfile['nickname'];
+        } else {
+            $_SESSION['nickname'] = '未知'; 
+        }
+
         header("Location:../pages-dashboard.php?method=message&message=登入成功");
         exit;
 

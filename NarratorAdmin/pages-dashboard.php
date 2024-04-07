@@ -50,6 +50,10 @@
     // 從這裡開始，用戶已經登入
     // 你可以從 $_SESSION 變量中取得用戶名等信息來顯示
     echo "welcome, " . htmlspecialchars($_SESSION['email']);
+    
+    if (isset($_SESSION['nickname'])) {
+        echo " (" . htmlspecialchars($_SESSION['nickname']) . ")";
+    }
 ?>
 
 <body>
@@ -128,12 +132,12 @@
 
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                 <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                <span class="d-none d-md-block dropdown-toggle ps-2">ImageNarrator</span>
+                <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($_SESSION['nickname']); ?></span>
             </a><!-- End Profile Iamge Icon -->
 
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li class="dropdown-header">
-                    <h6>ImageNarrator</h6>
+                    <h6><?php echo htmlspecialchars($_SESSION['nickname']); ?></h6>
                     <span>user</span>
                 </li>
                 <li>
