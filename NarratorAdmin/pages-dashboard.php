@@ -59,7 +59,7 @@
     }
 
     // 查询scshot表以獲得數據
-    $sql = "SELECT date, count FROM scshot WHERE userID = ? ORDER BY date DESC"; 
+    $sql = "SELECT date, scshotCount FROM scshot WHERE userID = ? ORDER BY date DESC"; 
     $stmt = mysqli_prepare($link, $sql);
 
     
