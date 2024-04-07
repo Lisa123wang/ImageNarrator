@@ -51,14 +51,14 @@
     }
 
     // 從這裡開始，用戶已經登入
-    // 你可以從 $_SESSION 變量中取得用戶名等信息來顯示
+    // 透過 $_SESSION 變量中取得用戶稱與其他個人資訊
     echo "welcome, " . htmlspecialchars($_SESSION['email']);
     
     if (isset($_SESSION['nickname'])) {
         echo " (" . htmlspecialchars($_SESSION['nickname']) . ")";
     }
 
-    // 根据 email 获取 userID
+    // 根据 email 獲取 userID
     $email = $_SESSION['email'];
     $sqlUser = "SELECT userID FROM user WHERE email = ?";
     $stmtUser = mysqli_prepare($link, $sqlUser);
@@ -68,13 +68,12 @@
     $user = mysqli_fetch_assoc($resultUser);
     $userID = $user['userID'];
 
-    // 查询 scshot 表以获取数据
+    // 查询 scshot 表以獲得相關數據
     $sqlScshot = "SELECT date, scshotCount FROM scshot WHERE userID = ? ORDER BY date DESC";
     $stmtScshot = mysqli_prepare($link, $sqlScshot);
     mysqli_stmt_bind_param($stmtScshot, "i", $userID);
     mysqli_stmt_execute($stmtScshot);
     $resultScshot = mysqli_stmt_get_result($stmtScshot);
-
 
 ?>
 
