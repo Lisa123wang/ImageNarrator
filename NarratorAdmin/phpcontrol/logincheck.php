@@ -5,6 +5,7 @@
 
     
     $link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
+    $sqlUser = "SELECT distinct * FROM user WHERE email = '$email' and password = '$password'";
     $stmtUser = mysqli_prepare($link, $sqlUser);
     mysqli_stmt_bind_param($stmtUser, "ss", $email, $password);
     mysqli_stmt_execute($stmtUser);
