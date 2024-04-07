@@ -5,10 +5,12 @@
 
     
     $link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
-    $sql = "SELECT distinct * FROM user WHERE email = '$email' and password = '$password'";
+    $stmtUser = mysqli_prepare($link, $sqlUser);
+    mysqli_stmt_bind_param($stmtUser, "ss", $email, $password);
+    mysqli_stmt_execute($stmtUser);
+    $resultUser = mysqli_stmt_get_result($stmtUser);
     
-    $result = mysqli_query($link, $sql);
-    if($row=mysqli_fetch_assoc($result))
+    if($rowUser=mysqli_fetch_assoc($result))
     {
         $_SESSION['email'] = $row['email'];
 
