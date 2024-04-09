@@ -297,36 +297,37 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="Gender" class="col-md-4 col-lg-3 col-form-label">Gender</label>
+                                <label for="gender" class="col-md-4 col-lg-3 col-form-label">Gender</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <select name="gender" class="form-control" id="Gender">
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                </div>
+                                        <select name="gender" class="form-control" id="gender">
+                                            <option value="Male" <?php echo ($profileInfo['gender'] == 'Male') ? 'selected' : ''; ?>>Male</option>
+                                            <option value="Female" <?php echo ($profileInfo['gender'] == 'Female') ? 'selected' : ''; ?>>Female</option>
+                                            <option value="Other" <?php echo ($profileInfo['gender'] == 'Other') ? 'selected' : ''; ?>>Other</option>
+                                        </select>
+                                    </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label for="Education" class="col-md-4 col-lg-3 col-form-label">Education</label>
+                                <label for="education" class="col-md-4 col-lg-3 col-form-label">Education</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <select name="gender" class="form-control" id="Gender">
-                                        <option value="elementary">Elementary School</option>
-                                        <option value="junior">Junior High School</option>
-                                        <option value="senior">Senior High School</option>
-                                        <option value="bachelor">Bachelor</option>
-                                        <option value="master">Mastor Or Above</option>
-                                    </select>
-                                </div>
+                                        <select name="education" class="form-control" id="education">
+                                            <option value="None" <?php echo ($profileInfo['education'] == 'None') ? 'selected' : ''; ?>>None</option>
+                                            <option value="High School" <?php echo ($profileInfo['education'] == 'High School') ? 'selected' : ''; ?>>High School</option>
+                                            <option value="Bachelor" <?php echo ($profileInfo['education'] == 'Bachelor') ? 'selected' : ''; ?>>Bachelor's Degree</option>
+                                            <option value="Master" <?php echo ($profileInfo['education'] == 'Master') ? 'selected' : ''; ?>>Master's Degree</option>
+                                            <option value="PhD" <?php echo ($profileInfo['education'] == 'PhD') ? 'selected' : ''; ?>>PhD or higher</option>
+                                        </select>
+                                    </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label for="Job" class="col-md-4 col-lg-3 col-form-label">Level Of Visual Impairment</label>
+                                <label for="visualImp_LV" class="col-md-4 col-lg-3 col-form-label">Level Of Visual Impairment</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <select name="visual" class="form-control" id="visual">
-                                        <option value="normal">Normal Vision</option>
-                                        <option value="moderate">Moderate Visual Impairment</option>
-                                        <option value="blindness">Blindness</option>
+                                    <select name="visualImp_LV" class="form-control" id="visualImp_LV">
+                                        <option value="None" <?php echo ($profileInfo['visualImp_LV'] == 'None') ? 'selected' : ''; ?>>None</option>
+                                        <option value="Normal Vision" <?php echo ($profileInfo['visualImp_LV'] == 'Normal Vision') ? 'selected' : ''; ?>>Normal Vision</option>
+                                        <option value="Moderate Visual Impairment" <?php echo ($profileInfo['visualImp_LV'] == 'Moderate Visual Impairment') ? 'selected' : ''; ?>>Moderate Visual Impairment</option>
+                                        <option value="Blindness" <?php echo ($profileInfo['visualImp_LV'] == 'Blindness') ? 'selected' : ''; ?>>Blindness</option>
                                     </select>
                                 </div>
                             </div>
@@ -593,13 +594,12 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Assistive Devices</label>
-                                <div class="col-md-8 col-lg-9">
-                                    
-                                    <select name="asdevice" class="form-control" id="asdevice">
-                                        <option value="NVDA">NVDA</option>
-                                        <option value="screenreader">Screenreader</option>
-                                        <option value="other">Other</option>
+                                <label for="assistiveDevice" class="col-md-4 col-lg-3 col-form-label">Assistive Devices</label>
+                                <div class="col-md-8 col-lg-9">                                   
+                                    <select name="assistiveDevice" class="form-control" id="assistiveDevice">
+                                        <option value="NVDA" <?php echo ($profileInfo['gender'] == 'NVDA') ? 'selected' : ''; ?>>NVDA</option>
+                                        <option value="screenreader" <?php echo ($profileInfo['gender'] == 'Screenreader') ? 'selected' : ''; ?>>Screenreader</option>
+                                        <option value="Other" <?php echo ($profileInfo['gender'] == 'Other') ? 'selected' : ''; ?>>Other</option>
                                     </select>
                                 </div>
                             </div>
