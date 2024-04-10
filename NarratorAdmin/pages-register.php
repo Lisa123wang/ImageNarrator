@@ -82,12 +82,12 @@
                           </div>
                           <div class="col-12">
 
-                              <p class="small mb-0">Already have an account? <a href="pages-login.html">Log in</a></p>
+                              <p class="small mb-0">Already have an account? <a href="pages-login.php">Log in</a></p>
                               <br />
                           </div>
 
                       </form>
-                          <a class="btn btn-primary w-100" href="welcome.html">Cancel</a>
+                          <a class="btn btn-primary w-100" href="index.php">Cancel</a>
                       
                   </div>
               </div>
