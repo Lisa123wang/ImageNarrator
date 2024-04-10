@@ -9,7 +9,7 @@
 <body>
     <?php
         session_start();
-        
+
         if (isset($_SESSION['email'])) { // 確定使用者已登入
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
@@ -32,6 +32,9 @@
 
 
         if (mysqli_stmt_execute($stmt)) {
+
+            $_SESSION['nickname'] = $nickname;
+
             $message = "修改成功";
             echo "<script type='text/javascript'>alert('$message'); window.location.href = '../pages-profile.php';</script>";
         } else {
