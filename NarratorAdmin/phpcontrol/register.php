@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     $dbaction=$_POST['dbaction'];
     $email=$_POST['email'];
     $password=$_POST['password'];
@@ -23,9 +25,14 @@
             mysqli_stmt_execute($stmtProfile);
     
             mysqli_commit($link);
+
+            // 使用者註冊成功後，可以根據以下兩個資料唯一識別註冊或登入的是哪一位使用者
+            $_SESSION['userID'] = $userId;
+            $_SESSION['email'] = $email;
     
             $message = "新增完成";
-            echo "<script type='text/javascript'>alert('$message'); location.href = '../index.php';</script>";
+            echo "<script type='text/javascript'>alert('$message'); location.href = '../pages-profile.php';</script>";
+            exit;
         } catch (Exception $e) {
             // 新增失敗
             mysqli_rollback($link);
