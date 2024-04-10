@@ -51,21 +51,8 @@
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
-
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
-
-            <li class="nav-item d-block d-lg-none">
-                <a class="nav-link nav-icon search-bar-toggle " href="#">
-                    <i class="bi bi-search"></i>
-                </a>
-            </li><!-- End Search Icon-->
 
             <li>
                 <a class="nav-link nav-icon" href="https://chrome.google.com/webstore/detail/summary-for-google-with-c/cmnlolelipjlhfkhpohphpedmkfbobjc">
@@ -90,14 +77,9 @@
                         <hr class="dropdown-divider">
                     </li>
 
-
-
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-
-
-
 
                     <li class="notification-item">
                         <i class="bi bi-info-circle text-primary"></i>
@@ -191,6 +173,34 @@
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link  collapsed" href="pages-dashboard.html">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-heading">Pages</li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="pages-profile.html">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="pages-video.html">
+                <i class="bi bi-person"></i>
+                <span>Videos</span>
+            </a>
+        </li><!-- End Video Page Nav -->
+        
+</aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
@@ -198,9 +208,9 @@
       <h1>Profile</h1>
        <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="pages-members.html">members</a></li>
+          <li class="breadcrumb-item"><a href="pages-dashboard.html">Home</a></li>
           
-          <li class="breadcrumb-item active">edit</li>
+          <li class="breadcrumb-item active">Profile</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -217,62 +227,16 @@
                 <ul class="nav nav-tabs nav-tabs-bordered">
 
                     <li class="nav-item">
-                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Edit Profile</button>
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
                     </li>
-                    <!--
+    
                     <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
                     </li>
-                    -->
+
                 </ul>
                 <div class="tab-content pt-2">
-                    <!--
-                    <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
-                        <h5 class="card-title">Profile Details</h5>
-                        <div class="row mb-3">
-                            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                            <div class="col-md-8 col-lg-9">
-                                <img src="assets/img/profile-img.jpg" alt="Profile">
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                            <div class="col-lg-9 col-md-8">ImageNarrator</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Email</div>
-                            <div class="col-lg-9 col-md-8">imagenarrator.fju@gmail.com</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Gender</div>
-                            <div class="col-lg-9 col-md-8"></div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Education</div>
-                            <div class="col-lg-9 col-md-8">University</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Vision Status</div>
-                            <div class="col-lg-9 col-md-8">Low Vision</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Country</div>
-                            <div class="col-lg-9 col-md-8">Taiwan</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Assistive Devices</div>
-                            <div class="col-lg-9 col-md-8">Screen Reader</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 label">Onset of Blindness</div>
-                            <div class="col-lg-9 col-md-8">Congenital blindness</div>
-                        </div>
-                    </div>
-                    -->
+                   
                     <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
                         <!-- Profile Edit Form -->
@@ -650,6 +614,38 @@
                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>
                         </form><!-- End settings Form -->
+
+                    </div>
+
+                    <div class="tab-pane fade pt-3" id="profile-change-password">
+                        <!-- Change Password Form -->
+                        <form>
+
+                            <div class="row mb-3">
+                                <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="password" type="password" class="form-control" id="currentPassword">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="newpassword" type="password" class="form-control" id="newPassword">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Change Password</button>
+                            </div>
+                        </form><!-- End Change Password Form -->
 
                     </div>
 
