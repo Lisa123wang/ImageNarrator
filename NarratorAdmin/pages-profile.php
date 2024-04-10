@@ -311,7 +311,6 @@
                                 <label for="education" class="col-md-4 col-lg-3 col-form-label">Education</label>
                                 <div class="col-md-8 col-lg-9">
                                         <select name="education" class="form-control" id="education">
-                                            <option value="None" <?php echo ($profileInfo['education'] == 'None') ? 'selected' : ''; ?>>None</option>
                                             <option value="High School" <?php echo ($profileInfo['education'] == 'High School') ? 'selected' : ''; ?>>High School</option>
                                             <option value="Bachelor" <?php echo ($profileInfo['education'] == 'Bachelor') ? 'selected' : ''; ?>>Bachelor's Degree</option>
                                             <option value="Master" <?php echo ($profileInfo['education'] == 'Master') ? 'selected' : ''; ?>>Master's Degree</option>
@@ -324,7 +323,6 @@
                                 <label for="visualImp_LV" class="col-md-4 col-lg-3 col-form-label">Level Of Visual Impairment</label>
                                 <div class="col-md-8 col-lg-9">
                                     <select name="visualImp_LV" class="form-control" id="visualImp_LV">
-                                        <option value="None" <?php echo ($profileInfo['visualImp_LV'] == 'None') ? 'selected' : ''; ?>>None</option>
                                         <option value="Normal Vision" <?php echo ($profileInfo['visualImp_LV'] == 'Normal Vision') ? 'selected' : ''; ?>>Normal Vision</option>
                                         <option value="Moderate Visual Impairment" <?php echo ($profileInfo['visualImp_LV'] == 'Moderate Visual Impairment') ? 'selected' : ''; ?>>Moderate Visual Impairment</option>
                                         <option value="Blindness" <?php echo ($profileInfo['visualImp_LV'] == 'Blindness') ? 'selected' : ''; ?>>Blindness</option>
