@@ -272,7 +272,8 @@
                 <div class="tab-content pt-2">
                     <div class="tab-pane fade show active profile-overview" id="profile-overview">
                         <!-- Profile Edit Form -->
-                        <form>
+                        <form action="phpcontrol/update-profile.php" method="post">
+
                             <div class="row mb-3">
                                 <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                                 <div class="col-md-8 col-lg-9">
