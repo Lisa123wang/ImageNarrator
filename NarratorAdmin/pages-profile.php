@@ -288,7 +288,7 @@
                             <div class="row mb-3">
                                 <label for="nickname" class="col-md-4 col-lg-3 col-form-label">Nick Name</label>
                                 <div class="col-md-8 col-lg-9">
-                                <input name="nickname" type="text" class="form-control" id="nickname" value="<?php echo htmlspecialchars($profileInfo['nickname']); ?>">
+                                <input name="nickname" type="text" class="form-control" id="nickname" value="<?php echo htmlspecialchars($_SESSION['nickname']); ?>">
                                 </div>
                             </div>
                             <div class="row mb-3">
