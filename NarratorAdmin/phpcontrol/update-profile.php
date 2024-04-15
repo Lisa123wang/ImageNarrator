@@ -34,11 +34,7 @@
         if (mysqli_stmt_execute($stmt)) {
 
             $_SESSION['nickname'] = $nickname;
-            $_SESSION['visualImp_LV'] = $visualImp_LV;
-            $_SESSION['education'] = $education;
-            $_SESSION['gender'] = $gender;
-            $_SESSION['country'] = $country;
-            $_SESSION['assistiveDevice'] = $assistiveDevice;
+            
             
 
             $message = "修改成功";
