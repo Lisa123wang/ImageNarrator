@@ -26,8 +26,7 @@
         } else {
             $_SESSION['nickname'] = '未知'; 
         }
-
-        header("Location:../pages-dashboard.php?method=message&message=登入成功");
+        
         $message = "Log in success";
             echo "<script type='text/javascript'>alert('$message'); location.href = '../pages-dashboard.php';</script>";
         exit;
