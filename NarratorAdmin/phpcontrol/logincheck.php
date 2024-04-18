@@ -28,9 +28,12 @@
         }
 
         header("Location:../pages-dashboard.php?method=message&message=登入成功");
+        $message = "Log in success";
+            echo "<script type='text/javascript'>alert('$message'); location.href = '../pages-dashboard.php';</script>";
         exit;
 
     }else{
-        header("location:../index.html?method=message&message=帳號密碼錯誤");
+        $message = "The account password is incorrect. Please log in again.";
+            echo "<script type='text/javascript'>alert('$message'); location.href = '../index.php';</script>";
     }
 ?>

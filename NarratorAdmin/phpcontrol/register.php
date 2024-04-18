@@ -30,13 +30,13 @@
             $_SESSION['userID'] = $userId;
             $_SESSION['email'] = $email;
     
-            $message = "新增完成";
+            $message = "registration success";
             echo "<script type='text/javascript'>alert('$message'); location.href = '../pages-profile.php';</script>";
             exit;
         } catch (Exception $e) {
             // 新增失敗
             mysqli_rollback($link);
-            $message = "新增失敗：" . $e->getMessage();
+            $message = "registration failed" . $e->getMessage();
             echo "<script type='text/javascript'>alert('$message'); location.href = '../pages-register.php';</script>";
         }
     }
