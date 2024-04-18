@@ -265,9 +265,6 @@
                     <li class="nav-item">
                         <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
                     </li>
-                    <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
-                    </li>
                 </ul>
                 <div class="tab-content pt-2">
                     <div class="tab-pane fade show active profile-overview" id="profile-overview">
