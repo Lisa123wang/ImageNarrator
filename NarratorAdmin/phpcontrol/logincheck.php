@@ -14,6 +14,8 @@
     if($rowUser=mysqli_fetch_assoc($resultUser))
     {
         $_SESSION['email'] = $rowUser['email'];
+        $_SESSION['role'] = $rowUser['role'];
+
 
         $sqlProfile = "SELECT nickname FROM profile WHERE userID = ? ";
         $stmtProfile = mysqli_prepare($link, $sqlProfile);
@@ -27,12 +29,18 @@
             $_SESSION['nickname'] = '未知'; 
         }
         
-        $message = "Log in success";
+        if ($_SESSION['role'] === 'admin') {
+            // Redirect to admin dashboard if user is an admin
+            echo "<script type='text/javascript'>alert('Login successful as Admin'); location.href = '../pages-members.php';</script>";
+            exit;
+        } else {
+            // Redirect to regular user dashboard otherwise
+            $message = "Log in success";
             echo "<script type='text/javascript'>alert('$message'); location.href = '../pages-dashboard.php';</script>";
-        exit;
-
+            exit;
+        }
     }else{
         $message = "The account password is incorrect. Please log in again.";
-            echo "<script type='text/javascript'>alert('$message'); location.href = '../index.php';</script>";
+        echo "<script type='text/javascript'>alert('$message'); location.href = '../index.php';</script>";
     }
 ?>
