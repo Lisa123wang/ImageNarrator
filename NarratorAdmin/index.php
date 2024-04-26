@@ -237,149 +237,188 @@
     <div style="padding: 20px;"id="example">
         <h3>
             
-            <a href="https://www.youtube.com/watch?v=QZE9ohRRwRA&list=PLCX-BLZ1hDpCAZmO8XjAC3dJrIv2807kR">
-                Python Programming Foundation 01. Lecture 1: Data Types and If Else
+            <a href="https://www.youtube.com/watch?v=D0Nb2Fs3Q8c&t=167s">
+            While Loops in Python
             </a>
         </h3>
         
         <div class="container22">
-            <div class="row22">
-                
-                <!-- This empty div is for aligning the first image to maintain the layout consistency -->
-                <div class="column22" style="flex: 2;">
-                    python tutorial<br />This tutorial introduces Python basics in less than 10 minutes,
-                    covering variable assignment, data types, math operations, logic statements,
-                    loops, functions, and error handling using try and except blocks.
-                </div>
+    
+        <!-- This empty td is for aligning the first image to maintain the layout consistency -->
+        
+            <div class="column22" style="flex: 2;">
+            Seeing that a while loop can do the same thing as a for loop
             </div>
-            <!--1-->
-            <table>
-                <tr>
-            <div class="row22 combined-row22">
-                <!-- Second Image Container -->
-                <div class="column22 image-container22">
-                    <h1>Image 1</h1>
+        
+        <table class="row22">
+        <!--1-->
+        <tr class="row22 combined-row22">
+            <!-- Second Image Container -->
+            <td class="column22 image-container22">
+                <h1>Image 1</h1>
+            </td>
+            <!-- Tutorial Text Container -->
+            <td class="column22 text-content22" >
+                <div class="scrollable-content22">
+                The image shows a computer screen with a Python code editor open. 
+                The editor is displaying a Python script titled 'testarea.py', 
+                which includes a simple program. 
+                This program appears to calculate the cumulative sum of numbers from 0 to 9, 
+                printing out the running total at each step in a loop. Below the editor,
+                 there's an output panel displaying the results of running this script, 
+                 showing the cumulative sums. The user interface of the code editor has 
+                 several toolbars with various icons for file and edit operations, 
+                 as well as for running and debugging Python scripts.
                 </div>
-                <!-- Tutorial Text Container -->
-                <div class="column22 text-content22">
-                    <div class="scrollable-content22">
-                        The image shows a screenshot of a Jupyter notebook which is running a Python code cell.
-                        The code is meant to print a simple text representation of a triangle by using asterisks (*).
-                        The output of the code is displayed below the cell, showing the triangle with one asterisk 
-                        in the first row, two in the second, and so on, up to six asterisks in the sixth row.
-                    </div>
-                </div>
-                <!-- Code Snippet Container -->
-                <div class="column22 code-content">
-                    <div class="scrollable-content23">
-                        <pre>
-# draw triangle 
-print("triangle") 
-print("*") 
-print("**") 
-print("***") 
-print("****") 
-print("*****") 
-print("******") 
-                    </pre>
-                    </div>
-                </div>
-            </div>
-    </tr>
-            <!--2-->
-            <div class="row22 combined-row22">
-                <!-- Second Image Container -->
-                <div class="column22 image-container22">
-                <h1>Image 2</h1>
-                </div>
-                <!-- Tutorial Text Container -->
-                <div class="column22 text-content22">
-                    <div class="scrollable-content22">
-                        The image you've provided appears to be a screenshot of a Jupyter notebook
-                        that is part of a Python programming course, 
-                        specifically Lecture 1 on Data Types and If Else statements.
-                        The notebook is from NTU's (likely National Taiwan University) Chemical Engineering department,
-                        as indicated by the logos, and is part of their OpenCourseWare (OCW) offerings.
-                    </div>
-                </div>
-                <!-- Code Snippet Container -->
-                <div class="column22 code-content">
-                    <div class="scrollable-content23">
-                        <pre>
-# Give the initial amount 
-allowance = int(float(input("x = "))) 
-# Compute residual 
-if allowance >= 70: 
-    allowance -= 70 
-if allowance >= 30: 
-    allowance -= 30 
-if allowance >= 150: 
-    allowance -= 150 
-print("Total residual is", allowance) 
-                    </pre>
-                    </div>
-                </div>
-            </div>
-            <!--3-->
-            <div class="row22 combined-row22">
-                <!-- Second Image Container -->
-                <div class="column22 image-container22">
-                <h1>Image 3</h1>
-                </div>
-                <!-- Tutorial Text Container -->
-                <div class="column22 text-content22">
-                    <div class="scrollable-content22">
-                        The image you've uploaded is a screenshot of a Jupyter notebook, 
-                        which appears to be part of a programming lecture related to Python data types 
-                        and conditional (if-else) statements. It includes instructions for a classic programming 
-                        challenge known as "FizzBuzz". The notebook is from an NTU (National Taiwan University) course,
-                        as indicated by the NTU and OCW (OpenCourseWare) logos.
-                        The instructions outlined in the screenshot are as follows:
-                        If the input integer is a multiple of 3, print "Fizz".
-                        If the input integer is a multiple of 5, print "Buzz".
-                        If the input integer is a multiple of both 3 and 5, print "FizzBuzz".
-                        If the input integer is none of the above, print "Whoops".
-                        The code cell in the screenshot is partially visible and includes a Python code snippet that takes an input number and checks whether it's within a certain range (between 0 and 100). It then applies the "FizzBuzz" logic based on the rules provided.
-                    </div>
-                </div>
-                <!-- Code Snippet Container -->
-                <div class="column22 code-content">
-                    <div class="scrollable-content23">
-                        <pre>
-iii. floor(4.00) = 4
-c. Next, if the input integer is:
-i. multiples of 3, print "Fizz"
-ii. multiples of 5, print "Buzz"
-iii. multiples of both 3 and 5, print "FizzBuzz"
-iv. none of above, print "Whoops"
-In [ ]: num = input('FizzBuzz! please enter a number between 0 and 100: \n')
-# convert input into float then integer.
-num = int(float(num))
-# you might try "num int(num)" instead, in this way our program couldn't handle negative numbers.
-# check if our input is within the range between 0 and 100
-# 1st way
-if (num >= 0) and (num <= 100):
-    # check if the number is divisible by 3 and 5 using the modulo operator (%)
-    if (num % 3 == 0) and (num % 5 == 0):
-        print("FizzBuzz")
-    # check if the number is divisible by 3 only
-    elif (num % 3 == 0):
-        print("Fizz")
-    # check if the number is divisible by 5 only
-    elif (num % 5 == 0):
-        print("Buzz")
-    # if none of the above conditions are met, print "Whoops"
-    else:
-        print("Whoops")
+            </td>
+            <!-- Code Snippet Container -->
+            <td class="column22 code-content">
+                <div class="scrollable-content23">
+                    <pre>
+The image showcases a Python script opened in an IDE 
+(probably a Python-specific IDE given the built-in Python Interpreter at the bottom). 
+The script includes a loop that cumulatively adds integers from 0 up to 9 
+to a sum variable and prints the sum after each addition. 
+Here’s the script cleaned up and ready for execution:
 
-else:
-    print("Your number is out of range. Please enter a number between 0 and 100.")
+```python
+sum = 0
+for i in range(10):
+sum += i
+print(sum)
+```
+
+When this script is executed, 
+it will output the cumulative sum for each iteration of the loop, 
+producing the following outputs in order:
+
+```
+0
+1
+3
+6
+10
+15
+21
+28
+36
+45
+```
+
+This output sequence can be seen in the Python Interpreter 
+window at the bottom of the image.
                     </pre>
-                    </div>
                 </div>
-            </div>
-</table>
-        </div>
+            </td>
+        </tr>
+        <!--2-->
+        <tr class="row22 combined-row22">
+            <!-- Second Image Container -->
+            <td class="column22 image-container22">
+                <h1>Image 2</h1>
+            </td>
+            <!-- Tutorial Text Container -->
+            <td class="column22 text-content22">
+                <div class="scrollable-content22">
+                The image displays a Python programming environment, 
+                specifically an editor called PyScripter. You can see Python code written in the upper portion 
+                of the window, which appears to involve two different loops for summing numbers. Below the code, 
+                there is an output panel showing the result of the executed Python script. 
+                Toolbars and menu options of the PyScripter IDE are visible at the top of the window, 
+                providing different functionalities for coding and debugging
+                </div>
+            </td>
+            <!-- Code Snippet Container -->
+            <td class="column22 code-content">
+                <div class="scrollable-content23">
+                    <pre>
+The image contains Python code that demonstrates two approaches 
+for accumulating the sum of numbers from 0 to 9, 
+and displaying the sum at every step of the addition.
+
+Here's a corrected and executable version of the code displayed in the image:
+
+```python
+# Initialize sum and i
+sum_result = 0
+i = 0
+
+# Using a while loop to add numbers from 0 to 9
+while i < 10:
+sum_result += i
+print(sum_result)
+i += 1
+
+# Reset sum_result for the next loop
+sum_result = 0
+
+# Using a for loop to do the same addition
+for i in range(10):
+sum_result += i
+print(sum_result)
+```
+
+This code will print the cumulative sum at each step from 0 to 9 
+for both the while loop and the for loop. The outputs for each loop are the same, 
+providing a step-by-step sum that helps illustrate how accumulation works inside loops. 
+                    </pre>
+                </div>
+            </td>
+        </tr>
+        <!--3-->
+        <tr class="row22 combined-row22">
+            <!-- Second Image Container -->
+            <td class="column22 image-container22">
+                <h1>Image 3</h1>
+            </td>
+            <!-- Tutorial Text Container -->
+            <td class="column22 text-content22">
+                <div class="scrollable-content22">
+                The image shows a computer screen with an open Python development environment, 
+                specifically the PyScripter application. There's a script named \"testarea.py\" 
+                actively displayed in the editor window, and some elements of the 
+                program's user interface are visible, such as menu bars and toolbars 
+                with various icons for file and edit operations, debugging, and running scripts.
+                Below the scripting area, the Python interpreter pane is visible, 
+                displaying some output results from executed code. 
+                Additionally, there are multiple tabs for Python files, 
+                including \"factorial.py\" and \"fibonacci.py\" alongside \"testarea.py\". 
+                The environment is set up for coding and running Python scripts, 
+                and it appears to be used for testing or learning purposes.
+                </div>
+            </td>
+            <!-- Code Snippet Container -->
+            <td class="column22 code-content">
+                <div class="scrollable-content23">
+                    <pre>
+The code in the image is partially visible. 
+It is designed to calculate the sum of integers from 0 to 9 
+and prints the running total after each addition. 
+The visible part of the code is a Python script, and it works with a while loop.
+
+Here is the complete and executable version of the code based on the part shown:
+
+```python
+sum = 0
+i = 0
+while i < 10:
+sum += i
+print(sum)
+i += 1
+```
+
+When this code is executed, it prints the running total after each addition of a 
+new integer from 0 up to 9. For example, after the first iteration (i=0), 
+it prints 0; after the second (i=1), it prints 1; after the third (i=2), 
+it prints 3; and so on, up until it adds 9 and 
+prints the total sum of these numbers, which is 45
+                    </pre>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
     </div>
 </body>
 </html>
