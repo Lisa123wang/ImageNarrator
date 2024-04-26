@@ -124,7 +124,7 @@
         /* Controls the size and alignment of images to make them the same */
         .image-container22 {
             flex: 1; /* Allows flexible growth to fill the space */
-            max-width: 30%; /* Limits the maximum width */
+            max-width: 15%; /* Limits the maximum width */
         }
 
         /* Specific class for the row that contains image, tutorial text, and code */
@@ -135,7 +135,7 @@
 
         .text-content22{
             flex: 1; /* Allows these sections to grow and fill the available space */
-            max-width: 20%; /* Adjusts maximum width to balance space */
+            max-width: 35%; /* Adjusts maximum width to balance space */
         }
         .code-content {
             flex: 1; /* Allows these sections to grow and fill the available space */
@@ -244,9 +244,7 @@
         
         <div class="container22">
             <div class="row22">
-                <div class="column22 image-container22">
-                    <img src="assets/img/pytutorial.png" alt="video cover" class="image-style">
-                </div>
+                
                 <!-- This empty div is for aligning the first image to maintain the layout consistency -->
                 <div class="column22" style="flex: 2;">
                     python tutorial<br />This tutorial introduces Python basics in less than 10 minutes,
@@ -255,10 +253,12 @@
                 </div>
             </div>
             <!--1-->
+            <table>
+                <tr>
             <div class="row22 combined-row22">
                 <!-- Second Image Container -->
                 <div class="column22 image-container22">
-                    <img src="assets/img/example1.jpg" alt="Video Image" class="image-style" id="clickableImage" onclick="enlargeImage()">
+                    <h1>Image 1</h1>
                 </div>
                 <!-- Tutorial Text Container -->
                 <div class="column22 text-content22">
@@ -285,11 +285,12 @@ print("******")
                     </div>
                 </div>
             </div>
+    </tr>
             <!--2-->
             <div class="row22 combined-row22">
                 <!-- Second Image Container -->
                 <div class="column22 image-container22">
-                    <img src="assets/img/example2.jpg" alt="Video Image" class="image-style" id="clickableImage" onclick="enlargeImage()">
+                <h1>Image 2</h1>
                 </div>
                 <!-- Tutorial Text Container -->
                 <div class="column22 text-content22">
@@ -323,7 +324,7 @@ print("Total residual is", allowance)
             <div class="row22 combined-row22">
                 <!-- Second Image Container -->
                 <div class="column22 image-container22">
-                    <img src="assets/img/example3.jpg" alt="Video Image" class="image-style" id="clickableImage" onclick="enlargeImage()">
+                <h1>Image 3</h1>
                 </div>
                 <!-- Tutorial Text Container -->
                 <div class="column22 text-content22">
@@ -377,98 +378,7 @@ else:
                     </div>
                 </div>
             </div>
-            <!--4-->
-            <div class="row22 combined-row22">
-                <!-- Second Image Container -->
-                <div class="column22 image-container22">
-                    <img src="assets/img/example4.jpg" alt="Video Image" class="image-style" id="clickableImage" onclick="enlargeImage()">
-                </div>
-                <!-- Tutorial Text Container -->
-                <div class="column22 text-content22">
-                    <div class="scrollable-content22">
-                        The image shows a computer screen displaying a lecture on Python programming.
-                        Top left: The title of the lecture is "Python Programming Foundation 01. Lecture 1: Data Types and If Else".
-                        Top right: There's text in this area, but part of it is unclear: "Cincalhost/stop/Python Mecture201 ápyrib [UNCLEAR]".
-                        Center: The main content is a Jupyter Notebook with Python code and output.
-                        The code checks if a number is divisible by 3 and 5, printing "FizzBuzz" if both conditions are met, "Fizz" if divisible by 3 only, "Buzz" if divisible by 5 only, and "Whoops" otherwise. It then prompts the user to enter a number between 0 and 100, and shows the output for several entered values.
-                        Below the code, there's a question asking the user to write a program that takes movie ratings as input and displays them in order along with the highest and lowest ratings.
-                        Bottom left: "28.19/38:04 Lecture 1: Problem 3 >" suggests this might be a practice session, showing progress through the lecture material.
-                        Bottom right: "HD" likely indicates the video quality.
-                        Bottom center: "14" might be a page number or reference number.
-                        Overall, the image depicts a learning environment focusing on Python programming, specifically exploring conditional statements and user input.
-                    </div>
-                </div>
-                <!-- Code Snippet Container -->
-                <div class="column22 code-content">
-                    <div class="scrollable-content23">
-                        <pre>
-if (num % 3 == 0) and (num % 5 == 0):
-    print("FizzBuzz")
-elif (num % 3 == 0):
-    print("Fizz")
-elif (num % 5 == 0):
-    print("Buzz")
-else:
-    print("Whoops")
-
-FizzBuzz! please enter a number between 0 and 100:
-95
-Buzz
-Buzz
-Buzz 
-                    </pre>
-                    </div>
-                </div>
-            </div>
-            <!--5-->
-            <div class="row22 combined-row22">
-                <!-- Second Image Container -->
-                <div class="column22 image-container22">
-                    <img src="assets/img/example5.jpg" alt="Video Image" class="image-style" id="clickableImage" onclick="enlargeImage()">
-                </div>
-                <!-- Tutorial Text Container -->
-                <div class="column22 text-content22">
-                    <div class="scrollable-content22">
-                        The image appears to be a screenshot of a Jupyter notebook with a partially visible Python code
-                        snippet that is related to the exercise of inputting and processing movie ratings. 
-                        The code includes user input prompts for three movie ratings and a check to ensure 
-                        that the ratings are within the range of 0 to 10.
-                    </div>
-                </div>
-                <!-- Code Snippet Container -->
-                <div class="column22 code-content">
-                    <div class="scrollable-content23">
-                        <pre>
-#input movie ratings 
-rate1 = float(input("please input the first movie's rating: ")) 
-rate2 = float(input("please input the second movie's rating: ")) 
-rate3 = float(input("please input the third movie's rating: ")) 
-temp = 0 
-# check if input is within the range between 0 and 10 
-if (0<=rate1 and rate1<=10) and (0<=rate2 and rate2<=10) and (0<=rate3 and rate3<=10): 
-    # sort by hand, this is only one sample, not for all comparison 
-    if rate1 > rate2: 
-        temp = rate1 
-        rate1 = rate2 
-        rate2 = temp 
-    # sort by Python's function, not be supported by C, C++ 
-    if rate1 > rate2: 
-        rate1, rate2 = rate2, rate1 
-    if rate1 > rate3: 
-        rate1, rate3 = rate3, rate1 
-    if rate2 > rate3: 
-        rate2, rate3 = rate3, rate2 
-    # Print the movie ratings in descending order 
-    print("Movie ratings in descending order: ", rate3, rate2, rate1) 
-    # Print the highest and lowest ratings 
-    print("Highest rating: ", rate3) 
-    print("Lowest rating: ", rate1) 
-else: 
-    print("All ratings must be between 0 and 10.") 
-                    </pre>
-                    </div>
-                </div>
-            </div>
+</table>
         </div>
     </div>
 </body>
