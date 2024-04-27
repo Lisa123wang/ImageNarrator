@@ -226,7 +226,7 @@
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-video.html">
+            <a class="nav-link collapsed" href="pages-video.php">
                 <i class="bi bi-person"></i>
                 <span>Videos</span>
             </a>
