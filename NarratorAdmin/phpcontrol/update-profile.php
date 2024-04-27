@@ -34,6 +34,13 @@
         if (mysqli_stmt_execute($stmt)) {
 
             $_SESSION['nickname'] = $nickname;
+            $_SESSION['visuallmp_LV'] = $visuallmp_LV;
+            $_SESSION['education'] = $education;
+            $_SESSION['gender'] = $gender;
+            $_SESSION['nickname'] = $nickname;
+            $_SESSION['country'] = $country;
+            $_SESSION['assistiveDevice'] = $assistiveDevice;
+
             
             $message = "修改成功";
             echo "<script type='text/javascript'>alert('$message'); window.location.href = '../pages-profile.php';</script>";
