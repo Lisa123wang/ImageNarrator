@@ -41,6 +41,12 @@
             width: 100%;
             margin: 0 auto;
         }
+        .summary-cell {
+            max-width: 150px; /* Maximum width for the summary column */
+            overflow-x: auto; /* Enable horizontal scrolling */
+            white-space: nowrap; /* Keep content on a single line */
+            display: block; /* Block display to allow width and overflow styling */
+        }
     </style>
     <title>IMAGE NARRATOR</title>
     <!-- Additional meta tags and links remain unchanged -->
@@ -268,7 +274,7 @@
                             while ($row = $stmt->fetch()) {
                                 echo "<tr>
                                     <td>{$row['videoTitle']}</td>
-                                    <td>{$row['videoSummary']}</td>
+                                    <td><div class='summary-cell'>{$row['videoSummary']}</div></td>
                                     <td>{$row['tags']}</td>
                                     <td><a href='{$row['videoURL']}'>Watch</a></td>
                                     <td>" . ($row['duration'] > 0 ? gmdate("i:s", $row['duration']) : 'N/A') . "</td>
