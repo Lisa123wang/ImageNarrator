@@ -38,7 +38,7 @@
     <!-- Custom CSS for DataTables container -->
     <style>
         div.dt-container {
-            width: 800px;
+            width: 100%;
             margin: 0 auto;
         }
     </style>
@@ -247,7 +247,7 @@
       </div>
         <section class="section">
             <div class="card">
-                <div class="dt-container">
+                
                     <!-- DataTable HTML -->
                     <table id="example" class="display nowrap" style="width:100%">
                         <thead>
@@ -280,7 +280,7 @@
                             ?>
                         </tbody>
                     </table>
-                </div>
+                
             </div>
         </section>
     </main>
