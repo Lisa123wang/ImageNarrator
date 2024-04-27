@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataTable Example</title>
+    <title>Dashboard</title>
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     <!-- jQuery Library -->
@@ -45,20 +45,20 @@
     $link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
 
     if(!isset($_SESSION['email'])) {
-        // 如果未設置 email，重定向到登入頁面
+        // 如果未設置 email，跳轉回登入頁面
         header("Location: pages-login.php");
         exit;
     }
 
     // 從這裡開始，用戶已經登入
-    // 透過 $_SESSION 變量中取得用戶稱與其他個人資訊
+    // 透過 $_SESSION 變量中取得用戶暱稱與其他個人資訊
     echo "welcome, " . htmlspecialchars($_SESSION['email']);
     
     if (isset($_SESSION['nickname'])) {
         echo " (" . htmlspecialchars($_SESSION['nickname']) . ")";
     }
 
-    // 根据 email 獲取 userID
+    // 根據 email 獲取 userID
     $email = $_SESSION['email'];
     $sqlUser = "SELECT userID FROM user WHERE email = ?";
     $stmtUser = mysqli_prepare($link, $sqlUser);
@@ -68,7 +68,7 @@
     $user = mysqli_fetch_assoc($resultUser);
     $userID = $user['userID'];
 
-    // 查询 scshot 表以獲得相關數據
+    // 查詢 scshot 表以獲得相關數據
     $sqlScshot = "SELECT date, scshotCount FROM scshot WHERE userID = ? ORDER BY date DESC";
     $stmtScshot = mysqli_prepare($link, $sqlScshot);
     mysqli_stmt_bind_param($stmtScshot, "i", $userID);
@@ -171,16 +171,7 @@
                         <span>My Profile</span>
                     </a>
                 </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-
-                <li>
-                    <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                        <i class="bi bi-gear"></i>
-                        <span>Account Settings</span>
-                    </a>
-                </li>
+                
                 <li>
                     <hr class="dropdown-divider">
                 </li>
@@ -231,7 +222,7 @@
             </li><!-- End Profile Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-video.html">
+                <a class="nav-link collapsed" href="pages-video.php">
                     <i class="bi bi-person"></i>
                     <span>Videos</span>
                 </a>

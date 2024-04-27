@@ -26,7 +26,7 @@
         if ($rowProfile = mysqli_fetch_assoc($resultProfile)) {
             $_SESSION['nickname'] = $rowProfile['nickname'];
         } else {
-            $_SESSION['nickname'] = '未知'; 
+            $_SESSION['nickname'] = ' '; 
         }
         
         if ($_SESSION['role'] === 'admin') {
