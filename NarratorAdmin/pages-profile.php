@@ -155,7 +155,6 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="phpcontrol/image.php?email=<?php echo urlencode($_SESSION['email']); ?>" alt="Profile Image" class="rounded-circle">
                     <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($_SESSION['nickname']);?></span>
                 </a><!-- End Profile Iamge Icon -->
 
@@ -260,9 +259,7 @@
                 <div class="tab-content pt-2">
                     <div class="tab-pane fade show active profile-overview" id="profile-overview">
                         <!-- Profile Edit Form -->
-                        <form action="phpcontrol/update-profile.php" method="post">
-
-                            
+                        <form action="phpcontrol/update-profile.php" method="POST">
 
                             <div class="row mb-3">
                                 <label for="nickname" class="col-md-4 col-lg-3 col-form-label">Nick Name</label>
@@ -273,13 +270,13 @@
                             <div class="row mb-3">
                                 <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                 <div class="col-md-8 col-lg-9">
-                                <input name="email" type="email" class="form-control" id="Email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+                                <input name="email" type="email" class="form-control" id="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="gender" class="col-md-4 col-lg-3 col-form-label">Gender</label>
                                 <div class="col-md-8 col-lg-9">
-                                        <select name="gender" class="form-control" id="gender">
+                                        <select name="gender" class="form-control" id="gender" value="<?php echo htmlspecialchars($_SESSION['gender']); ?>">
                                             <option value="Male" <?php echo ($profileInfo['gender'] == 'Male') ? 'selected' : ''; ?>>Male</option>
                                             <option value="Female" <?php echo ($profileInfo['gender'] == 'Female') ? 'selected' : ''; ?>>Female</option>
                                             <option value="Other" <?php echo ($profileInfo['gender'] == 'Other') ? 'selected' : ''; ?>>Other</option>
@@ -300,12 +297,12 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="visualImp_LV" class="col-md-4 col-lg-3 col-form-label">Level Of Visual Impairment</label>
+                                <label for="visuallmp_LV" class="col-md-4 col-lg-3 col-form-label">Level Of Visual Impairment</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <select name="visualImp_LV" class="form-control" id="visualImp_LV">
-                                        <option value="Normal Vision" <?php echo ($profileInfo['visualImp_LV'] == 'Normal Vision') ? 'selected' : ''; ?>>Normal Vision</option>
-                                        <option value="Moderate Visual Impairment" <?php echo ($profileInfo['visualImp_LV'] == 'Moderate Visual Impairment') ? 'selected' : ''; ?>>Moderate Visual Impairment</option>
-                                        <option value="Blindness" <?php echo ($profileInfo['visualImp_LV'] == 'Blindness') ? 'selected' : ''; ?>>Blindness</option>
+                                    <select name="visuallmp_LV" class="form-control" id="visuallmp_LV">
+                                        <option value="Normal Vision" <?php echo ($profileInfo['visuallmp_LV'] == 'Normal Vision') ? 'selected' : ''; ?>>Normal Vision</option>
+                                        <option value="Moderate Visual Impairment" <?php echo ($profileInfo['visuallmp_LV'] == 'Moderate Visual Impairment') ? 'selected' : ''; ?>>Moderate Visual Impairment</option>
+                                        <option value="Blindness" <?php echo ($profileInfo['visuallmp_LV'] == 'Blindness') ? 'selected' : ''; ?>>Blindness</option>
                                     </select>
                                 </div>
                             </div>
