@@ -271,16 +271,7 @@
                         <!-- Profile Edit Form -->
                         <form action="phpcontrol/update-profile.php" method="post">
 
-                            <div class="row mb-3">
-                                <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                                <div class="col-md-8 col-lg-9">
-                                    <img src="phpcontrol/image.php?email=<?php echo urlencode($_SESSION['email']); ?>" alt="Profile Image" style="width: 200px; height: auto; border-radius: 50%;">
-                                    <div class="pt-2">
-                                        <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                                        <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                             <div class="row mb-3">
                                 <label for="nickname" class="col-md-4 col-lg-3 col-form-label">Nick Name</label>
