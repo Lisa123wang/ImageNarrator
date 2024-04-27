@@ -155,12 +155,12 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($_SESSION['nickname']);?></span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($profileInfo['nickname']);?></span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6><?php echo htmlspecialchars($_SESSION['nickname']);?></h6>
+                        <h6><?php echo htmlspecialchars($profileInfo['nickname']);?></h6>
                         <span>user</span>
                     </li>
                     <li>
@@ -264,19 +264,19 @@
                             <div class="row mb-3">
                                 <label for="nickname" class="col-md-4 col-lg-3 col-form-label">Nick Name</label>
                                 <div class="col-md-8 col-lg-9">
-                                <input name="nickname" type="text" class="form-control" id="nickname" value="<?php echo htmlspecialchars($_SESSION['nickname']); ?>">
+                                <input name="nickname" type="text" class="form-control" id="nickname" value="<?php echo htmlspecialchars($profileInfo['nickname']); ?>">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                 <div class="col-md-8 col-lg-9">
-                                <input name="email" type="email" class="form-control" id="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+                                <input name="email" type="email" class="form-control" id="email" value="<?php echo htmlspecialchars($profileInfo['email']); ?>" readonly>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="gender" class="col-md-4 col-lg-3 col-form-label">Gender</label>
                                 <div class="col-md-8 col-lg-9">
-                                        <select name="gender" class="form-control" id="gender" value="<?php echo htmlspecialchars($_SESSION['gender']); ?>">
+                                        <select name="gender" class="form-control" id="gender">
                                             <option value="Male" <?php echo ($profileInfo['gender'] == 'Male') ? 'selected' : ''; ?>>Male</option>
                                             <option value="Female" <?php echo ($profileInfo['gender'] == 'Female') ? 'selected' : ''; ?>>Female</option>
                                             <option value="Other" <?php echo ($profileInfo['gender'] == 'Other') ? 'selected' : ''; ?>>Other</option>
@@ -572,9 +572,9 @@
                                 <label for="assistiveDevice" class="col-md-4 col-lg-3 col-form-label">Assistive Devices</label>
                                 <div class="col-md-8 col-lg-9">                                   
                                     <select name="assistiveDevice" class="form-control" id="assistiveDevice">
-                                        <option value="NVDA" <?php echo ($profileInfo['gender'] == 'NVDA') ? 'selected' : ''; ?>>NVDA</option>
-                                        <option value="screenreader" <?php echo ($profileInfo['gender'] == 'Screenreader') ? 'selected' : ''; ?>>Screenreader</option>
-                                        <option value="Other" <?php echo ($profileInfo['gender'] == 'Other') ? 'selected' : ''; ?>>Other</option>
+                                        <option value="NVDA" <?php echo ($profileInfo['assistiveDevice'] == 'NVDA') ? 'selected' : ''; ?>>NVDA</option>
+                                        <option value="screenreader" <?php echo ($profileInfo['assistiveDevice'] == 'Screenreader') ? 'selected' : ''; ?>>Screenreader</option>
+                                        <option value="Other" <?php echo ($profileInfo['assistiveDevice'] == 'Other') ? 'selected' : ''; ?>>Other</option>
                                     </select>
                                 </div>
                             </div>
