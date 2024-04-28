@@ -255,8 +255,9 @@
                                 
                                 <th>Duration</th>
                                 
-                                <th>Action1</th>
-                                <th>Action2</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                                <th>Recognition</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -273,6 +274,9 @@
                                     
                                     <td><button class='btn' aria-label='Edit'><i class='ri-pencil-line'></i></button></td>
                                     <td><button class='btn' aria-label='Delete'><i class='ri-delete-bin-6-line'></i></button></td>
+                                    <td>
+                                  <button class='btn' aria-label='Go To Recognition Page' onclick='window.location.href='recognition test.html';'><i class='bi bi-arrow-right-square'></i></button>
+                              </td>
                                 </tr>";
                             }
                             ?>
