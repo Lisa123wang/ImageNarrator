@@ -297,6 +297,18 @@
                             </div>
 
                             <div class="row mb-3">
+                                <label for="education" class="col-md-4 col-lg-3 col-form-label">Education</label>
+                                <div class="col-md-8 col-lg-9">
+                                        <select name="education" class="form-control" id="education">
+                                            <option value="High School" <?php echo ($profileInfo['education'] == 'High School') ? 'selected' : ''; ?>>High School</option>
+                                            <option value="Bachelor" <?php echo ($profileInfo['education'] == 'Bachelor') ? 'selected' : ''; ?>>Bachelor's Degree</option>
+                                            <option value="Master" <?php echo ($profileInfo['education'] == 'Master') ? 'selected' : ''; ?>>Master's Degree</option>
+                                            <option value="PhD" <?php echo ($profileInfo['education'] == 'PhD') ? 'selected' : ''; ?>>PhD or higher</option>
+                                        </select>
+                                    </div>
+                            </div>
+
+                            <div class="row mb-3">
                                 <label for="visualImp_LV" class="col-md-4 col-lg-3 col-form-label">Level Of Visual Impairment</label>
                                 <div class="col-md-8 col-lg-9">
                                     <select name="visualImp_LV" class="form-control" id="visualImp_LV">
