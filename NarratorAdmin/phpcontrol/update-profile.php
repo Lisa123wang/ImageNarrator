@@ -23,7 +23,7 @@
         $userID = $_SESSION['userID'];
         $email = $_SESSION['email'];
         $nickname = $_POST['nickname'];
-        $visuallmp_LV = $_POST['visuallmp_LV'];
+        $visualImp_LV = $_POST['visualImp_LV'];
         $education = $_POST['education'];
         $gender = $_POST['gender'];
         $country = $_POST['country'];
@@ -33,9 +33,9 @@
         $link=mysqli_connect('localhost','root','','narratordb_test1');
 
         
-        $sql = "UPDATE profile SET nickname=?, visuallmp_LV=?, education=?, gender=?, country=?, assistiveDevice=? WHERE userID=?";
+        $sql = "UPDATE profile SET nickname=?, visualImp_LV=?, education=?, gender=?, country=?, assistiveDevice=? WHERE userID=?";
         $stmt = mysqli_prepare($link, $sql);
-        mysqli_stmt_bind_param($stmt, 'ssssssi', $nickname, $visuallmp_LV, $education, $gender, $country, $assistiveDevice, $userID);
+        mysqli_stmt_bind_param($stmt, 'ssssssi', $nickname, $visualImp_LV, $education, $gender, $country, $assistiveDevice, $userID);
 
 
         if (mysqli_stmt_execute($stmt)) {
@@ -43,11 +43,10 @@
             $_SESSION['nickname'] = $nickname;
             $_SESSION['gender'] = $gender;
             $_SESSION['education'] = $education;
-            $_SESSION['visuallmp_LV'] = $visuallmp_LV;
+            $_SESSION['visualImp_LV'] = $visualImp_LV;
             $_SESSION['country'] = $country;
             $_SESSION['assistiveDevice'] = $assistiveDevice;
 
-            
             $message = "修改成功";
             echo "<script type='text/javascript'>alert('$message'); window.location.href = '../pages-profile.php';</script>";
         } else {
