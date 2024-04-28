@@ -31,7 +31,7 @@
             $_SESSION['email'] = $email;
     
             $message = "registration success";
-            echo "<script type='text/javascript'>alert('$message'); location.href = '../pages-profile.php';</script>";
+            echo "<script type='text/javascript'>alert('$message'); location.href = '../pages-dashboard.php';</script>";
             exit;
         } catch (Exception $e) {
             // 新增失敗
