@@ -261,7 +261,7 @@
                                 <th>Title</th>
                                 <th>Summary</th>
                                 <th>Tags</th>
-                                <th>URL</th>
+                                
                                 <th>Duration</th>
                                 <th>User ID</th>
                                 <th>Action1</th>
@@ -270,13 +270,14 @@
                         </thead>
                         <tbody>
                             <?php
-                            $stmt = $pdo->query('SELECT videoTitle, videoSummary, tags, videoURL, duration, userID FROM video');
+                            $stmt = $pdo->prepare('SELECT videoTitle, videoSummary, tags, videoURL, duration, userID FROM video WHERE userID = :userId');
+                            $stmt->execute(['userId' => 1]);
                             while ($row = $stmt->fetch()) {
                                 echo "<tr>
-                                    <td>{$row['videoTitle']}</td>
+                                    <td><a href='{$row['videoURL']}' target='_blank'>{$row['videoTitle']}</a></td>
                                     <td><div class='summary-cell'>{$row['videoSummary']}</div></td>
                                     <td>{$row['tags']}</td>
-                                    <td><a href='{$row['videoURL']}'>Watch</a></td>
+                                    
                                     <td>" . ($row['duration'] > 0 ? gmdate("i:s", $row['duration']) : 'N/A') . "</td>
                                     <td>{$row['userID']}</td>
                                     <td><button class='btn' aria-label='Edit'><i class='ri-pencil-line'></i></button></td>
