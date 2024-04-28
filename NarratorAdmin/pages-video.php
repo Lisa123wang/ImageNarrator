@@ -302,7 +302,7 @@
                         <tbody>
                             <?php
                             $stmt = $pdo->prepare('SELECT videoTitle, videoSummary, tags, videoURL, duration, userID FROM video WHERE userID = :userId');
-                            $stmt->execute(['userId' => 1]);
+                            $stmt->execute(['userId' => $userID]);
                             while ($row = $stmt->fetch()) {
                                 echo "<tr>
                                     <td><a href='{$row['videoURL']}' target='_blank'>{$row['videoTitle']}</a></td>
