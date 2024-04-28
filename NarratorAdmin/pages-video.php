@@ -72,130 +72,169 @@
     }
     ?>
 </head>
+<?php
+    session_start();
+
+    $link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
+
+    if(!isset($_SESSION['email'])) {
+        // 如果未設置 email，重定向到登入頁面
+        header("Location: pages-login.php");
+        exit;
+    }
+
+    // 從這裡開始，用戶已經登入
+    // 你可以從 $_SESSION 變量中取得用戶名等信息來顯示
+    echo "welcome, " . htmlspecialchars($_SESSION['email']);
+    
+    if (isset($_SESSION['nickname'])) {
+        echo " (" . htmlspecialchars($_SESSION['nickname']) . ")";
+    }
+
+    // 根據 email 獲取 userID
+    $email = $_SESSION['email'];
+    $sqlUser = "SELECT userID FROM user WHERE email = ?";
+    $stmtUser = mysqli_prepare($link, $sqlUser);
+    mysqli_stmt_bind_param($stmtUser, "s", $email);
+    mysqli_stmt_execute($stmtUser);
+    $resultUser = mysqli_stmt_get_result($stmtUser);
+    $user = mysqli_fetch_assoc($resultUser);
+    $userID = $user['userID'];
+
+    // 使用 userID 查詢 profile表獲取使用者的個人資料
+    $sqlProfile = "SELECT * FROM profile WHERE userID = ?";
+    $stmtProfile = mysqli_prepare($link, $sqlProfile);
+    mysqli_stmt_bind_param($stmtProfile, "i", $userID);
+    mysqli_stmt_execute($stmtProfile);
+    $resultProfile = mysqli_stmt_get_result($stmtProfile);
+    $profileInfo = mysqli_fetch_assoc($resultProfile);
+
+    // 现在 $profileInfo 包含了使用者的個人資料，可以在下面的 HTML 中使用
+
+?>
 <body>
     <!-- HTML content remains unchanged -->
     <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header fixed-top d-flex align-items-center">
 
-        <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
-                <img src="assets/img/imageNarrator logo.png" alt="">
-                <span class="d-none d-lg-block">IMAGE NARRATOR</span>
-            </a>
-            <i class="bi bi-list toggle-sidebar-btn"></i>
-        </div><!-- End Logo -->
+<div class="d-flex align-items-center justify-content-between">
+  <a href="index.html" class="logo d-flex align-items-center">
+    <img src="assets/img/imageNarrator logo.png" alt="">
+    <span class="d-none d-lg-block">IMAGE NARRATOR</span>
+  </a>
+  <i class="bi bi-list toggle-sidebar-btn"></i>
+</div><!-- End Logo -->
 
-        <nav class="header-nav ms-auto">
-            <ul class="d-flex align-items-center">
+<nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center">
 
+        <li>
+            <a class="nav-link nav-icon" href="https://chrome.google.com/webstore/detail/summary-for-google-with-c/cmnlolelipjlhfkhpohphpedmkfbobjc">
+                <i class="bx bxl-google"></i>
+
+            </a><!-- End chrome Icon -->
+        </li>
+
+        <li class="nav-item dropdown">
+
+            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                <i class="bi bi-bell"></i>
+                <span class="badge bg-primary badge-number">1</span>
+            </a><!-- End Notification Icon -->
+
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                <li class="dropdown-header">
+                    You have 1 new notifications
+                    <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                </li>
                 <li>
-                    <a class="nav-link nav-icon" href="https://chrome.google.com/webstore/detail/summary-for-google-with-c/cmnlolelipjlhfkhpohphpedmkfbobjc" aria-label="add our Google Chrome extension on Chrome Web Store">
-                        <i class="bx bxl-google"></i>
-                    </a><!-- End chrome Icon -->
+                    <hr class="dropdown-divider">
                 </li>
 
-                <li class="nav-item dropdown">
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
 
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" aria-label="notification">
-                        <i class="bi bi-bell"></i>
-                        <span class="badge bg-primary badge-number">1</span>
-                    </a><!-- End Notification Icon -->
+                <li class="notification-item">
+                    <i class="bi bi-info-circle text-primary"></i>
+                    <div>
+                        <h4>Dicta reprehenderit</h4>
+                        <p>Quae dolorem earum veritatis oditseno</p>
+                        <p>4 hrs. ago</p>
+                    </div>
+                </li>
 
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-                        <li class="dropdown-header">
-                            You have 1 new notifications
-                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <!--
+        <li class="dropdown-footer">
+          <a href="#">Show all notifications</a>
+        </li>
+        -->
+            </ul><!-- End Notification Dropdown Items -->
 
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+        </li><!-- End Notification Nav -->
 
-                        <li class="notification-item">
-                            <i class="bi bi-info-circle text-primary"></i>
-                            <div>
-                                <h4>Dicta reprehenderit</h4>
-                                <p>Quae dolorem earum veritatis oditseno</p>
-                                <p>4 hrs. ago</p>
-                            </div>
-                        </li>
+        <li class="nav-item dropdown">
 
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <!--
-                        <li class="dropdown-footer">
-                          <a href="#">Show all notifications</a>
-                        </li>
-                        -->
-                    </ul><!-- End Notification Dropdown Items -->
+            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                <i class="bi bi-clock"></i>
+                <span class="badge bg-success badge-number">3.5</span>
+            </a><!-- End Messages Icon -->
 
-                </li><!-- End Notification Nav -->
+        </li><!-- End Messages Nav -->
 
-                <li class="nav-item dropdown">
+        <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" aria-label="total reading hours for today">
-                        <i class="bi bi-clock"></i>
-                        <span class="badge bg-success badge-number">3.5</span>
-                    </a><!-- End Messages Icon -->
+            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($profileInfo['nickname']);?></span>
+            </a><!-- End Profile Iamge Icon -->
 
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                <li class="dropdown-header">
+                    <h6><?php echo htmlspecialchars($profileInfo['nickname']);?></h6>
+                    <span>user</span>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
 
-                </li><!-- End Messages Nav -->
+                <li>
+                    <a class="dropdown-item d-flex align-items-center" href="pages-profile.php">
+                        <i class="bi bi-person"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
 
-                <li class="nav-item dropdown pe-3">
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" aria-label="account image and name">
-                        <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">Image Narrator</span>
-                    </a><!-- End Profile Iamge Icon -->
+                <li>
+                    <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                        <i class="bi bi-question-circle"></i>
+                        <span>Need Help?</span>
+                    </a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
 
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                        <li class="dropdown-header">
-                            <h6><?php echo htmlspecialchars($_SESSION['nickname']);?></h6>
-                            <span>user</span>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                <li>
+                    <a class="dropdown-item d-flex align-items-center" href="phpcontrol/logout.php">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Sign Out</span>
+                    </a>
+                </li>
 
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="pages-profile.php">
-                                <i class="bi bi-person"></i>
-                                <span>My Profile</span>
-                            </a>
-                        </li>
+            </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
 
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+    </ul>
+</nav><!-- End Icons Navigation -->
 
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                                <i class="bi bi-question-circle"></i>
-                                <span>Need Help?</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="phpcontrol/logout.php">
-                                <i class="bi bi-box-arrow-right"></i>
-                                <span>Sign Out</span>
-                            </a>
-                        </li>
-
-                    </ul><!-- End Profile Dropdown Items -->
-                </li><!-- End Profile Nav -->
-
-            </ul>
-        </nav><!-- End Icons Navigation -->
-
-    </header><!-- End Header -->
+</header><!-- End Header -->
     <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
