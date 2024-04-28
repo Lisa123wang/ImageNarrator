@@ -10,11 +10,18 @@
     <?php
         session_start();
 
+        // 確認 userID 是否已在會話中設定
+        if (!isset($_SESSION['userID'])) {
+            // 如果未設置 userID，則重定向到登入頁面
+            header('Location:pages-login.php');
+            exit;
+        }
+
         if (isset($_SESSION['email'])) { // 確定使用者已登入
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         $userID = $_SESSION['userID'];
-        $email = $_SESSION['email']; 
+        $email = $_SESSION['email'];
         $nickname = $_POST['nickname'];
         $visuallmp_LV = $_POST['visuallmp_LV'];
         $education = $_POST['education'];
