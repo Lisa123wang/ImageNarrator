@@ -41,10 +41,9 @@
         if (mysqli_stmt_execute($stmt)) {
 
             $_SESSION['nickname'] = $nickname;
-            $_SESSION['visuallmp_LV'] = $visuallmp_LV;
-            $_SESSION['education'] = $education;
             $_SESSION['gender'] = $gender;
-            $_SESSION['nickname'] = $nickname;
+            $_SESSION['education'] = $education;
+            $_SESSION['visuallmp_LV'] = $visuallmp_LV;
             $_SESSION['country'] = $country;
             $_SESSION['assistiveDevice'] = $assistiveDevice;
 
