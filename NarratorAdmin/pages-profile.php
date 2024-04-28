@@ -297,12 +297,12 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="visuallmp_LV" class="col-md-4 col-lg-3 col-form-label">Level Of Visual Impairment</label>
+                                <label for="visualImp_LV" class="col-md-4 col-lg-3 col-form-label">Level Of Visual Impairment</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <select name="visuallmp_LV" class="form-control" id="visuallmp_LV">
-                                        <option value="Normal Vision" <?php echo ($profileInfo['visuallmp_LV'] == 'Normal Vision') ? 'selected' : ''; ?>>Normal Vision</option>
-                                        <option value="Moderate Visual Impairment" <?php echo ($profileInfo['visuallmp_LV'] == 'Moderate Visual Impairment') ? 'selected' : ''; ?>>Moderate Visual Impairment</option>
-                                        <option value="Blindness" <?php echo ($profileInfo['visuallmp_LV'] == 'Blindness') ? 'selected' : ''; ?>>Blindness</option>
+                                    <select name="visualImp_LV" class="form-control" id="visualImp_LV">
+                                        <option value="Normal Vision" <?php echo ($profileInfo['visualImp_LV'] == 'Normal Vision') ? 'selected' : ''; ?>>Normal Vision</option>
+                                        <option value="Moderate Visual Impairment" <?php echo ($profileInfo['visualImp_LV'] == 'Moderate Visual Impairment') ? 'selected' : ''; ?>>Moderate Visual Impairment</option>
+                                        <option value="Blindness" <?php echo ($profileInfo['visualImp_LV'] == 'Blindness') ? 'selected' : ''; ?>>Blindness</option>
                                     </select>
                                 </div>
                             </div>
