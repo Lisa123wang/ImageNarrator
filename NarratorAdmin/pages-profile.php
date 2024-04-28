@@ -296,7 +296,7 @@
                                     </div>
                             </div>
 
-                            <div class="row mb-3">
+                            <!-- <div class="row mb-3">
                                 <label for="visuallmp_LV" class="col-md-4 col-lg-3 col-form-label">Level Of Visual Impairment</label>
                                 <div class="col-md-8 col-lg-9">
                                     <select name="visuallmp_LV" class="form-control" id="visuallmp_LV">
@@ -305,7 +305,7 @@
                                         <option value="Blindness" <?php echo ($profileInfo['visuallmp_LV'] == 'Blindness') ? 'selected' : ''; ?>>Blindness</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="row mb-3">
                                 <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
