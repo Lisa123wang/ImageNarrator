@@ -254,7 +254,7 @@
                                 <th>Tags</th>
                                 
                                 <th>Duration</th>
-                                <th>User ID</th>
+                                
                                 <th>Action1</th>
                                 <th>Action2</th>
                             </tr>
@@ -270,7 +270,7 @@
                                     <td>{$row['tags']}</td>
                                     
                                     <td>" . ($row['duration'] > 0 ? gmdate("i:s", $row['duration']) : 'N/A') . "</td>
-                                    <td>{$row['userID']}</td>
+                                    
                                     <td><button class='btn' aria-label='Edit'><i class='ri-pencil-line'></i></button></td>
                                     <td><button class='btn' aria-label='Delete'><i class='ri-delete-bin-6-line'></i></button></td>
                                 </tr>";
