@@ -285,46 +285,63 @@
             <div class="card">
                 
                     <!-- DataTable HTML -->
-                    <table id="example" class="display nowrap" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Summary</th>
-                                <th>Tags</th>
-                                
-                                <th>Duration</th>
-                                
-                                <th>Edit</th>
-                                <th>Delete</th>
-                                <th>Recognition</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $stmt = $pdo->prepare('SELECT videoTitle, videoSummary, tags, videoURL, duration, userID FROM video WHERE userID = :userId');
-                            $stmt->execute(['userId' => $userID]);
-                            while ($row = $stmt->fetch()) {
-                                echo "<tr>
-                                    <td><a href='{$row['videoURL']}' target='_blank'>{$row['videoTitle']}</a></td>
-                                    <td><div class='summary-cell'>{$row['videoSummary']}</div></td>
-                                    <td>{$row['tags']}</td>
-                                    
-                                    <td>" . ($row['duration'] > 0 ? gmdate("i:s", $row['duration']) : 'N/A') . "</td>
-                                    
-                                    <td><button class='btn' aria-label='Edit'><i class='ri-pencil-line'></i></button></td>
-                                    <td><button class='btn' aria-label='Delete'><i class='ri-delete-bin-6-line'></i></button></td>
-                                    <td>
-                                  <button class='btn' aria-label='Go To Recognition Page' onclick='window.location.href='recognition test.html';'><i class='bi bi-arrow-right-square'></i></button>
-                              </td>
-                                </tr>";
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+<table id="example" class="display nowrap" style="width:100%">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Summary</th>
+            <th>Tags</th>
+            <th>Duration</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Recognition</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $stmt = $pdo->prepare('SELECT videoID, videoTitle, videoSummary, tags, videoURL, duration, userID FROM video WHERE userID = :userId');
+        $stmt->execute(['userId' => $userID]);
+        while ($row = $stmt->fetch()) {
+            echo "<tr>
+                <td><a href='{$row['videoURL']}' target='_blank'>{$row['videoTitle']}</a></td>
+                <td><div class='summary-cell'>{$row['videoSummary']}</div></td>
+                <td>{$row['tags']}</td>
+                <td>" . ($row['duration'] > 0 ? gmdate("i:s", $row['duration']) : 'N/A') . "</td>
+                <td><button class='btn' aria-label='Edit'><i class='ri-pencil-line'></i></button></td>
+                <td><button class='btn' aria-label='Delete' onclick='deleteVideo(\"{$row['videoID']}\")'><i class='ri-delete-bin-6-line'></i></button></td>
+                <td><button class='btn' aria-label='Go To Recognition Page' onclick='window.location.href=\"recognition_test.html\";'><i class='bi bi-arrow-right-square'></i></button></td>
+            </tr>";
+        }
+        ?>
+    </tbody>
+</table>
+
                 
             </div>
         </section>
     </main>
+    <script>
+        function deleteVideo(videoID) {
+        console.log("Attempting to delete video with ID:", videoID); // Useful for debugging
+        if(confirm('Are you sure you want to delete this video?')) {
+            fetch('phpcontrol/delete_video.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'videoID=' + encodeURIComponent(videoID)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);  // Alert the user about the result
+                
+            })
+            
+        }
+        window.location.reload();
+    }
+
+        </script>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
