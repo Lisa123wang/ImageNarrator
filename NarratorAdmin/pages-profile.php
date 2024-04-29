@@ -259,7 +259,7 @@
                 <div class="tab-content pt-2">
                     <div class="tab-pane fade show active profile-overview" id="profile-overview">
                         <!-- Profile Edit Form -->
-                        <form action="phpcontrol/update-profile.php" method="POST">
+                        <form method="POST">
 
                             <div class="row mb-3">
                                 <label for="nickname" class="col-md-4 col-lg-3 col-form-label">Nick Name</label>
