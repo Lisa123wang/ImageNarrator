@@ -41,11 +41,6 @@
         if (mysqli_stmt_execute($stmt)) {
 
             $_SESSION['nickname'] = $nickname;
-            $visualImp_LV = $_POST['visualImp_LV'];
-            $education = $_POST['education'];
-            $gender = $_POST['gender'];
-            $country = $_POST['country'];
-            $assistiveDevice = $_POST['assistiveDevice'];
 
             $message = "修改成功";
             echo "<script type='text/javascript'>alert('$message'); window.location.href = '../pages-profile.php';</script>";
