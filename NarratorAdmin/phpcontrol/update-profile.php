@@ -22,12 +22,12 @@
         
         $userID = $_SESSION['userID'];
         $email = $_SESSION['email'];
-        $nickname = $_POST['nickname'];
-        $visualImp_LV = $_POST['visualImp_LV'];
-        $education = $_POST['education'];
-        $gender = $_POST['gender'];
-        $country = $_POST['country'];
-        $assistiveDevice = $_POST['assistiveDevice'];
+        $nickname = $_SESSION['nickname'];
+        $visualImp_LV = $_SESSION['visualImp_LV'];
+        $education = $_SESSION['education'];
+        $gender = $_SESSION['gender'];
+        $country = $_SESSION['country'];
+        $assistiveDevice = $_SESSION['assistiveDevice'];
 
 
         $link=mysqli_connect('localhost','root','','narratordb_test1');
@@ -41,6 +41,11 @@
         if (mysqli_stmt_execute($stmt)) {
 
             $_SESSION['nickname'] = $nickname;
+            $_SESSION['visualImp_LV'] = $visualImp_LV;
+            $_SESSION['education'] = $education;
+            $_SESSION['gender'] = $gender;
+            $_SESSION['country'] = $country;
+            $_SESSION['assistiveDevice'] = $assistiveDevice;
 
             $message = "修改成功";
             echo "<script type='text/javascript'>alert('$message'); window.location.href = '../pages-profile.php';</script>";
