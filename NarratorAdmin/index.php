@@ -120,7 +120,7 @@
 
     /* Controls the size and alignment of images to make them the same */
     .time-container22 {
-        max-width: 25%; /* Limits the maximum width */
+        width: 10%; /* Limits the maximum width */
         overflow: hidden; /* Hide overflow for time container */
     }
 
@@ -132,17 +132,17 @@
 
     .caption-content22 {
         flex: 1; /* Allows these sections to grow and fill the available space */
-        max-width: 20%; /* Adjusts maximum width to balance space */
+        width: 20%; /* Adjusts maximum width to balance space */
     }
 
     .text-content {
         flex: 1; /* Allows these sections to grow and fill the available space */
-        max-width: 40%; /* Adjusts maximum width to balance space */
+        width: 40%; /* Adjusts maximum width to balance space */
     }
 
     .exercise-content22 {
         flex: 1; /* Allows these sections to grow and fill the available space */
-        max-width: 30%; /* Adjusts maximum width to balance space */
+        width: 30%; /* Adjusts maximum width to balance space */
     }
 
     /* Scrollable content */
@@ -242,6 +242,12 @@
             </div>
         
             <table class="row22">
+                <tr class="row22 combined-row22">
+                    <td class="column22 time-container22">Time</td>
+                    <td class="column22 caption-content22" >Image Caption</td>
+                    <td class="column22 text-content">Image Text Detection</td>
+                    <td class="column22 exercise-content22" >Exercise</td>
+                </tr>
                 <!--1-->
                 <tr class="row22 combined-row22">
                     <!-- Second Image Container -->
