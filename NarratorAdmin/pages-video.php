@@ -292,7 +292,7 @@
             <th>Summary</th>
             <th>Tags</th>
             <th>Duration</th>
-            <th>Edit</th>
+            
             <th>Delete</th>
             <th>Recognition</th>
         </tr>
@@ -307,9 +307,9 @@
                 <td><div class='summary-cell'>{$row['videoSummary']}</div></td>
                 <td>{$row['tags']}</td>
                 <td>" . ($row['duration'] > 0 ? gmdate("i:s", $row['duration']) : 'N/A') . "</td>
-                <td><button class='btn' aria-label='Edit'><i class='ri-pencil-line'></i></button></td>
+                
                 <td><button class='btn' aria-label='Delete' onclick='deleteVideo(\"{$row['videoID']}\")'><i class='ri-delete-bin-6-line'></i></button></td>
-                <td><button class='btn' aria-label='Go To Recognition Page' onclick='window.location.href=\"recognition_test.html\";'><i class='bi bi-arrow-right-square'></i></button></td>
+                <td><button class='btn' aria-label='Go To Recognition Page' onclick='goToRecognition(\"{$row['videoID']}\")'><i class='bi bi-arrow-right-square'></i></button></td>
             </tr>";
         }
         ?>
@@ -334,14 +334,19 @@
             .then(response => response.json())
             .then(data => {
                 alert(data.message);  // Alert the user about the result
-                
+                window.location.reload();
             })
-            
+            .catch(error => {
+                console.error('Error deleting video:', error);
+            });
         }
-        window.location.reload();
     }
 
-        </script>
+    function goToRecognition(videoID) {
+        console.log("Navigating to recognition page for video with ID:", videoID); // Useful for debugging
+        window.location.href = "pages-videorecognition.php?videoID=" + encodeURIComponent(videoID);
+    }
+    </script>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>

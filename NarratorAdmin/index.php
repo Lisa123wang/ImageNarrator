@@ -255,7 +255,7 @@
         <tr class="row22 combined-row22">
             <!-- Second Image Container -->
             <td class="column22 image-container22">
-                <h1>Image 1</h1>
+                <h3>00-01-52</h3>
             </td>
             <!-- Tutorial Text Container -->
             <td class="column22 text-content22" >
@@ -315,7 +315,7 @@ window at the bottom of the image.
         <tr class="row22 combined-row22">
             <!-- Second Image Container -->
             <td class="column22 image-container22">
-                <h1>Image 2</h1>
+                <h3>00-02-30</h3>
             </td>
             <!-- Tutorial Text Container -->
             <td class="column22 text-content22">
@@ -369,7 +369,7 @@ providing a step-by-step sum that helps illustrate how accumulation works inside
         <tr class="row22 combined-row22">
             <!-- Second Image Container -->
             <td class="column22 image-container22">
-                <h1>Image 3</h1>
+                <h3>00-05-12</h3>
             </td>
             <!-- Tutorial Text Container -->
             <td class="column22 text-content22">
