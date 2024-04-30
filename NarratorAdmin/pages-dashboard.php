@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <!-- DataTables CSS -->
@@ -37,28 +37,24 @@
     * Author: BootstrapMade.com
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
+
 </head>
 
 <?php
     session_start();
-
     $link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
 
     if(!isset($_SESSION['email'])) {
-        // 如果未設置 email，跳轉回登入頁面
         header("Location: pages-login.php");
         exit;
     }
 
-    // 從這裡開始，用戶已經登入
-    // 透過 $_SESSION 變量中取得用戶暱稱與其他個人資訊
     echo "welcome, " . htmlspecialchars($_SESSION['email']);
     
     if (isset($_SESSION['nickname'])) {
         echo " (" . htmlspecialchars($_SESSION['nickname']) . ")";
     }
 
-    // 根據 email 獲取 userID
     $email = $_SESSION['email'];
     $sqlUser = "SELECT userID FROM user WHERE email = ?";
     $stmtUser = mysqli_prepare($link, $sqlUser);
@@ -68,17 +64,16 @@
     $user = mysqli_fetch_assoc($resultUser);
     $userID = $user['userID'];
 
-    // 查詢 scshot 表以獲得相關數據
-    $sqlScshot = "SELECT date, scshotCount FROM scshot WHERE userID = ? ORDER BY date DESC";
-    $stmtScshot = mysqli_prepare($link, $sqlScshot);
-    mysqli_stmt_bind_param($stmtScshot, "i", $userID);
-    mysqli_stmt_execute($stmtScshot);
-    $resultScshot = mysqli_stmt_get_result($stmtScshot);
-
+    // Revised query to get screenshot counts by date
+    $sqlScreenshotCount = "SELECT createdate AS date, COUNT(*) AS scshotCount FROM videodata WHERE userID = ? GROUP BY createdate ORDER BY createdate DESC";
+    $stmtScreenshotCount = mysqli_prepare($link, $sqlScreenshotCount);
+    mysqli_stmt_bind_param($stmtScreenshotCount, "i", $userID);
+    mysqli_stmt_execute($stmtScreenshotCount);
+    $resultScreenshotCount = mysqli_stmt_get_result($stmtScreenshotCount);
 ?>
 
 <body>
-    <!-- ======= Header ======= -->
+     <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
 <div class="d-flex align-items-center justify-content-between">
@@ -230,8 +225,9 @@
         </ul>
 
     </aside><!-- End Sidebar-->
+
     <main id="main" class="main">
-        <div class="pagetitle">
+    <div class="pagetitle">
             <h1>Dashboard</h1>
 
             <nav>
@@ -247,12 +243,12 @@
                 Click on <a href="https://chromewebstore.google.com/detail/glarity-%E4%BD%BF%E7%94%A8chatgpt4%E7%94%9F%E6%88%90%E6%91%98%E8%A6%81%E5%92%8C%E7%BF%BB%E8%AD%AF/cmnlolelipjlhfkhpohphpedmkfbobjc">[add to chrome]</a> to initiate the process.
             </p>
         </div>
-        <div style="display: flex; justify-content: space-between;">
 
-            <!-- Left Div with Simple Table -->
+        <!-- Display the screenshot count table -->
+        <div style="display: flex; justify-content: space-between;">
             <div style="width: 100%; background-color: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                 <h5><b>Total Daily Screenshot Count</b></h5>
-                <table id="subjectsTable2" class="display" style="width: 100%;">
+                <table id="screenshotTable" class="display" style="width: 100%;">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -261,8 +257,7 @@
                     </thead>
                     <tbody>
                         <?php
-            
-                            while ($rowScshot = mysqli_fetch_assoc($resultScshot)) {
+                            while ($rowScshot = mysqli_fetch_assoc($resultScreenshotCount)) {
                                 echo "<tr>";
                                 echo "<td>" . htmlspecialchars($rowScshot['date']) . "</td>";
                                 echo "<td>" . htmlspecialchars($rowScshot['scshotCount']) . "</td>";
@@ -272,14 +267,17 @@
                     </tbody>
                 </table>
             </div>
-
-            <!-- Optional Divider -->
-            <div style="width: 2%;"></div>
-
-            
         </div>
     </main>
+
     <script>
+        $(document).ready(function () {
+            // Initialize DataTable
+            $('#screenshotTable').DataTable();
+        });
+    </script>
+
+<script>
         $(document).ready(function () {
             // Initialize DataTable for the Right Table
             $('#subjectsTable').DataTable();
