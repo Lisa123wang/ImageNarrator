@@ -93,8 +93,7 @@
             .button-style:hover {
                 background-color: #357ae8; /* Slightly darker shade for hover effect */
             }
-        /*example*/
-       
+
         .container22 {
             display: flex;
             flex-direction: column;
@@ -110,54 +109,49 @@
         }
 
         /* Ensures that all column divs have a consistent base size */
-        .column22 {
-            display: flex;
-            flex-direction: column;
-            /*justify-content: center;*/
-            /*align-items: center;*/
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 15px;
+    .column22 {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        overflow: auto; /* Enable scroll bars for overflowing content */
+    }
 
-        }
+    /* Controls the size and alignment of images to make them the same */
+    .time-container22 {
+        max-width: 25%; /* Limits the maximum width */
+        overflow: hidden; /* Hide overflow for time container */
+    }
 
-        /* Controls the size and alignment of images to make them the same */
-        .image-container22 {
-            flex: 1; /* Allows flexible growth to fill the space */
-            max-width: 15%; /* Limits the maximum width */
-        }
+    /* Specific class for the row that contains image, tutorial text, and code */
+    .combined-row22 {
+        display: flex;
+        flex-wrap: nowrap; /* Ensures no wrapping occurs */
+    }
 
-        /* Specific class for the row that contains image, tutorial text, and code */
-        .combined-row22 {
-            display: flex;
-            flex-wrap: nowrap; /* Ensures no wrapping occurs */
-        }
+    .caption-content22 {
+        flex: 1; /* Allows these sections to grow and fill the available space */
+        max-width: 20%; /* Adjusts maximum width to balance space */
+    }
 
-        .text-content22{
-            flex: 1; /* Allows these sections to grow and fill the available space */
-            max-width: 35%; /* Adjusts maximum width to balance space */
-        }
-        .code-content {
-            flex: 1; /* Allows these sections to grow and fill the available space */
-            max-width: 50%; /* Adjusts maximum width to balance space */
-        }
+    .text-content {
+        flex: 1; /* Allows these sections to grow and fill the available space */
+        max-width: 40%; /* Adjusts maximum width to balance space */
+    }
 
-        .scrollable-content22 {
-            overflow-y: auto;
-            max-height: 250px; /* Ensures scrollable area if content is too long */
-        }
-        .scrollable-content23 {
-            overflow-y: auto;
-            max-height: 250px; /* Ensures scrollable area if content is too long */
-            max-width: 100%;
+    .exercise-content22 {
+        flex: 1; /* Allows these sections to grow and fill the available space */
+        max-width: 30%; /* Adjusts maximum width to balance space */
+    }
 
-        }
-
-        .image-style {
-            width: 100%; /* Ensures images fill their container */
-            border-radius: 10px;
-        }
-    </style>
+    /* Scrollable content */
+    .scrollable-content22,
+    .scrollable-content23 {
+        overflow-y: auto;
+        max-height: 250px; /* Ensures scrollable area if content is too long */
+    }
+</style>
     
 </head>
 <body>
@@ -208,7 +202,7 @@
     </div>
 
     <div class="features-grid">
-    <div class="feature">
+        <div class="feature">
             <h2>Natural Language Interaction</h2>
             <p> Interact with our AI in real-time conversations, effortlessly seeking information or help.</p>
         </div>
@@ -236,62 +230,60 @@
     <!--example-->
     <div style="padding: 20px;"id="example">
         <h3>
-            
             <a href="https://www.youtube.com/watch?v=D0Nb2Fs3Q8c&t=167s">
             While Loops in Python
             </a>
         </h3>
         
         <div class="container22">
-    
-        <!-- This empty td is for aligning the first image to maintain the layout consistency -->
-        
+            <!-- This empty td is for aligning the first image to maintain the layout consistency -->
             <div class="column22" style="flex: 2;">
-            Seeing that a while loop can do the same thing as a for loop
+                Seeing that a while loop can do the same thing as a for loop
             </div>
         
-        <table class="row22">
-        <!--1-->
-        <tr class="row22 combined-row22">
-            <!-- Second Image Container -->
-            <td class="column22 image-container22">
-                <h3>00-01-52</h3>
-            </td>
-            <!-- Tutorial Text Container -->
-            <td class="column22 text-content22" >
-                <div class="scrollable-content22">
-                The image shows a computer screen with a Python code editor open. 
-                The editor is displaying a Python script titled 'testarea.py', 
-                which includes a simple program. 
-                This program appears to calculate the cumulative sum of numbers from 0 to 9, 
-                printing out the running total at each step in a loop. Below the editor,
-                 there's an output panel displaying the results of running this script, 
-                 showing the cumulative sums. The user interface of the code editor has 
-                 several toolbars with various icons for file and edit operations, 
-                 as well as for running and debugging Python scripts.
-                </div>
-            </td>
-            <!-- Code Snippet Container -->
-            <td class="column22 code-content">
-                <div class="scrollable-content23">
-                    <pre>
-The image showcases a Python script opened in an IDE 
-(probably a Python-specific IDE given the built-in Python Interpreter at the bottom). 
-The script includes a loop that cumulatively adds integers from 0 up to 9 
-to a sum variable and prints the sum after each addition. 
-Here’s the script cleaned up and ready for execution:
-
+            <table class="row22">
+                <!--1-->
+                <tr class="row22 combined-row22">
+                    <!-- Second Image Container -->
+                    <td class="column22 time-container22">
+                        <h5>00-00-47</h5>
+                    </td>
+                    <!-- Tutorial Text Container -->
+                    <td class="column22 caption-content22" >
+                        <div class="scrollable-content22">
+                        The image displays a Python programming environment called IDLE. There is Python code written in the editor window, and the corresponding output of this code is shown in the Python interpreter window at the bottom. The code is designed to calculate cumulative sums of integers from 0 to 9 in a loop and prints each sum, but the specific details of the code have not been analyzed as per your request. The environment features various menu options and toolbar icons typical for editing and running Python scripts.
+                        </div>
+                    </td>
+                    <!-- Code Snippet Container -->
+                    <td class="column22 text-content">
+                        <div class="scrollable-content23">
+                            <p>
+The image displays a Python program 
+written in an editor.
+Below is the transcription of the code, 
+with corrections and improvements 
+for clarity and functionality:
+</p>
+<pre style="border: 1px solid #000;">
 ```python
 sum = 0
 for i in range(10):
-sum += i
+sum = sum + i
 print(sum)
 ```
+</pre>
+<p>
+In this corrected script, 
+`sum` is initialized to `0`, 
+and then a `for` loop iterates from `0` to `9` 
+(because `range(10)` generates numbers from `0` to `9`). 
+In each iteration, the current number `i` is added to `sum`, 
+and then `sum` is printed. This means the program will 
+print the cumulative sum at each step of the loop.
 
-When this script is executed, 
-it will output the cumulative sum for each iteration of the loop, 
-producing the following outputs in order:
-
+Here's how the output will look when this code is run:
+</p>
+<pre>
 ```
 0
 1
@@ -304,121 +296,140 @@ producing the following outputs in order:
 36
 45
 ```
+</pre>
+<p>
+The output represents the cumulative total 
+of the numbers from `0` to `9`. 
+Each line is the sum of all numbers up to that point 
+in the sequence generated by `range(10)`.
+                            </p>
+                        </div>
+                    </td>
+                    <td class="column22 exercise-content22" >
+                        <div class="scrollable-content22">
+                            <p>
+The image is clearly about coding, 
+specifically it looks like Python code in an editor environment. 
+The Python script calculates the sum of numbers from 0 to 9 
+(since it uses `range(10)`) and prints the sum after every addition.
 
-This output sequence can be seen in the Python Interpreter 
-window at the bottom of the image.
-                    </pre>
-                </div>
-            </td>
-        </tr>
-        <!--2-->
-        <tr class="row22 combined-row22">
-            <!-- Second Image Container -->
-            <td class="column22 image-container22">
-                <h3>00-02-30</h3>
-            </td>
-            <!-- Tutorial Text Container -->
-            <td class="column22 text-content22">
-                <div class="scrollable-content22">
-                The image displays a Python programming environment, 
-                specifically an editor called PyScripter. You can see Python code written in the upper portion 
-                of the window, which appears to involve two different loops for summing numbers. Below the code, 
-                there is an output panel showing the result of the executed Python script. 
-                Toolbars and menu options of the PyScripter IDE are visible at the top of the window, 
-                providing different functionalities for coding and debugging
-                </div>
-            </td>
-            <!-- Code Snippet Container -->
-            <td class="column22 code-content">
-                <div class="scrollable-content23">
-                    <pre>
-The image contains Python code that demonstrates two approaches 
-for accumulating the sum of numbers from 0 to 9, 
-and displaying the sum at every step of the addition.
-
-Here's a corrected and executable version of the code displayed in the image:
-
+### Coding Problem:
+Modify the given program to calculate the sum of the squares
+ of the numbers from 1 to N, where N is provided by the user.
+</p>
+<pre style="border: 1px solid #000;">
+### Solution:
 ```python
-# Initialize sum and i
-sum_result = 0
-i = 0
+N = int(input("Enter the value of N: "))
+sum_squares = 0
 
-# Using a while loop to add numbers from 0 to 9
-while i < 10:
-sum_result += i
-print(sum_result)
-i += 1
+for i in range(1, N+1):
+sum_squares += i**2
 
-# Reset sum_result for the next loop
-sum_result = 0
-
-# Using a for loop to do the same addition
-for i in range(10):
-sum_result += i
-print(sum_result)
+print("The sum of the squares from 1 to", N, "is", sum_squares)
 ```
+</pre>
+<p>
+This modification of the original script 
+includes a variable `N` which takes input from the user 
+to define the range up to which squares of numbers are summed, 
+improving the functionality to be more dynamic and user-controlled.
+                            </p>
 
-This code will print the cumulative sum at each step from 0 to 9 
-for both the while loop and the for loop. The outputs for each loop are the same, 
-providing a step-by-step sum that helps illustrate how accumulation works inside loops. 
-                    </pre>
-                </div>
-            </td>
-        </tr>
-        <!--3-->
-        <tr class="row22 combined-row22">
-            <!-- Second Image Container -->
-            <td class="column22 image-container22">
-                <h3>00-05-12</h3>
-            </td>
-            <!-- Tutorial Text Container -->
-            <td class="column22 text-content22">
-                <div class="scrollable-content22">
-                The image shows a computer screen with an open Python development environment, 
-                specifically the PyScripter application. There's a script named \"testarea.py\" 
-                actively displayed in the editor window, and some elements of the 
-                program's user interface are visible, such as menu bars and toolbars 
-                with various icons for file and edit operations, debugging, and running scripts.
-                Below the scripting area, the Python interpreter pane is visible, 
-                displaying some output results from executed code. 
-                Additionally, there are multiple tabs for Python files, 
-                including \"factorial.py\" and \"fibonacci.py\" alongside \"testarea.py\". 
-                The environment is set up for coding and running Python scripts, 
-                and it appears to be used for testing or learning purposes.
-                </div>
-            </td>
-            <!-- Code Snippet Container -->
-            <td class="column22 code-content">
-                <div class="scrollable-content23">
-                    <pre>
-The code in the image is partially visible. 
-It is designed to calculate the sum of integers from 0 to 9 
-and prints the running total after each addition. 
-The visible part of the code is a Python script, and it works with a while loop.
-
-Here is the complete and executable version of the code based on the part shown:
-
+                        </div>
+                    </td>
+                </tr>
+                <!--2-->
+                <tr class="row22 combined-row22">
+                    <!-- Second Image Container -->
+                    <td class="column22 time-container22">
+                        <h5>00-02-49</h5>
+                    </td>
+                    <!-- Tutorial Text Container -->
+                    <td class="column22 caption-content22">
+                        <div class="scrollable-content22">
+                        The image displays a software interface, which appears to be an Integrated Development Environment (IDE) for coding in Python. The main section of the window shows a text editor with Python code. Below the code editor, there's an output panel where the results of the code appear when executed. The environment includes various menu options like 'File', 'Edit', and 'Run', and a toolbar with buttons for common actions such as saving files, running scripts, and debugging. The IDE seems to be set up for writing and testing Python programs, as evidenced by the presence of visible Python code and output.
+                        </div>
+                    </td>
+                    <!-- Code Snippet Container -->
+                    <td class="column22 text-content">
+                        <div class="scrollable-content23">
+                            <p>
+The image contains a screenshot of a Python script running in an IDE environment. The Python code presented in the screenshot is visible and includes the following lines of an executable script:
+</p>
+<pre style="border: 1px solid #000;">
 ```python
 sum = 0
 i = 0
 while i < 10:
-sum += i
+sum = sum + i
 print(sum)
-i += 1
+i = i + 1
 ```
+</pre>
+<p>
+This script initializes two variables: `sum` at 0 and `i` at 0. It then enters a `while` loop, which runs as long as `i` is less than 10. In each iteration of the loop, it adds `i` to `sum` and prints the current value of `sum`. After this, it increments `i` by 1.
 
-When this code is executed, it prints the running total after each addition of a 
-new integer from 0 up to 9. For example, after the first iteration (i=0), 
-it prints 0; after the second (i=1), it prints 1; after the third (i=2), 
-it prints 3; and so on, up until it adds 9 and 
-prints the total sum of these numbers, which is 45
-                    </pre>
-                </div>
-            </td>
-        </tr>
-    </table>
-</div>
+The output of the script, as can be inferred from the image's Python interpreter section where the outcome is displayed, shows the cumulative sum after each addition:
+</p>
+<pre>
+```
+0
+1
+3
+6
+10
+15
+21
+28
+36
+45
+```
+</pre>
+<p>
+These values correspond to the sequential addition of each number from 0 to 9 to the sum. Each printed line reflects the total after each new number is added.
+                            </p>
+                        </div>
+                    </td>
+                    <td class="column22 exercise-content22" >
+                        <div class="scrollable-content22">
+                            <p>
+                        The image shows a coding environment with a Python script that computes and prints the sum of an increasing integer series using a while loop.
 
+**Coding Problem:**
+The script in the image continually adds `i` to `sum` where `i` starts from 0 and increments until it is less than 10. The script then prints the current value of `sum` each time after adding `i`. Modify the script to compute the sum of all numbers from 0 to 9 (inclusive) and print the final sum after the loop finishes instead of printing the sum during each iteration.
+
+**Solution:**
+Here is the modified script that accomplishes this task:
+    </p>
+    <pre style="border: 1px solid #000;">
+```python
+sum = 0
+i = 0
+while i < 10:
+sum = sum + i
+i = i + 1
+print(sum) # Move the print statement outside of the loop
+```
+</pre>
+<p>
+When executed, this script will output `45`, which is the sum of numbers 0 through 9.
+</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
+    
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="assets/vendor/quill/quill.min.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+
 </body>
 </html>
