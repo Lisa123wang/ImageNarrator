@@ -243,6 +243,32 @@
                 Click on <a href="https://chromewebstore.google.com/detail/glarity-%E4%BD%BF%E7%94%A8chatgpt4%E7%94%9F%E6%88%90%E6%91%98%E8%A6%81%E5%92%8C%E7%BF%BB%E8%AD%AF/cmnlolelipjlhfkhpohphpedmkfbobjc">[add to chrome]</a> to initiate the process.
             </p>
         </div>
+        <!-- Add this HTML block where you want the table to appear -->
+        <!-- Add this HTML block where you want the table to appear -->
+        <div style="width: 100%; background-color: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h5><b>Recomendation Videos</b></h5>
+            <table id="recVideoTable" class="display" style="width: 100%;">
+                
+                <tbody>
+                    <?php
+                        // Modify the PHP code to fetch data from the recvideo table
+                        $sqlRecVideo = "SELECT recTitle, recURL, userID FROM recvideo WHERE userID = ?";
+                        $stmtRecVideo = mysqli_prepare($link, $sqlRecVideo);
+                        mysqli_stmt_bind_param($stmtRecVideo, "i", $userID);
+                        mysqli_stmt_execute($stmtRecVideo);
+                        $resultRecVideo = mysqli_stmt_get_result($stmtRecVideo);
+                        while ($rowRecVideo = mysqli_fetch_assoc($resultRecVideo)) {
+                            echo "<tr>";
+                            // Combine title and URL and display them as a link
+                            echo "<td><a href='" . htmlspecialchars($rowRecVideo['recURL']) . "'>" . htmlspecialchars($rowRecVideo['recTitle']) . "</a></td>";
+                            
+                            echo "</tr>";
+                        }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
 
         <!-- Display the screenshot count table -->
         <div style="display: flex; justify-content: space-between;">
