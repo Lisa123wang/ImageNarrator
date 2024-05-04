@@ -102,8 +102,39 @@
     mysqli_stmt_execute($stmtScreenshotCount);
     $resultScreenshotCount = mysqli_stmt_get_result($stmtScreenshotCount);
 ?>
+<?php
+// Database connection
+$host = 'localhost';
+$dbname = 'narratordb_test1';
+$username = 'root';
+$password = '';
+$connection = mysqli_connect($host, $username, $password, $dbname);
 
+if (!$connection) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
+$videoID = $_GET['videoID'] ?? 1; // Default videoID to 1 if not specified
+
+// Query to fetch video title and URL based on videoID
+$queryVideoInfo = "SELECT videoTitle, videoURL FROM video WHERE videoID = ?";
+$stmtVideoInfo = mysqli_prepare($connection, $queryVideoInfo);
+
+if ($stmtVideoInfo) {
+    mysqli_stmt_bind_param($stmtVideoInfo, "i", $videoID);
+    mysqli_stmt_execute($stmtVideoInfo);
+    $resultVideoInfo = mysqli_stmt_get_result($stmtVideoInfo);
+    $videoInfo = mysqli_fetch_assoc($resultVideoInfo);
+    $videoTitle = $videoInfo['videoTitle'];
+    $videoURL = $videoInfo['videoURL'];
+    mysqli_stmt_close($stmtVideoInfo);
+} else {
+    $videoTitle = "Video";
+    $videoURL = "#"; // Default to "#" if video info is not found
+}
+
+mysqli_close($connection);
+?>
 <body>
 
   <!-- ======= Header ======= -->
@@ -261,7 +292,15 @@
 <main id="main" class="main">
 
 <div class="pagetitle">
-  <h1>Videos</h1>
+    <nav>
+
+    <ol class="breadcrumb">       
+        <li class="breadcrumb-item active">Dashboard</li>
+        <li class="breadcrumb-item active">Videos</li>
+        <li class="breadcrumb-item active"><?php echo htmlspecialchars($videoTitle); ?></li>
+    </ol>
+    </nav>
+    <h1><a href="<?php echo htmlspecialchars($videoURL); ?>" target="_blank"><?php echo htmlspecialchars($videoTitle); ?></a></h1>
   <!-- Breadcrumb navigation -->
 </div><!-- End Page Title -->
 
