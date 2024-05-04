@@ -71,38 +71,38 @@
     </style>
 
 </head>
-
 <?php
-session_start();
-$link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
+    session_start();
+    $link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
 
-if (!isset($_SESSION['email'])) {
-    header("Location: pages-login.php");
-    exit;
-}
+    if(!isset($_SESSION['email'])) {
+        header("Location: pages-login.php");
+        exit;
+    }
 
-$email = $_SESSION['email'];
-$sqlUser = "SELECT userID FROM user WHERE email = ?";
-$stmtUser = mysqli_prepare($link, $sqlUser);
-mysqli_stmt_bind_param($stmtUser, "s", $email);
-mysqli_stmt_execute($stmtUser);
-$resultUser = mysqli_stmt_get_result($stmtUser);
-$user = mysqli_fetch_assoc($resultUser);
-$userID = $user['userID'];
+    echo "welcome, " . htmlspecialchars($_SESSION['email']);
+    
+    if (isset($_SESSION['nickname'])) {
+        echo " (" . htmlspecialchars($_SESSION['nickname']) . ")";
+    }
 
-$videoID = $_GET['videoID'] ?? null;  // Assuming a default or URL parameter
+    $email = $_SESSION['email'];
+    $sqlUser = "SELECT userID FROM user WHERE email = ?";
+    $stmtUser = mysqli_prepare($link, $sqlUser);
+    mysqli_stmt_bind_param($stmtUser, "s", $email);
+    mysqli_stmt_execute($stmtUser);
+    $resultUser = mysqli_stmt_get_result($stmtUser);
+    $user = mysqli_fetch_assoc($resultUser);
+    $userID = $user['userID'];
 
-$sqlVideo = "SELECT videoTitle, videoUrl, currentTime, textDetection, imageCaption, exercise FROM videodata WHERE videoID = ? AND userID=" . $userID;
-$stmtVideo = mysqli_prepare($link, $sqlVideo);
-mysqli_stmt_bind_param($stmtVideo, "i", $videoID);
-mysqli_stmt_execute($stmtVideo);
-$resultVideo = mysqli_stmt_get_result($stmtVideo);
-$videoData = mysqli_fetch_assoc($resultVideo);
-
-mysqli_stmt_close($stmtUser);
-mysqli_stmt_close($stmtVideo);
-mysqli_close($link);
+    // Revised query to get screenshot counts by date
+    $sqlScreenshotCount = "SELECT dateCreated AS date, COUNT(*) AS scshotCount FROM imagerecognition WHERE userID = ? GROUP BY dateCreated ORDER BY dateCreated DESC";
+    $stmtScreenshotCount = mysqli_prepare($link, $sqlScreenshotCount);
+    mysqli_stmt_bind_param($stmtScreenshotCount, "i", $userID);
+    mysqli_stmt_execute($stmtScreenshotCount);
+    $resultScreenshotCount = mysqli_stmt_get_result($stmtScreenshotCount);
 ?>
+
 
 <body>
 
@@ -258,101 +258,67 @@ mysqli_close($link);
         
 </aside><!-- End Sidebar-->
 
-  <main id="main" class="main">
+<main id="main" class="main">
 
-  <div class="pagetitle">
-    <h1>Videos</h1>
-    <nav>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="pages-dashboard.php">Home</a></li>
-            <li class="breadcrumb-item active">Video</li>
-            <?php
-            // Database connection
-            $host = 'localhost';
-            $dbname = 'narratordb_test1';
-            $username = 'root';
-            $password = '';
-            $connection = mysqli_connect($host, $username, $password, $dbname);
-
-            if (!$connection) {
-                die("Connection failed: " . mysqli_connect_error());
-            }
-
-            $videoID = $_GET['videoID'] ?? 1; // Default videoID to 1 if not specified
-
-            $query = "SELECT videoTitle FROM videodata WHERE videoID = ?";
-            $stmt = mysqli_prepare($connection, $query);
-
-            if ($stmt) {
-                mysqli_stmt_bind_param($stmt, "i", $videoID);
-                mysqli_stmt_execute($stmt);
-                $result = mysqli_stmt_get_result($stmt);
-
-                $firstRow = mysqli_fetch_assoc($result);
-
-                if ($firstRow) {
-                    echo '<li class="breadcrumb-item active">' . htmlspecialchars($firstRow['videoTitle']) . '</li>';
-                }
-            }
-            ?>
-        </ol>
-    </nav>
+<div class="pagetitle">
+  <h1>Videos</h1>
+  <!-- Breadcrumb navigation -->
 </div><!-- End Page Title -->
 
+<!-- Image Recognition Section -->
+<section class="image-recognition">
+  <?php
+  // Database connection
+  $host = 'localhost';
+  $dbname = 'narratordb_test1';
+  $username = 'root';
+  $password = '';
+  $connection = mysqli_connect($host, $username, $password, $dbname);
 
+  if (!$connection) {
+      die("Connection failed: " . mysqli_connect_error());
+  }
 
-    <?php
-    // Database connection
-    $host = 'localhost';
-    $dbname = 'narratordb_test1';
-    $username = 'root';
-    $password = '';
-    $connection = mysqli_connect($host, $username, $password, $dbname);
+  $videoID = $_GET['videoID'] ?? 1; // Default videoID to 1 if not specified
 
-    if (!$connection) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+  $query = "SELECT userID, videoID, videoTimestamp, OCRText, imagedescription, aiquestion, dateCreated FROM imagerecognition WHERE videoID = ?";
+  $stmt = mysqli_prepare($connection, $query);
 
-    $videoID = $_GET['videoID'] ?? 1; // Default videoID to 1 if not specified
+  if ($stmt) {
+      mysqli_stmt_bind_param($stmt, "i", $videoID);
+      mysqli_stmt_execute($stmt);
+      $result = mysqli_stmt_get_result($stmt);
 
-    $query = "SELECT videoTitle, videoUrl, currentTime, textDetection, imageCaption, exercise FROM videodata WHERE videoID = ?";
-    $stmt = mysqli_prepare($connection, $query);
+      if (mysqli_num_rows($result) > 0) {
+          echo "<table class='data-table'>";
+          echo "<thead><tr><th>User ID</th><th>Video ID</th><th>Video Timestamp</th><th>OCR Text</th><th>Image Description</th><th>AI Question</th><th>Date Created</th></tr></thead>";
+          echo "<tbody>";
+          while ($row = mysqli_fetch_assoc($result)) {
+              echo "<tr>";
+              echo "<td>" . htmlspecialchars($row['userID']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['videoID']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['videoTimestamp']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['OCRText']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['imagedescription']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['aiquestion']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['dateCreated']) . "</td>";
+              echo "</tr>";
+          }
+          echo "</tbody></table>";
+      } else {
+          echo "<p>No data available for the specified video ID.</p>";
+      }
+      mysqli_stmt_close($stmt);
+  } else {
+      echo "Error preparing the statement: " . mysqli_error($connection);
+  }
 
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "i", $videoID);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+  mysqli_close($connection);
+  ?>
+</section><!-- End Image Recognition Section -->
 
-        $firstRow = mysqli_fetch_assoc($result);
-        if ($firstRow) {
-            echo "<h2><a href='" . htmlspecialchars($firstRow['videoUrl']) . "' target='_blank'>" . htmlspecialchars($firstRow['videoTitle']) . "</a></h2>";
+</main><!-- End #main -->
 
-            echo "<table class='data-table'>";
-            echo "<thead><tr><th>Current Time</th><th>Text Detection</th><th>Image Caption</th><th>Exercise</th></tr></thead>";
-            echo "<tbody>";
-            echo "<tr><td>" . htmlspecialchars($firstRow['currentTime']) . "</td>";
-            echo "<td>" . htmlspecialchars($firstRow['textDetection']) . "</td>";
-            echo "<td>" . htmlspecialchars($firstRow['imageCaption']) . "</td>";
-            echo "<td>" . htmlspecialchars($firstRow['exercise']) . "</td></tr>";
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr><td>" . htmlspecialchars($row['currentTime']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['textDetection']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['imageCaption']) . "</td>";
-                echo "<td>" . htmlspecialchars($row['exercise']) . "</td></tr>";
-            }
-            echo "</tbody></table>";
-        } else {
-            echo "<p>No data available for the specified video ID.</p>";
-        }
-        mysqli_stmt_close($stmt);
-    } else {
-        echo "Error preparing the statement: " . mysqli_error($connection);
-    }
-
-    mysqli_close($connection);
-    ?>
-
-  </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
