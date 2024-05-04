@@ -291,12 +291,11 @@
 
       if (mysqli_num_rows($result) > 0) {
           echo "<table class='data-table'>";
-          echo "<thead><tr><th>User ID</th><th>Video ID</th><th>Video Timestamp</th><th>OCR Text</th><th>Image Description</th><th>AI Question</th><th>Date Created</th></tr></thead>";
+          echo "<thead><tr><th>Video Timestamp</th><th>OCR Text</th><th>Image Description</th><th>AI Question</th><th>Date Created</th></tr></thead>";
           echo "<tbody>";
           while ($row = mysqli_fetch_assoc($result)) {
               echo "<tr>";
-              echo "<td>" . htmlspecialchars($row['userID']) . "</td>";
-              echo "<td>" . htmlspecialchars($row['videoID']) . "</td>";
+              
               echo "<td>" . htmlspecialchars($row['videoTimestamp']) . "</td>";
               echo "<td>" . htmlspecialchars($row['OCRText']) . "</td>";
               echo "<td>" . htmlspecialchars($row['imagedescription']) . "</td>";
