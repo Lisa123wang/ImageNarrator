@@ -291,7 +291,7 @@
 
       if (mysqli_num_rows($result) > 0) {
           echo "<table class='data-table'>";
-          echo "<thead><tr><th>Video Timestamp</th><th>OCR Text</th><th>Image Description</th><th>AI Question</th><th>Date Created</th></tr></thead>";
+          echo "<thead><tr><th>Video Timestamp</th><th>OCR Text</th><th>Image Description</th><th>AI Question</th></tr></thead>";
           echo "<tbody>";
           while ($row = mysqli_fetch_assoc($result)) {
               echo "<tr>";
@@ -300,7 +300,7 @@
               echo "<td>" . htmlspecialchars($row['OCRText']) . "</td>";
               echo "<td>" . htmlspecialchars($row['imagedescription']) . "</td>";
               echo "<td>" . htmlspecialchars($row['aiquestion']) . "</td>";
-              echo "<td>" . htmlspecialchars($row['dateCreated']) . "</td>";
+              
               echo "</tr>";
           }
           echo "</tbody></table>";
