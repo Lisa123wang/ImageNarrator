@@ -65,13 +65,13 @@
                           </div>
 
                           <div class="col-12">
-                              <label for="account" class="form-label">Your Email</label>
+                              <label for="email" class="form-label">Your Email</label>
                               <input type="email" name="email" class="form-control" id="email" required>
                               <div class="invalid-feedback">Please enter a valid Email adddress!</div>
                           </div>
 
                           <div class="col-12">
-                              <label for="pw" class="form-label">Password</label>
+                              <label for="password" class="form-label">Password</label>
                               <input type="password" name="password" class="form-control" id="password" required>
                               <div class="invalid-feedback">Please enter your password!</div>
                           </div>
