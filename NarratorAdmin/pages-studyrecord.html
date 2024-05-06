@@ -205,9 +205,8 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        // 更新数据生成逻辑，以适应新的y轴标签
-        // 假设数据是根据新范围随机生成的，仅作示例
-        const data = Array.from({length: 31}, () => Math.floor(Math.random() * 1000));
+        // Generate random data for 12 months
+        const data = Array.from({length: 12}, () => Math.floor(Math.random() * 1000));
 
         new ApexCharts(document.querySelector("#barChart"), {
             series: [{
@@ -215,7 +214,7 @@
             }],
             chart: {
                 type: 'bar',
-                height: 650 // 根据需要调整高度
+                height: 650 // Adjust height as needed
             },
             plotOptions: {
                 bar: {
@@ -227,37 +226,20 @@
                 enabled: false
             },
             xaxis: {
-                categories: Array.from({length: 31}, (_, i) => `1/${i + 1}`),
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             },
             yaxis: {
                 min: 0,
                 max: 1000,
-                // 控制y轴标签的间隔，因为我们想要的是0, 200, 400, 600, 800, 1000
-                tickAmount: 5 // 这会生成6个刻度（包括0和1000）
+                tickAmount: 5 // Generates 6 ticks (0 to 1000)
             }
         }).render();
     });
 </script>
 
 
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">4</a></li>
-                  <li class="page-item"><a class="page-link" href="#">5</a></li>
-                  <li class="page-item"><a class="page-link" href="#">6</a></li>
-                  <li class="page-item"><a class="page-link" href="#">7</a></li>
-                  <li class="page-item"><a class="page-link" href="#">8</a></li>
-                  <li class="page-item"><a class="page-link" href="#">9</a></li>
-                  <li class="page-item"><a class="page-link" href="#">10</a></li>
-                  <li class="page-item"><a class="page-link" href="#">11</a></li>
-                  <li class="page-item"><a class="page-link" href="#">12</a></li>
-                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-              </nav>
+
+            
 
             <!-- End Bar Chart -->
 
