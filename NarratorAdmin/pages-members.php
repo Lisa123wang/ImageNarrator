@@ -53,8 +53,8 @@
 
     echo "welcome, " . htmlspecialchars($_SESSION['email']);
     
-    if (isset($_SESSION['nickname'])) {
-        echo " (" . htmlspecialchars($_SESSION['nickname']) . ")";
+    if (isset($_SESSION['email'])) {
+        echo " (" . htmlspecialchars($_SESSION['email']) . ")";
     }
 
     $email = $_SESSION['email'];
@@ -160,29 +160,16 @@
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li class="dropdown-header">
                     <h6><?php echo htmlspecialchars($_SESSION['email']); ?></h6>
-                    <span>user</span>
+                    <span>admin</span>
                 </li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-
-                <li>
-                    <a class="dropdown-item d-flex align-items-center" href="pages-profile.php">
-                        <i class="bi bi-person"></i>
-                        <span>My Profile</span>
-                    </a>
-                </li>
-                
+      
                 <li>
                     <hr class="dropdown-divider">
                 </li>
 
-                <li>
-                    <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                        <i class "bi bi-question-circle"></i>
-                        <span>Need Help?</span>
-                    </a>
-                </li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
