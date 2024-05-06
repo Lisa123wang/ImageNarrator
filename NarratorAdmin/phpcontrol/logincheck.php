@@ -16,18 +16,6 @@
         $_SESSION['email'] = $rowUser['email'];
         $_SESSION['role'] = $rowUser['role'];
 
-
-        $sqlProfile = "SELECT nickname FROM profile WHERE userID = ? ";
-        $stmtProfile = mysqli_prepare($link, $sqlProfile);
-        mysqli_stmt_bind_param($stmtProfile, "i", $rowUser['userID']);
-        mysqli_stmt_execute($stmtProfile);
-        $resultProfile = mysqli_stmt_get_result($stmtProfile);
-
-        if ($rowProfile = mysqli_fetch_assoc($resultProfile)) {
-            $_SESSION['nickname'] = $rowProfile['nickname'];
-        } else {
-            $_SESSION['nickname'] = ' '; 
-        }
         
         if ($_SESSION['role'] === 'admin') {
             // Redirect to admin dashboard if user is an admin

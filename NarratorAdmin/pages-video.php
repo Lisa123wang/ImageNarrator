@@ -87,8 +87,8 @@
     // 你可以從 $_SESSION 變量中取得用戶名等信息來顯示
     echo "welcome, " . htmlspecialchars($_SESSION['email']);
     
-    if (isset($_SESSION['nickname'])) {
-        echo " (" . htmlspecialchars($_SESSION['nickname']) . ")";
+    if (isset($_SESSION['email'])) {
+        echo " (" . htmlspecialchars($_SESSION['email']) . ")";
     }
 
     // 根據 email 獲取 userID
@@ -188,12 +188,12 @@
         <li class="nav-item dropdown pe-3">
 
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($profileInfo['nickname']);?></span>
+                <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($_SESSION['email']); ?></span>
             </a><!-- End Profile Iamge Icon -->
 
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li class="dropdown-header">
-                    <h6><?php echo htmlspecialchars($profileInfo['nickname']);?></h6>
+                    <h6><?php echo htmlspecialchars($_SESSION['email']); ?></h6>
                     <span>user</span>
                 </li>
                 <li>
