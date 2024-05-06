@@ -64,6 +64,74 @@
     while ($row = mysqli_fetch_assoc($resultUserData)) {
         $userData[] = $row;
     }
+    $email = $_SESSION['email'];
+    $sqlUser = "SELECT userID FROM user WHERE email = ?";
+    $stmtUser = mysqli_prepare($link, $sqlUser);
+    mysqli_stmt_bind_param($stmtUser, "s", $email);
+    mysqli_stmt_execute($stmtUser);
+    $resultUser = mysqli_stmt_get_result($stmtUser);
+    $user = mysqli_fetch_assoc($resultUser);
+    $userID = $user['userID'];
+
+    // Revised query to get screenshot counts by month for all users
+    $sqlScreenshotCount = "SELECT DATE_FORMAT(dateCreated, '%Y-%m') AS month, COUNT(*) AS scshotCount
+                           FROM imagerecognition
+                           GROUP BY month
+                           ORDER BY month";
+    $stmtScreenshotCount = mysqli_prepare($link, $sqlScreenshotCount);
+    mysqli_stmt_execute($stmtScreenshotCount);
+    $resultScreenshotCount = mysqli_stmt_get_result($stmtScreenshotCount);
+
+    // Set up an array for all months
+    $all_months = [
+        "January", "February", "March", "April", "May", "June", 
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    $labels = [];
+    $bills = [];
+    $current_year = date("Y");
+    for ($month = 1; $month <= 12; $month++) {
+        $labels[] = $all_months[$month - 1] . " " . $current_year;
+        $bills[] = 0;
+    }
+
+    // Update bills based on the result
+    $screenshot_cost = 1.3;
+    while ($row = mysqli_fetch_assoc($resultScreenshotCount)) {
+        $month_year = explode("-", $row['month']);
+        $month = intval($month_year[1]);
+        $month_name = $all_months[$month - 1] . " " . $month_year[0];
+        $index = array_search($month_name, $labels);
+        if ($index !== false) {
+            $bills[$index] = intval($row['scshotCount']) * $screenshot_cost;
+        }
+    }
+
+    // Revised query to get video tag counts
+    $sqlVideoTagCount = "SELECT tags, COUNT(*) AS tagCount
+                         FROM video
+                         GROUP BY tags";
+    $stmtVideoTagCount = mysqli_prepare($link, $sqlVideoTagCount);
+    mysqli_stmt_execute($stmtVideoTagCount);
+    $resultVideoTagCount = mysqli_stmt_get_result($stmtVideoTagCount);
+
+    $tags = [];
+    $tagCounts = [];
+    while ($row = mysqli_fetch_assoc($resultVideoTagCount)) {
+        $tags[] = $row['tags'];
+        $tagCounts[] = intval($row['tagCount']);
+    }
+    $sqlTotalBill = "SELECT COUNT(*) AS totalScreenshotCount FROM imagerecognition";
+    $resultTotalBill = mysqli_query($link, $sqlTotalBill);
+    $rowTotalBill = mysqli_fetch_assoc($resultTotalBill);
+    $totalBill = $rowTotalBill['totalScreenshotCount'] * $screenshot_cost;
+
+    // User count calculation
+    $sqlUserCount = "SELECT COUNT(*) AS userCount FROM user WHERE role = 'user'";
+    $resultUserCount = mysqli_query($link, $sqlUserCount);
+    $rowUserCount = mysqli_fetch_assoc($resultUserCount);
+    $userCount = $rowUserCount['userCount'];
 ?>
 
    <!-- ======= Header ======= -->
@@ -142,11 +210,30 @@
         </li><!-- End Dashboard Nav -->
         <li class="nav-item">
             <a class="nav-link " href="pages-user.php">
-                <i class="bi bi-grid"></i>
+                <i class="bi bi-person"></i>
                 <span>User</span>
             </a>
-        </li>
-        
+        </li><!-- End User Nav -->
+        <li class="nav-item">
+    <a class="nav-link collapsed" href="#">
+        <i class="bi bi-currency-dollar"></i>
+        <span style="font-size: 1.2em; display: inline-block; width: 100px; height: 100px; text-align: center; line-height: 100px;">Total Bill:</span> 
+        <br>
+        <span style="font-size: 2em; display: inline-block; width: 100px; height: 100px; text-align: center; line-height: 100px;"><?php echo "$" . number_format($totalBill, 2); ?></span>
+    </a>
+</li><!-- End Total Bill Nav -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#">
+        <i class="bi bi-people-fill"></i>
+        <span style="font-size: 1.2em; display: inline-block; width: 100px; height: 100px; text-align: center; line-height: 100px;">Users:</span> 
+        <br>
+        <span style="font-size: 2em; display: inline-block; width: 100px; height: 100px; text-align: center; line-height: 100px;"><?php echo $userCount; ?></span>
+    </a>
+</li>
+
+
+
+
     </ul>
 </aside><!-- End Sidebar-->
 

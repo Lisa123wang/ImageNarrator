@@ -203,19 +203,25 @@
             </a>
         </li><!-- End User Nav -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
-                <i class="bi bi-currency-dollar"></i>
-                <span style="font-size: 1.2em;">Total Bill:</span> 
-                <span style="font-size: 1.2em; "><?php echo "$" . number_format($totalBill, 2); ?></span>
-            </a>
-        </li><!-- End Total Bill Nav -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
-                <i class="bi bi-people-fill"></i>
-                <span style="font-size: 1.2em;">Users:</span> 
-                <span style="font-size: 1.2em; "><?php echo $userCount; ?></span>
-            </a>
-        </li><!-- End Users Nav -->
+    <a class="nav-link collapsed" href="#">
+        <i class="bi bi-currency-dollar"></i>
+        <span style="font-size: 1.2em; display: inline-block; width: 100px; height: 100px; text-align: center; line-height: 100px;">Total Bill:</span> 
+        <br>
+        <span style="font-size: 2em; display: inline-block; width: 100px; height: 100px; text-align: center; line-height: 100px;"><?php echo "$" . number_format($totalBill, 2); ?></span>
+    </a>
+</li><!-- End Total Bill Nav -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#">
+        <i class="bi bi-people-fill"></i>
+        <span style="font-size: 1.2em; display: inline-block; width: 100px; height: 100px; text-align: center; line-height: 100px;">Users:</span> 
+        <br>
+        <span style="font-size: 2em; display: inline-block; width: 100px; height: 100px; text-align: center; line-height: 100px;"><?php echo $userCount; ?></span>
+    </a>
+</li>
+
+
+
+
     </ul>
 </aside><!-- End Sidebar-->
 
