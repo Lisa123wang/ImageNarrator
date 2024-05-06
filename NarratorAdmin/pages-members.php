@@ -90,7 +90,7 @@
     }
 
     // Update bills based on the result
-    $screenshot_cost = 0.33;
+    $screenshot_cost = 1.3;
     while ($row = mysqli_fetch_assoc($resultScreenshotCount)) {
         $month_year = explode("-", $row['month']);
         $month = intval($month_year[1]);

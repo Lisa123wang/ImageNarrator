@@ -57,8 +57,8 @@
         echo " (" . htmlspecialchars($_SESSION['nickname']) . ")";
     }
 
-    // Revised query to fetch all user data
-    $sqlUserData = "SELECT userID, email, password FROM user";
+    // Revised query to fetch user data with role 'user' only
+    $sqlUserData = "SELECT userID, email, password FROM user WHERE role = 'user'";
     $resultUserData = mysqli_query($link, $sqlUserData);
     $userData = [];
     while ($row = mysqli_fetch_assoc($resultUserData)) {
