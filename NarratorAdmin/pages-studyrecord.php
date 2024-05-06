@@ -24,10 +24,13 @@
     <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+    
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
     <!-- ApexCharts -->
     <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
     <!-- =======================================================
@@ -87,6 +90,30 @@
             $counts[$index] = intval($row['scshotCount']);
         }
     }
+?>
+<?php
+$link = mysqli_connect('localhost', 'root', '', 'narratordb_test1'); // Adjust database connection details
+
+$sql = "SELECT tags FROM video"; // Adjust the table and column names accordingly
+$result = mysqli_query($link, $sql);
+
+$tagsCount = [
+    'html/css' => 0,
+    'python' => 0,
+    'c' => 0,
+    'c++' => 0,
+    'c#' => 0,
+    'javascript' => 0,
+    'java' => 0
+];
+
+while ($row = mysqli_fetch_assoc($result)) {
+    foreach ($tagsCount as $key => &$count) {
+        if (strpos(strtolower($row['tags']), $key) !== false) {
+            $count++;
+        }
+    }
+}
 ?>
 
 <header id="header" class="header fixed-top d-flex align-items-center">
@@ -237,7 +264,58 @@
 </script>
 
     </div>
+    <div style="width: 100%; background-color: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <canvas id="languageChart" width="400" height="400"></canvas>
+<script>
+var ctx = document.getElementById('languageChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['HTML/CSS', 'Python', 'C', 'C++', 'C#', 'JavaScript', 'Java'],
+        datasets: [{
+            label: 'Video Tags Distribution',
+            data: [
+                <?php echo $tagsCount['html/css']; ?>, 
+                <?php echo $tagsCount['python']; ?>, 
+                <?php echo $tagsCount['c']; ?>, 
+                <?php echo $tagsCount['c++']; ?>, 
+                <?php echo $tagsCount['c#']; ?>, 
+                <?php echo $tagsCount['javascript']; ?>, 
+                <?php echo $tagsCount['java']; ?>
+            ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(201, 203, 207, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            }
+        }
+    }
+});
+</script>
 
+    </div>
     <footer id="footer" class="footer">
         <div class="copyright">
             &copy; Copyright <strong><span>IMAGE NARRATOR</span></strong>. All Rights Reserved
