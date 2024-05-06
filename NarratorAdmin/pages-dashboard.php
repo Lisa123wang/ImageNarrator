@@ -65,11 +65,12 @@
     $userID = $user['userID'];
 
     // Revised query to get screenshot counts by date
-    $sqlScreenshotCount = "SELECT dateCreated AS date, COUNT(*) AS scshotCount FROM imagerecognition WHERE userID = ? GROUP BY dateCreated ORDER BY dateCreated DESC";
-    $stmtScreenshotCount = mysqli_prepare($link, $sqlScreenshotCount);
-    mysqli_stmt_bind_param($stmtScreenshotCount, "i", $userID);
-    mysqli_stmt_execute($stmtScreenshotCount);
-    $resultScreenshotCount = mysqli_stmt_get_result($stmtScreenshotCount);
+        $sqlScreenshotCount = "SELECT DATE(dateCreated) AS date, COUNT(*) AS scshotCount FROM imagerecognition WHERE userID = ? GROUP BY DATE(dateCreated) ORDER BY DATE(dateCreated) DESC";
+        $stmtScreenshotCount = mysqli_prepare($link, $sqlScreenshotCount);
+        mysqli_stmt_bind_param($stmtScreenshotCount, "i", $userID);
+        mysqli_stmt_execute($stmtScreenshotCount);
+        $resultScreenshotCount = mysqli_stmt_get_result($stmtScreenshotCount);
+
 ?>
 
 <body>
