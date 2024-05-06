@@ -57,63 +57,12 @@
         echo " (" . htmlspecialchars($_SESSION['nickname']) . ")";
     }
 
-    $email = $_SESSION['email'];
-    $sqlUser = "SELECT userID FROM user WHERE email = ?";
-    $stmtUser = mysqli_prepare($link, $sqlUser);
-    mysqli_stmt_bind_param($stmtUser, "s", $email);
-    mysqli_stmt_execute($stmtUser);
-    $resultUser = mysqli_stmt_get_result($stmtUser);
-    $user = mysqli_fetch_assoc($resultUser);
-    $userID = $user['userID'];
-
-    // Revised query to get screenshot counts by month for all users
-    $sqlScreenshotCount = "SELECT DATE_FORMAT(dateCreated, '%Y-%m') AS month, COUNT(*) AS scshotCount
-                           FROM imagerecognition
-                           GROUP BY month
-                           ORDER BY month";
-    $stmtScreenshotCount = mysqli_prepare($link, $sqlScreenshotCount);
-    mysqli_stmt_execute($stmtScreenshotCount);
-    $resultScreenshotCount = mysqli_stmt_get_result($stmtScreenshotCount);
-
-    // Set up an array for all months
-    $all_months = [
-        "January", "February", "March", "April", "May", "June", 
-        "July", "August", "September", "October", "November", "December"
-    ];
-
-    $labels = [];
-    $bills = [];
-    $current_year = date("Y");
-    for ($month = 1; $month <= 12; $month++) {
-        $labels[] = $all_months[$month - 1] . " " . $current_year;
-        $bills[] = 0;
-    }
-
-    // Update bills based on the result
-    $screenshot_cost = 0.33;
-    while ($row = mysqli_fetch_assoc($resultScreenshotCount)) {
-        $month_year = explode("-", $row['month']);
-        $month = intval($month_year[1]);
-        $month_name = $all_months[$month - 1] . " " . $month_year[0];
-        $index = array_search($month_name, $labels);
-        if ($index !== false) {
-            $bills[$index] = intval($row['scshotCount']) * $screenshot_cost;
-        }
-    }
-
-    // Revised query to get video tag counts
-    $sqlVideoTagCount = "SELECT tags, COUNT(*) AS tagCount
-                         FROM video
-                         GROUP BY tags";
-    $stmtVideoTagCount = mysqli_prepare($link, $sqlVideoTagCount);
-    mysqli_stmt_execute($stmtVideoTagCount);
-    $resultVideoTagCount = mysqli_stmt_get_result($stmtVideoTagCount);
-
-    $tags = [];
-    $tagCounts = [];
-    while ($row = mysqli_fetch_assoc($resultVideoTagCount)) {
-        $tags[] = $row['tags'];
-        $tagCounts[] = intval($row['tagCount']);
+    // Revised query to fetch all user data
+    $sqlUserData = "SELECT userID, email, password FROM user";
+    $resultUserData = mysqli_query($link, $sqlUserData);
+    $userData = [];
+    while ($row = mysqli_fetch_assoc($resultUserData)) {
+        $userData[] = $row;
     }
 ?>
 
@@ -131,14 +80,6 @@
 <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
 
-        <li>
-            <a class="nav-link nav-icon" href="https://chrome.google.com/webstore/detail/summary-for-google-with-c/cmnlolelipjlhfkhpohphpedmkfbobjc">
-                <i class="bx bxl-google"></i>
-
-            </a><!-- End chrome Icon -->
-        </li>
-
-        
         
 
         <li class="nav-item dropdown pe-3">
@@ -194,13 +135,13 @@
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-            <a class="nav-link " href="pages-members.php">
+            <a class="nav-link collapsed" href="pages-members.php">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
         </li><!-- End Dashboard Nav -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-user.php">
+            <a class="nav-link " href="pages-user.php">
                 <i class="bi bi-grid"></i>
                 <span>User</span>
             </a>
@@ -215,95 +156,29 @@
         <h1>Dashboard</h1>
     </div>
     -->
-    <section class="section">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Monthly Screenshot Bills</h5>
-                        <div id="barChart"></div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-lg-6">
-                <div class="card h-100">
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                        <div>
-                            <h5 class="card-title text-center">Video Tag Counts</h5>
-                            <canvas id="pieChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-    <script>
-        $(document).ready(function () {
-            $('#monthScreenshotTable').DataTable();
-
-            var bills = <?php echo json_encode($bills); ?>;
-            
-            var options = {
-                series: [{
-                    name: 'Bill ($)',
-                    data: bills
-                }],
-                chart: {
-                    type: 'bar',
-                    height: 400
-                },
-                plotOptions: {
-                    bar: {
-                        horizontal: false,
-                        columnWidth: '50%'
-                    },
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                xaxis: {
-                    categories: <?php echo json_encode($labels); ?>
-                }
-            };
-
-            var chart = new ApexCharts(document.querySelector("#barChart"), options);
-            chart.render();
-        });
-    </script>
-
-
-    <script>
-        $(document).ready(function () {
-            // Pie chart
-            var ctx = document.getElementById("pieChart").getContext("2d");
-            var pieChart = new Chart(ctx, {
-                type: "pie",
-                data: {
-                    labels: <?php echo json_encode($tags); ?>,
-                    datasets: [{
-                        data: <?php echo json_encode($tagCounts); ?>,
-                        backgroundColor: [
-                            "#FF6384",
-                            "#36A2EB",
-                            "#FFCE56",
-                            "#4BC0C0",
-                            "#9966FF",
-                            "#FF9F40",
-                            "#FF6384"
-                        ],
-                    }],
-                },
-                options: {
-                    responsive: false,
-                    maintainAspectRatio: false,
-                },
-            });
-        });
-    </script>
+    <div style="width: 100%; background-color: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <table id="userTable" class="display">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    foreach ($userData as $user) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($user['email']) . "</td>";
+                        echo "<td>" . htmlspecialchars($user['password']) . "</td>";
+                        echo "<td><button class='btn' aria-label='Delete' onclick='deleteUser(\"{$user['userID']}\")'><i class='ri-delete-bin-6-line'></i></button></td>";
+                        echo "</tr>";
+                    }
+                ?>
+            </tbody>
+        </table>
+    </div>
 
     <footer id="footer" class="footer">
         <div class="copyright">
@@ -329,7 +204,28 @@
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            $('#userTable').DataTable();
+        });
 
-</main>
+        function deleteUser(userID) {
+            if (confirm("Are you sure you want to delete this user?")) {
+                // Send an AJAX request to delete the user
+                $.ajax({
+                    url: 'delete_user.php',
+                    type: 'POST',
+                    data: { id: userID },
+                    success: function(response) {
+                        // Reload the table after deletion
+                        $('#userTable').DataTable().ajax.reload();
+                    },
+                    error: function(error) {
+                        console.error("Error deleting user:", error);
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 </html>
