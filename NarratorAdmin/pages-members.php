@@ -115,6 +115,16 @@
         $tags[] = $row['tags'];
         $tagCounts[] = intval($row['tagCount']);
     }
+    $sqlTotalBill = "SELECT COUNT(*) AS totalScreenshotCount FROM imagerecognition";
+    $resultTotalBill = mysqli_query($link, $sqlTotalBill);
+    $rowTotalBill = mysqli_fetch_assoc($resultTotalBill);
+    $totalBill = $rowTotalBill['totalScreenshotCount'] * $screenshot_cost;
+
+    // User count calculation
+    $sqlUserCount = "SELECT COUNT(*) AS userCount FROM user WHERE role = 'user'";
+    $resultUserCount = mysqli_query($link, $sqlUserCount);
+    $rowUserCount = mysqli_fetch_assoc($resultUserCount);
+    $userCount = $rowUserCount['userCount'];
 ?>
 
    <!-- ======= Header ======= -->
@@ -201,11 +211,24 @@
         </li><!-- End Dashboard Nav -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="pages-user.php">
-                <i class="bi bi-grid"></i>
+                <i class="bi bi-person"></i>
                 <span>User</span>
             </a>
-        </li>
-        
+        </li><!-- End User Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#">
+                <i class="bi bi-currency-dollar"></i>
+                <span style="font-size: 1.2em;">Total Bill:</span> 
+                <span style="font-size: 1.5em; color: green;"><?php echo "$" . number_format($totalBill, 2); ?></span>
+            </a>
+        </li><!-- End Total Bill Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#">
+                <i class="bi bi-people-fill"></i>
+                <span style="font-size: 1.2em;">Users:</span> 
+                <span style="font-size: 1.5em; color: blue;"><?php echo $userCount; ?></span>
+            </a>
+        </li><!-- End Users Nav -->
     </ul>
 </aside><!-- End Sidebar-->
 
