@@ -65,11 +65,12 @@
     $userID = $user['userID'];
 
     // Revised query to get screenshot counts by date
-    $sqlScreenshotCount = "SELECT dateCreated AS date, COUNT(*) AS scshotCount FROM imagerecognition WHERE userID = ? GROUP BY dateCreated ORDER BY dateCreated DESC";
-    $stmtScreenshotCount = mysqli_prepare($link, $sqlScreenshotCount);
-    mysqli_stmt_bind_param($stmtScreenshotCount, "i", $userID);
-    mysqli_stmt_execute($stmtScreenshotCount);
-    $resultScreenshotCount = mysqli_stmt_get_result($stmtScreenshotCount);
+        $sqlScreenshotCount = "SELECT DATE(dateCreated) AS date, COUNT(*) AS scshotCount FROM imagerecognition WHERE userID = ? GROUP BY DATE(dateCreated) ORDER BY DATE(dateCreated) DESC";
+        $stmtScreenshotCount = mysqli_prepare($link, $sqlScreenshotCount);
+        mysqli_stmt_bind_param($stmtScreenshotCount, "i", $userID);
+        mysqli_stmt_execute($stmtScreenshotCount);
+        $resultScreenshotCount = mysqli_stmt_get_result($stmtScreenshotCount);
+
 ?>
 
 <body>
@@ -94,55 +95,9 @@
             </a><!-- End chrome Icon -->
         </li>
 
-        <li class="nav-item dropdown">
+        
 
-            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                <i class="bi bi-bell"></i>
-                <span class="badge bg-primary badge-number">1</span>
-            </a><!-- End Notification Icon -->
-
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-                <li class="dropdown-header">
-                    You have 1 new notifications
-                    <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-
-                <li class="notification-item">
-                    <i class="bi bi-info-circle text-primary"></i>
-                    <div>
-                        <h4>Dicta reprehenderit</h4>
-                        <p>Quae dolorem earum veritatis oditseno</p>
-                        <p>4 hrs. ago</p>
-                    </div>
-                </li>
-
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <!--
-        <li class="dropdown-footer">
-          <a href="#">Show all notifications</a>
-        </li>
-        -->
-            </ul><!-- End Notification Dropdown Items -->
-
-        </li><!-- End Notification Nav -->
-
-        <li class="nav-item dropdown">
-
-            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                <i class="bi bi-clock"></i>
-                <span class="badge bg-success badge-number">3.5</span>
-            </a><!-- End Messages Icon -->
-
-        </li><!-- End Messages Nav -->
+       
 
         <li class="nav-item dropdown pe-3">
 
