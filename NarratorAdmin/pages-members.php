@@ -66,28 +66,6 @@
     $user = mysqli_fetch_assoc($resultUser);
     $userID = $user['userID'];
 
-    // Revised query to get screenshot counts by date
-    $sqlScreenshotCount = "SELECT dateCreated AS date, COUNT(*) AS scshotCount FROM imagerecognition WHERE userID = ? GROUP BY dateCreated ORDER BY dateCreated DESC";
-    $stmtScreenshotCount = mysqli_prepare($link, $sqlScreenshotCount);
-    mysqli_stmt_bind_param($stmtScreenshotCount, "i", $userID);
-    mysqli_stmt_execute($stmtScreenshotCount);
-    $resultScreenshotCount = mysqli_stmt_get_result($stmtScreenshotCount);
-?>
-<?php
-    session_start();
-    $link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
-
-    if(!isset($_SESSION['email'])) {
-        header("Location: pages-login.php");
-        exit;
-    }
-
-    echo "welcome, " . htmlspecialchars($_SESSION['email']);
-    
-    if (isset($_SESSION['nickname'])) {
-        echo " (" . htmlspecialchars($_SESSION['nickname']) . ")";
-    }
-
     // Revised query to get screenshot counts by month for all users
     $sqlScreenshotCount = "SELECT DATE_FORMAT(dateCreated, '%Y-%m') AS month, COUNT(*) AS scshotCount
                            FROM imagerecognition
@@ -104,21 +82,22 @@
     ];
 
     $labels = [];
-    $counts = [];
+    $bills = [];
     $current_year = date("Y");
     for ($month = 1; $month <= 12; $month++) {
         $labels[] = $all_months[$month - 1] . " " . $current_year;
-        $counts[] = 0;
+        $bills[] = 0;
     }
 
-    // Update counts based on the result
+    // Update bills based on the result
+    $screenshot_cost = 0.33;
     while ($row = mysqli_fetch_assoc($resultScreenshotCount)) {
         $month_year = explode("-", $row['month']);
         $month = intval($month_year[1]);
         $month_name = $all_months[$month - 1] . " " . $month_year[0];
         $index = array_search($month_name, $labels);
         if ($index !== false) {
-            $counts[$index] = intval($row['scshotCount']);
+            $bills[$index] = intval($row['scshotCount']) * $screenshot_cost;
         }
     }
 
@@ -190,7 +169,7 @@
 
                 <li>
                     <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                        <i class="bi bi-question-circle"></i>
+                        <i class "bi bi-question-circle"></i>
                         <span>Need Help?</span>
                     </a>
                 </li>
@@ -229,78 +208,95 @@
         <h1>Dashboard</h1>
     </div>
 
-    <!-- Number of Screenshots by Month Table -->
-    <div style="width: 100%; background-color: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        
-    <div id="barChart"></div>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Monthly Screenshot Bills</h5>
+                        <div id="barChart"></div>
+                    </div>
+                </div>
+            </div>
 
-<script>
-    $(document).ready(function () {
-        $('#monthScreenshotTable').DataTable();
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <div>
+                            <h5 class="card-title text-center">Video Tag Counts</h5>
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        var options = {
-            series: [{
-                name: 'Screenshots',
-                data: <?php echo json_encode($counts); ?>
-            }],
-            chart: {
-                type: 'bar',
-                height: 400
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '50%'
-                },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            xaxis: {
-                categories: <?php echo json_encode($labels); ?>
-            }
-        };
 
-        var chart = new ApexCharts(document.querySelector("#barChart"), options);
-        chart.render();
-    });
-</script>
 
-<div style="display: flex; justify-content: center; align-items: center; width: 100%; background-color: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-    <div style="width: 300px; height: 300px; background-color: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        <canvas id="pieChart" width="300" height="300"></canvas>
-    </div>
-</div>
-<script>
-    $(document).ready(function () {
-        // Pie chart
-        var ctx = document.getElementById("pieChart").getContext("2d");
-        var pieChart = new Chart(ctx, {
-            type: "pie",
-            data: {
-                labels: <?php echo json_encode($tags); ?>,
-                datasets: [{
-                    data: <?php echo json_encode($tagCounts); ?>,
-                    backgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56",
-                        "#4BC0C0",
-                        "#9966FF",
-                        "#FF9F40",
-                        "#FF6384"
-                    ],
+    <script>
+        $(document).ready(function () {
+            $('#monthScreenshotTable').DataTable();
+
+            var bills = <?php echo json_encode($bills); ?>;
+            
+            var options = {
+                series: [{
+                    name: 'Bill ($)',
+                    data: bills
                 }],
-            },
-            options: {
-                responsive: false,
-                maintainAspectRatio: false,
-            },
+                chart: {
+                    type: 'bar',
+                    height: 400
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '50%'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: <?php echo json_encode($labels); ?>
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#barChart"), options);
+            chart.render();
         });
-    });
-</script>
+    </script>
 
 
+    <script>
+        $(document).ready(function () {
+            // Pie chart
+            var ctx = document.getElementById("pieChart").getContext("2d");
+            var pieChart = new Chart(ctx, {
+                type: "pie",
+                data: {
+                    labels: <?php echo json_encode($tags); ?>,
+                    datasets: [{
+                        data: <?php echo json_encode($tagCounts); ?>,
+                        backgroundColor: [
+                            "#FF6384",
+                            "#36A2EB",
+                            "#FFCE56",
+                            "#4BC0C0",
+                            "#9966FF",
+                            "#FF9F40",
+                            "#FF6384"
+                        ],
+                    }],
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
+                },
+            });
+        });
+    </script>
 
     <footer id="footer" class="footer">
         <div class="copyright">
@@ -318,11 +314,7 @@
     <script src="assets/vendor/chart.js/chart.umd.js"></script>
     <script src="assets/vendor/echarts/echarts.min.js"></script>
     <script src="assets/vendor/quill/quill.min.js"></script>
-    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
 
-    <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
+</main>
 </body>
 </html>
