@@ -206,14 +206,14 @@
             <a class="nav-link collapsed" href="#">
                 <i class="bi bi-currency-dollar"></i>
                 <span style="font-size: 1.2em;">Total Bill:</span> 
-                <span style="font-size: 1.5em; color: green;"><?php echo "$" . number_format($totalBill, 2); ?></span>
+                <span style="font-size: 1.2em; "><?php echo "$" . number_format($totalBill, 2); ?></span>
             </a>
         </li><!-- End Total Bill Nav -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#">
                 <i class="bi bi-people-fill"></i>
                 <span style="font-size: 1.2em;">Users:</span> 
-                <span style="font-size: 1.5em; color: blue;"><?php echo $userCount; ?></span>
+                <span style="font-size: 1.2em; "><?php echo $userCount; ?></span>
             </a>
         </li><!-- End Users Nav -->
     </ul>
