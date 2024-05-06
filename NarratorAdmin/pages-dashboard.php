@@ -157,13 +157,6 @@
             <li class="nav-heading"><font color="#333">Pages</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-profile.php">
-                    <i class="bi bi-person"></i>
-                    <span>Profile</span>
-                </a>
-            </li><!-- End Profile Page Nav -->
-
-            <li class="nav-item">
                 <a class="nav-link collapsed" href="pages-video.php">
                     <i class="bi bi-person"></i>
                     <span>Videos</span>
