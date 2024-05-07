@@ -139,25 +139,33 @@
     $rowUserCountToday = mysqli_fetch_assoc($resultUserCountToday);
     $userCountToday = $rowUserCountToday['userCountToday'];
 
-    // Query for today's bill over the last 24 hours
-    $sqlHourlyBill = "
-    SELECT DATE_FORMAT(dateCreated, '%H') AS hour, COUNT(*) AS scshotCount 
-    FROM imagerecognition 
-    WHERE dateCreated >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
-    GROUP BY hour
-    ORDER BY hour";
+    // Current date in the format required by the SQL query
+    $today = date("Y-m-d");
 
-    $resultHourlyBill = mysqli_query($link, $sqlHourlyBill);
+    // SQL query to fetch the number of screenshots per hour for today
+    $sqlTodayBill = "
+        SELECT HOUR(dateCreated) as hour, COUNT(*) as scshotCount
+        FROM imagerecognition
+        WHERE date(dateCreated) = ?
+        GROUP BY HOUR(dateCreated)
+        ORDER BY HOUR(dateCreated)";
 
-    $hourlyBills = array_fill(0, 24, 0); // Initialize an array with 24 zeros
-    while ($row = mysqli_fetch_assoc($resultHourlyBill)) {
-    $hour = intval($row['hour']);
-    $hourlyBills[$hour] = round($row['scshotCount'] * $screenshot_cost, 2);
+    $stmtTodayBill = mysqli_prepare($link, $sqlTodayBill);
+    mysqli_stmt_bind_param($stmtTodayBill, "s", $today);
+    mysqli_stmt_execute($stmtTodayBill);
+    $resultTodayBill = mysqli_stmt_get_result($stmtTodayBill);
+
+    $hourlyBills = array_fill(0, 24, 0); // Initialize array to hold bills for 24 hours
+
+    while ($row = mysqli_fetch_assoc($resultTodayBill)) {
+        $hour = intval($row['hour']);
+        $count = intval($row['scshotCount']);
+        $hourlyBills[$hour] = round($count * $screenshot_cost, 2); // Assuming $screenshot_cost is defined
     }
 
     $hourLabels = [];
     for ($i = 0; $i < 24; $i++) {
-    $hourLabels[] = str_pad($i, 2, '0', STR_PAD_LEFT) . ":00";
+        $hourLabels[] = str_pad($i, 2, '0', STR_PAD_LEFT) . ":00"; // Format labels as 00:00, 01:00, etc.
     }
 
 ?>
@@ -267,8 +275,7 @@
     </div>
     -->
     <!-- Inside the <section> element, above the row containing the bar chart and pie chart -->
-<section class="section">
-   
+    <section class="section">
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -278,6 +285,21 @@
             </div>
         </div>
     </div>
+
+    <!-- Line chart row for today's bill -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Bill for Today</h5>
+                    <div style="width: 100%; overflow-x: auto;">
+                        <canvas id="lineChart" style="min-width: 800px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-lg-6">
             <div class="card h-100">
@@ -367,82 +389,35 @@
             });
         });
     </script>
-    <script>
-        $(document).ready(function () {
-            $('#monthScreenshotTable').DataTable();
+  <script>
+    $(document).ready(function() {
+        var hourlyBills = <?php echo json_encode($hourlyBills); ?>;
+        var hourLabels = <?php echo json_encode($hourLabels); ?>;
 
-            var bills = <?php echo json_encode($bills); ?>;
-            var hourlyBills = <?php echo json_encode($hourlyBills); ?>;
-            var hourLabels = <?php echo json_encode($hourLabels); ?>;
-            
-            var options = {
-                series: [{
-                    name: 'Bill ($)',
-                    data: bills
-                }],
-                chart: {
-                    type: 'bar',
-                    height: 400
-                },
-                plotOptions: {
-                    bar: {
-                        horizontal: false,
-                        columnWidth: '50%'
-                    },
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                xaxis: {
-                    categories: <?php echo json_encode($labels); ?>
-                }
-            };
-
-           
-
-            // Line chart for today's bill over 24 hours
-            var ctxLine = document.getElementById("lineChart").getContext("2d");
-            var lineChart = new Chart(ctxLine, {
-                type: "line",
-                data: {
-                    labels: hourLabels,
-                    datasets: [{
-                        label: "Today's Bill ($)",
-                        data: hourlyBills,
-                        borderColor: "rgba(54, 162, 235, 1)",
-                        fill: false
-                    }]
-                },
-                options: {
-                    responsive: false,
-                    maintainAspectRatio: false,
-                    hover: {
-                        mode: 'nearest',
-                        intersect: true,
-                        onHover: function(e) {
-                            var point = this.getElementAtEvent(e);
-                            e.target.style.cursor = point.length ? 'pointer' : 'default';
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: "Bill ($)"
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: "Hour"
-                            }
-                        }
+        var ctxLine = document.getElementById("lineChart").getContext("2d");
+        var lineChart = new Chart(ctxLine, {
+            type: "line",
+            data: {
+                labels: hourLabels,
+                datasets: [{
+                    label: "Today's Bill ($)",
+                    data: hourlyBills,
+                    borderColor: "rgba(54, 162, 235, 1)",
+                    backgroundColor: "rgba(54, 162, 235, 0.5)"
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
-                }
-            });
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            }
         });
-    </script>
+    });
+</script>
 
     <footer id="footer" class="footer">
         <div class="copyright">
