@@ -184,12 +184,7 @@
 <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
 
-        <li>
-            <a class="nav-link nav-icon" href="https://chrome.google.com/webstore/detail/summary-for-google-with-c/cmnlolelipjlhfkhpohphpedmkfbobjc">
-                <i class="bx bxl-google"></i>
-
-            </a><!-- End chrome Icon -->
-        </li>
+       
 
         
         
