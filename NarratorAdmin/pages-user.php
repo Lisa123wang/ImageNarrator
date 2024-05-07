@@ -132,6 +132,24 @@
     $resultUserCount = mysqli_query($link, $sqlUserCount);
     $rowUserCount = mysqli_fetch_assoc($resultUserCount);
     $userCount = $rowUserCount['userCount'];
+    $sqlUserData = "
+    SELECT user.userID, user.email, user.password, COALESCE(COUNT(imagerecognition.userID) * 1.3, 0) AS bill
+    FROM user
+    LEFT JOIN imagerecognition ON user.userID = imagerecognition.userID
+    WHERE user.role = 'user'
+    GROUP BY user.userID, user.email, user.password";
+    $resultUserData = mysqli_query($link, $sqlUserData);
+    $userData = [];
+    while ($row = mysqli_fetch_assoc($resultUserData)) {
+        $userData[] = $row;
+    }
+    // Determine the user with the highest bill
+    $highestBillUser = null;
+    foreach ($userData as $user) {
+        if ($highestBillUser === null || $user['bill'] > $highestBillUser['bill']) {
+            $highestBillUser = $user;
+        }
+    }
 ?>
 
    <!-- ======= Header ======= -->
@@ -245,27 +263,30 @@
     -->
 
     <div style="width: 100%; background-color: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        <table id="userTable" class="display">
-            <thead>
-                <tr>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    foreach ($userData as $user) {
-                        echo "<tr>";
-                        echo "<td>" . htmlspecialchars($user['email']) . "</td>";
-                        echo "<td>" . htmlspecialchars($user['password']) . "</td>";
-                        echo "<td><button class='btn' aria-label='Delete' onclick='deleteUser(\"{$user['userID']}\")'><i class='ri-delete-bin-6-line'></i></button></td>";
-                        echo "</tr>";
-                    }
-                ?>
-            </tbody>
-        </table>
-    </div>
+    <h3>Number 1 User: <?php echo htmlspecialchars($highestBillUser['email']); ?> with bill $<?php echo number_format($highestBillUser['bill'], 2); ?></h3>
+    <table id="userTable" class="display">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Bill</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                foreach ($userData as $user) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($user['email']) . "</td>";
+                    echo "<td>" . htmlspecialchars($user['password']) . "</td>";
+                    echo "<td>" . htmlspecialchars(number_format($user['bill'], 2)) . "</td>";
+                    echo "<td><button class='btn' aria-label='Delete' onclick='deleteUser(\"{$user['userID']}\")'><i class='ri-delete-bin-6-line'></i></button></td>";
+                    echo "</tr>";
+                }
+            ?>
+        </tbody>
+    </table>
+</div>
 
     <footer id="footer" class="footer">
         <div class="copyright">
