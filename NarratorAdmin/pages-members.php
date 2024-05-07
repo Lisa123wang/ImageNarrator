@@ -125,6 +125,20 @@
     $resultUserCount = mysqli_query($link, $sqlUserCount);
     $rowUserCount = mysqli_fetch_assoc($resultUserCount);
     $userCount = $rowUserCount['userCount'];
+
+    // Today's date
+    $today = date("Y-m-d");
+
+    // Query to get the count of users created today
+    $sqlUserCountToday = "SELECT COUNT(*) AS userCountToday FROM user WHERE DATE(dateCreated) = ?";
+    $stmtUserCountToday = mysqli_prepare($link, $sqlUserCountToday);
+    mysqli_stmt_bind_param($stmtUserCountToday, "s", $today);
+    mysqli_stmt_execute($stmtUserCountToday);
+    $resultUserCountToday = mysqli_stmt_get_result($stmtUserCountToday);
+    $rowUserCountToday = mysqli_fetch_assoc($resultUserCountToday);
+    $userCountToday = $rowUserCountToday['userCountToday'];
+
+    
 ?>
 
    <!-- ======= Header ======= -->
@@ -231,29 +245,40 @@
         <h1>Dashboard</h1>
     </div>
     -->
-    <section class="section">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Monthly Screenshot Bills</h5>
-                        <div id="barChart"></div>
-                    </div>
+    <!-- Inside the <section> element, above the row containing the bar chart and pie chart -->
+<section class="section">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Today Increase <span style="color:red;"><?php echo $userCountToday; ?></span> users</h3>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Monthly Screenshot Bills</h5>
+                    <div id="barChart"></div>
+                </div>
+            </div>
+        </div>
 
-            <div class="col-lg-6">
-                <div class="card h-100">
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                        <div>
-                            <h5 class="card-title text-center">Video Tag Counts</h5>
-                            <canvas id="pieChart"></canvas>
-                        </div>
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <div>
+                        <h5 class="card-title text-center">Video Tag Counts</h5>
+                        <canvas id="pieChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
 
 
