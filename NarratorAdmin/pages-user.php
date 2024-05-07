@@ -243,7 +243,7 @@
 <li class="nav-item">
     <a class="nav-link collapsed" href="#">
         <i class="bi bi-people-fill"></i>
-        <span style="font-size: 1.2em; display: inline-block; width: 100px; height: 100px; text-align: center; line-height: 100px;">Users:</span> 
+        <span style="font-size: 1.2em; display: inline-block; width: 100px; height: 100px; text-align: center; line-height: 100px;">Total User:</span> 
         <br>
         <span style="font-size: 2em; display: inline-block; width: 100px; height: 100px; text-align: center; line-height: 100px;"><?php echo $userCount; ?></span>
     </a>
