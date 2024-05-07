@@ -398,8 +398,7 @@
                 }
             };
 
-            var chart = new ApexCharts(document.querySelector("#barChart"), options);
-            chart.render();
+           
 
             // Line chart for today's bill over 24 hours
             var ctxLine = document.getElementById("lineChart").getContext("2d");
