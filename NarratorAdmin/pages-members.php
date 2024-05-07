@@ -142,31 +142,30 @@
     // Current date in the format required by the SQL query
     $today = date("Y-m-d");
 
-    // SQL query to fetch the number of screenshots per hour for today
-    $sqlTodayBill = "
-        SELECT HOUR(dateCreated) as hour, COUNT(*) as scshotCount
-        FROM imagerecognition
-        WHERE date(dateCreated) = ?
-        GROUP BY HOUR(dateCreated)
-        ORDER BY HOUR(dateCreated)";
+    // Revised SQL query to fetch the number of screenshots per hour for each day
+    $sqlHourlyBills = "
+    SELECT HOUR(dateCreated) as hour, COUNT(*) as scshotCount
+    FROM imagerecognition
+    GROUP BY HOUR(dateCreated)
+    ORDER BY HOUR(dateCreated)";
 
-    $stmtTodayBill = mysqli_prepare($link, $sqlTodayBill);
-    mysqli_stmt_bind_param($stmtTodayBill, "s", $today);
-    mysqli_stmt_execute($stmtTodayBill);
-    $resultTodayBill = mysqli_stmt_get_result($stmtTodayBill);
+$stmtHourlyBills = mysqli_prepare($link, $sqlHourlyBills);
+mysqli_stmt_execute($stmtHourlyBills);
+$resultHourlyBills = mysqli_stmt_get_result($stmtHourlyBills);
 
-    $hourlyBills = array_fill(0, 24, 0); // Initialize array to hold bills for 24 hours
+// Initialize array to hold combined hourly bills for 24 hours
+$combinedHourlyBills = array_fill(0, 24, 0);
 
-    while ($row = mysqli_fetch_assoc($resultTodayBill)) {
-        $hour = intval($row['hour']);
-        $count = intval($row['scshotCount']);
-        $hourlyBills[$hour] = round($count * $screenshot_cost, 2); // Assuming $screenshot_cost is defined
-    }
+while ($row = mysqli_fetch_assoc($resultHourlyBills)) {
+    $hour = intval($row['hour']);
+    $count = intval($row['scshotCount']);
+    $combinedHourlyBills[$hour] = round($count * $screenshot_cost, 2); // Assuming $screenshot_cost is defined
+}
 
-    $hourLabels = [];
-    for ($i = 0; $i < 24; $i++) {
-        $hourLabels[] = str_pad($i, 2, '0', STR_PAD_LEFT) . ":00"; // Format labels as 00:00, 01:00, etc.
-    }
+$hourLabels = [];
+for ($i = 0; $i < 24; $i++) {
+    $hourLabels[] = str_pad($i, 2, '0', STR_PAD_LEFT) . ":00"; // Format labels as 00:00, 01:00, etc.
+}
 
 ?>
 
@@ -286,7 +285,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Bill for Today</h5>
+                    <h5 class="card-title">Hourly Bill Summary</h5>
                     <div style="width: 100%; overflow-x: auto;">
                         <canvas id="lineChart" style="min-width: 800px;"></canvas>
                     </div>
@@ -384,9 +383,9 @@
             });
         });
     </script>
-  <script>
+ <script>
     $(document).ready(function() {
-        var hourlyBills = <?php echo json_encode($hourlyBills); ?>;
+        var combinedHourlyBills = <?php echo json_encode($combinedHourlyBills); ?>;
         var hourLabels = <?php echo json_encode($hourLabels); ?>;
 
         var ctxLine = document.getElementById("lineChart").getContext("2d");
@@ -395,8 +394,8 @@
             data: {
                 labels: hourLabels,
                 datasets: [{
-                    label: "Today's Bill ($)",
-                    data: hourlyBills,
+                    label: "Combined Hourly Bills ($)",
+                    data: combinedHourlyBills,
                     borderColor: "rgba(54, 162, 235, 1)",
                     backgroundColor: "rgba(54, 162, 235, 0.5)"
                 }]
@@ -413,6 +412,7 @@
         });
     });
 </script>
+
 
     <footer id="footer" class="footer">
         <div class="copyright">
