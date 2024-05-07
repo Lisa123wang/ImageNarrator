@@ -82,6 +82,7 @@
     ];
 
     $labels = [];
+    //bill
     $bills = [];
     $current_year = date("Y");
     for ($month = 1; $month <= 12; $month++) {
@@ -97,7 +98,7 @@
         $month_name = $all_months[$month - 1] . " " . $month_year[0];
         $index = array_search($month_name, $labels);
         if ($index !== false) {
-            $bills[$index] = intval($row['scshotCount']) * $screenshot_cost;
+            $bills[$index] = round(intval($row['scshotCount']) * $screenshot_cost, 2);
         }
     }
 
@@ -138,7 +139,27 @@
     $rowUserCountToday = mysqli_fetch_assoc($resultUserCountToday);
     $userCountToday = $rowUserCountToday['userCountToday'];
 
-    
+    // Query for today's bill over the last 24 hours
+    $sqlHourlyBill = "
+    SELECT DATE_FORMAT(dateCreated, '%H') AS hour, COUNT(*) AS scshotCount 
+    FROM imagerecognition 
+    WHERE dateCreated >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+    GROUP BY hour
+    ORDER BY hour";
+
+    $resultHourlyBill = mysqli_query($link, $sqlHourlyBill);
+
+    $hourlyBills = array_fill(0, 24, 0); // Initialize an array with 24 zeros
+    while ($row = mysqli_fetch_assoc($resultHourlyBill)) {
+    $hour = intval($row['hour']);
+    $hourlyBills[$hour] = round($row['scshotCount'] * $screenshot_cost, 2);
+    }
+
+    $hourLabels = [];
+    for ($i = 0; $i < 24; $i++) {
+    $hourLabels[] = str_pad($i, 2, '0', STR_PAD_LEFT) . ":00";
+    }
+
 ?>
 
    <!-- ======= Header ======= -->
@@ -247,6 +268,7 @@
     -->
     <!-- Inside the <section> element, above the row containing the bar chart and pie chart -->
 <section class="section">
+   
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -342,6 +364,83 @@
                     responsive: false,
                     maintainAspectRatio: false,
                 },
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#monthScreenshotTable').DataTable();
+
+            var bills = <?php echo json_encode($bills); ?>;
+            var hourlyBills = <?php echo json_encode($hourlyBills); ?>;
+            var hourLabels = <?php echo json_encode($hourLabels); ?>;
+            
+            var options = {
+                series: [{
+                    name: 'Bill ($)',
+                    data: bills
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 400
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '50%'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: <?php echo json_encode($labels); ?>
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#barChart"), options);
+            chart.render();
+
+            // Line chart for today's bill over 24 hours
+            var ctxLine = document.getElementById("lineChart").getContext("2d");
+            var lineChart = new Chart(ctxLine, {
+                type: "line",
+                data: {
+                    labels: hourLabels,
+                    datasets: [{
+                        label: "Today's Bill ($)",
+                        data: hourlyBills,
+                        borderColor: "rgba(54, 162, 235, 1)",
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true,
+                        onHover: function(e) {
+                            var point = this.getElementAtEvent(e);
+                            e.target.style.cursor = point.length ? 'pointer' : 'default';
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: "Bill ($)"
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Hour"
+                            }
+                        }
+                    }
+                }
             });
         });
     </script>
