@@ -186,21 +186,25 @@
             <table id="recVideoTable" class="display" style="width: 100%;">
                 
                 <tbody>
-                    <?php
-                        // Modify the PHP code to fetch data from the recvideo table
-                        $sqlRecVideo = "SELECT recTitle, recURL, userID FROM recvideo WHERE userID = ?";
-                        $stmtRecVideo = mysqli_prepare($link, $sqlRecVideo);
-                        mysqli_stmt_bind_param($stmtRecVideo, "i", $userID);
-                        mysqli_stmt_execute($stmtRecVideo);
-                        $resultRecVideo = mysqli_stmt_get_result($stmtRecVideo);
-                        while ($rowRecVideo = mysqli_fetch_assoc($resultRecVideo)) {
-                            echo "<tr>";
-                            // Combine title and URL and display them as a link
-                            echo "<td><a href='" . htmlspecialchars($rowRecVideo['recURL']) . "'>" . htmlspecialchars($rowRecVideo['recTitle']) . "</a></td>";
-                            
-                            echo "</tr>";
-                        }
+                
+                <?php
+                    // Modify the PHP code to fetch the three most recent videos from the rec_video table
+                    $sqlRecVideo = "SELECT videoTitle, videoURL, videoID FROM rec_video_list WHERE userID = ? ORDER BY videoID DESC LIMIT 3";
+                    $stmtRecVideo = mysqli_prepare($link, $sqlRecVideo);
+                    mysqli_stmt_bind_param($stmtRecVideo, "i", $userID);
+                    mysqli_stmt_execute($stmtRecVideo);
+                    $resultRecVideo = mysqli_stmt_get_result($stmtRecVideo);
+
+                    while ($rowRecVideo = mysqli_fetch_assoc($resultRecVideo)) {
+                        echo "<tr>";
+                        // Combine title and URL and display them as a link
+                        echo "<td><a href='" . htmlspecialchars($rowRecVideo['videoURL']) . "'>" . htmlspecialchars($rowRecVideo['videoTitle']) . "</a></td>";
+                        
+                        echo "</tr>";
+                    }
                     ?>
+
+
                 </tbody>
             </table>
         </div>
