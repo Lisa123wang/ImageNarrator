@@ -24,16 +24,16 @@
             // Insert new data in the user table with email, password, and dateCreated
             $sqlUser = "INSERT INTO user (email, password, dateCreated) VALUES (?, ?, ?)";
             $stmtUser = mysqli_prepare($link, $sqlUser);
-            mysqli_stmt_bind_param($stmtUser, "ss", $email, $password);
+            //mysqli_stmt_bind_param($stmtUser, "ss", $email, $password);
             mysqli_stmt_bind_param($stmtUser, "sss", $email, $password, $dateCreated);
             mysqli_stmt_execute($stmtUser);
             $userId = mysqli_insert_id($link); // 獲得剛建立的userID
-    
+            
             // 在profile表中為此為使用者新增空值
-            $sqlProfile = "INSERT INTO profile (userID) VALUES (?)";
-            $stmtProfile = mysqli_prepare($link, $sqlProfile);
-            mysqli_stmt_bind_param($stmtProfile, "i", $userId);
-            mysqli_stmt_execute($stmtProfile);
+            //$sqlProfile = "INSERT INTO profile (userID) VALUES (?)";
+            //$stmtProfile = mysqli_prepare($link, $sqlProfile);
+            //mysqli_stmt_bind_param($stmtProfile, "i", $userId);
+            //mysqli_stmt_execute($stmtProfile);
     
             $userId = mysqli_insert_id($link); // Get the newly created userID
 
