@@ -65,9 +65,9 @@
                           </div>
 
                           <div class="col-12">
-                              <label for="email" class="form-label">Your Email</label>
-                              <input type="email" name="email" class="form-control" id="email" required>
-                              <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                              <label for="email" class="form-label">Your account</label>
+                              <input type="text" name="email" class="form-control" id="email" required>
+                              <!--<div class="invalid-feedback">Please enter a valid Email adddress!</div>-->
                           </div>
 
                           <div class="col-12">
