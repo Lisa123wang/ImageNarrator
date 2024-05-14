@@ -225,8 +225,24 @@
       </div>
         <section class="section">
             <div class="card">
-                
-                    <!-- DataTable HTML -->
+            <div class="faq">
+            <div class="problem">
+            <h4>1: How do I add the extension?</h4>
+            <p>Click <a href="https://chromewebstore.google.com/detail/glarity-%E4%BD%BF%E7%94%A8chatgpt4%E7%94%9F%E6%88%90%E6%91%98%E8%A6%81%E5%92%8C%E7%BF%BB%E8%AD%AF/cmnlolelipjlhfkhpohphpedmkfbobjc">[add to chrome]</a> here to initiate the process.</p>
+
+            <h4>2: How do I use the extension?</h4>
+            <p>After adding the extension, you can press [Ctrl+6] to take a screenshot, and press [Ctrl+Shift+S] to see the image recognition outcome. If you have further questions, press [Ctrl+Shift+Y] to ask about our assistance.</p>
+
+            <h4>3: What features does the extension provide?</h4>
+            <p>Our extension provides image recognition and AI assistance. You can refer to FAQ 2 to see the full tutorial.</p>
+
+            <h4>4: Why can't I take a screenshot?</h4>
+            <p>If you want to take a screenshot, you should use the account which you registered on our website to log in to the extension, then you can take screenshots and see image recognition results.</p>
+        </div>
+
+            <!-- You can add more problem entries here -->
+        </div>
+                    
 
                 
             </div>
