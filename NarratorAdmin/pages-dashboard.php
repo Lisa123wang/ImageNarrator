@@ -156,6 +156,10 @@
                     <i class="bi bi-person"></i>
                     <span>Videos</span>
                 </a>
+                <a class="nav-link  collapsed" href="pages-video.php">
+                    <i class="bi bi-person"></i>
+                    <span>Tutorial/FAQ</span>
+                </a>
             </li><!-- End Video Page Nav -->
 
         </ul>
