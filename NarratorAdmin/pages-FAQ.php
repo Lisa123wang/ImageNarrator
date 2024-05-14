@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -195,11 +195,11 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link" href="pages-video.php">
+            <a class="nav-link collapsed" href="pages-video.php">
                 <i class="bi bi-person"></i>
                 <span>Videos</span>
             </a>
-            <a class="nav-link  collapsed"  href="pages-FAQ.php">
+            <a class="nav-link  "  href="pages-FAQ.php">
                 <i class="bi bi-person"></i>
                 <span>Tutorial/FAQ</span>
             </a>
@@ -210,13 +210,13 @@
     <main id="main" class="main">
         <!-- Page title and Breadcrumb remain unchanged -->
         <div class="pagetitle">
-          <h1>Videos</h1>
+          <h1>FAQ</h1>
 
           <nav>
 
               <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="pages-dashboard.html">Home</a></li>
-                  <li class="breadcrumb-item active">Videos</li>
+                  <li class="breadcrumb-item active">FAQ</li>
               </ol>
 
           </nav>
@@ -227,82 +227,20 @@
             <div class="card">
                 
                     <!-- DataTable HTML -->
-<table id="example" class="display nowrap" style="width:100%">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Summary</th>
-            <th>Tags</th>
-            <th>Duration</th>
-            
-            <th>Delete</th>
-            <th>Recognition</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        $stmt = $pdo->prepare('SELECT videoID, videoTitle, videoSummary, tags, videoURL, duration, userID FROM video WHERE userID = :userId');
-        $stmt->execute(['userId' => $userID]);
-        while ($row = $stmt->fetch()) {
-            echo "<tr>
-                <td><a href='{$row['videoURL']}' target='_blank'>{$row['videoTitle']}</a></td>
-                <td><div class='summary-cell'>{$row['videoSummary']}</div></td>
-                <td>{$row['tags']}</td>
-                <td>" . ($row['duration'] > 0 ? gmdate("i:s", $row['duration']) : 'N/A') . "</td>
-                
-                <td><button class='btn' aria-label='Delete' onclick='deleteVideo(\"{$row['videoID']}\")'><i class='ri-delete-bin-6-line'></i></button></td>
-                <td><button class='btn' aria-label='Go To Recognition Page' onclick='goToRecognition(\"{$row['videoID']}\")'><i class='bi bi-arrow-right-square'></i></button></td>
-            </tr>";
-        }
-        ?>
-    </tbody>
-</table>
 
                 
             </div>
         </section>
     </main>
-    <script>
-        function deleteVideo(videoID) {
-        console.log("Attempting to delete video with ID:", videoID); // Useful for debugging
-        if(confirm('Are you sure you want to delete this video?')) {
-            fetch('phpcontrol/delete_video.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'videoID=' + encodeURIComponent(videoID)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);  // Alert the user about the result
-                window.location.reload();
-            })
-            .catch(error => {
-                console.error('Error deleting video:', error);
-            });
-        }
-    }
-
-    function goToRecognition(videoID) {
-        console.log("Navigating to recognition page for video with ID:", videoID); // Useful for debugging
-        window.location.href = "pages-videorecognition.php?videoID=" + encodeURIComponent(videoID);
-    }
-    </script>
+    
+    
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
     <!-- Initialize DataTables -->
-    <script>
-        $(document).ready(function () {
-            $('#example').DataTable({ // Use '#' for ID selectors with jQuery
-                scrollX: true
-            });
-        });
-
-    </script>
+   
     <!-- Vendor JS Files -->
     <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
