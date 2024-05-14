@@ -193,7 +193,7 @@
                 
                 <?php
                     // Modify the PHP code to fetch the three most recent videos from the rec_video table
-                    $sqlRecVideo = "SELECT videoTitle, videoURL, videoID FROM rec_video_list WHERE userID = ? ORDER BY videoID DESC LIMIT 3";
+                    $sqlRecVideo = "SELECT recTitle, recURL, videoID FROM recvideo WHERE userID = ? ORDER BY videoID DESC LIMIT 3";
                     $stmtRecVideo = mysqli_prepare($link, $sqlRecVideo);
                     mysqli_stmt_bind_param($stmtRecVideo, "i", $userID);
                     mysqli_stmt_execute($stmtRecVideo);
@@ -202,7 +202,7 @@
                     while ($rowRecVideo = mysqli_fetch_assoc($resultRecVideo)) {
                         echo "<tr>";
                         // Combine title and URL and display them as a link
-                        echo "<td><a href='" . htmlspecialchars($rowRecVideo['videoURL']) . "'>" . htmlspecialchars($rowRecVideo['videoTitle']) . "</a></td>";
+                        echo "<td><a href='" . htmlspecialchars($rowRecVideo['recURL']) . "'>" . htmlspecialchars($rowRecVideo['recTitle']) . "</a></td>";
                         
                         echo "</tr>";
                     }

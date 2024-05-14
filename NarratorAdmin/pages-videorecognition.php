@@ -260,7 +260,7 @@ mysqli_close($connection);
 
   $videoID = $_GET['videoID'] ?? 1; // Default videoID to 1 if not specified
 
-  $query = "SELECT userID, videoID, videoTimestamp, OCRText, imagedescription, aiquestion, dateCreated FROM imagerecognition WHERE videoID = ?";
+  $query = "SELECT userID, videoID, videoTimestamp, OCRText, imagedescription, aiquestion, dateCreated FROM imagerecognition WHERE videoID = ? ORDER BY videoTimestamp ASC";
   $stmt = mysqli_prepare($connection, $query);
 
   if ($stmt) {

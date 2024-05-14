@@ -102,12 +102,12 @@
     $userID = $user['userID'];
 
     // 使用 userID 查詢 profile表獲取使用者的個人資料
-    $sqlProfile = "SELECT * FROM profile WHERE userID = ?";
-    $stmtProfile = mysqli_prepare($link, $sqlProfile);
-    mysqli_stmt_bind_param($stmtProfile, "i", $userID);
-    mysqli_stmt_execute($stmtProfile);
-    $resultProfile = mysqli_stmt_get_result($stmtProfile);
-    $profileInfo = mysqli_fetch_assoc($resultProfile);
+    //$sqlProfile = "SELECT * FROM profile WHERE userID = ?";
+    //$stmtProfile = mysqli_prepare($link, $sqlProfile);
+    //mysqli_stmt_bind_param($stmtProfile, "i", $userID);
+    //mysqli_stmt_execute($stmtProfile);
+    //$resultProfile = mysqli_stmt_get_result($stmtProfile);
+    //$profileInfo = mysqli_fetch_assoc($resultProfile);
 
     // 现在 $profileInfo 包含了使用者的個人資料，可以在下面的 HTML 中使用
 
