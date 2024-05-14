@@ -17,7 +17,7 @@
         $_SESSION['role'] = $rowUser['role'];
 
         
-        if ($_SESSION['role'] === 'admin') {
+        if ($_SESSION['role'] === 'Admin') {
             // Redirect to admin dashboard if user is an admin
             echo "<script type='text/javascript'>alert('Login successful as Admin'); location.href = '../pages-members.php';</script>";
             exit;
