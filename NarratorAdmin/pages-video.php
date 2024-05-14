@@ -119,7 +119,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
 <div class="d-flex align-items-center justify-content-between">
-  <a href="index.html" class="logo d-flex align-items-center">
+  <a href="pages-dashboard.php" class="logo d-flex align-items-center">
     <img src="assets/img/imageNarrator logo.png" alt="">
     <span class="d-none d-lg-block">IMAGE NARRATOR</span>
   </a>
@@ -242,7 +242,11 @@
     </thead>
     <tbody>
         <?php
-        $stmt = $pdo->prepare('SELECT videoID, videoTitle, videoSummary, tags, videoURL, duration, userID FROM video WHERE userID = :userId');
+        $stmt = $pdo->prepare('SELECT videoID, videoTitle, videoSummary, tags, videoURL, duration, userID
+        FROM video
+        WHERE userID = :userId
+        ORDER BY videoID DESC;
+        ');
         $stmt->execute(['userId' => $userID]);
         while ($row = $stmt->fetch()) {
             echo "<tr>
