@@ -168,11 +168,12 @@
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
+                <!--
                 <li>
                     <a class="nav-link nav-icon" href="https://chrome.google.com/webstore/detail/summary-for-google-with-c/cmnlolelipjlhfkhpohphpedmkfbobjc">
                         <i class="bx bxl-google"></i>
                     </a><!-- End chrome Icon -->
-                </li>
+                <!--</li>-->
                 <!-- Register Button -->
                 <li class="ms-3">
                     <!-- Add some margin to the left of the Register button -->
@@ -192,13 +193,16 @@
     <br />
     <div class="welcome-section">
         <h1>Hello Friend!</h1>
-        <p>Discover how our system can enhance your workflow with the following features, press [Add to Chrome]button to start:</p>
+        <p>Discover how our system can enhance your workflow with the following features:</p>
+        <!--
         <a class="btn btn-sm btn-outline-primary" href="https://chrome.google.com/webstore/detail/summary-for-google-with-c/cmnlolelipjlhfkhpohphpedmkfbobjc" target="_blank" >
             Add to Chrome
         </a>
+        -->
         <a class="btn btn-sm btn-outline-primary example-btn"  href="#example">
             Example
         </a>
+        
     </div>
 
     <div class="features-grid">
