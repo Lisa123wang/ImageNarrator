@@ -12,7 +12,7 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -26,15 +26,9 @@
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
 
-    <!-- =======================================================
-    * Template Name: NiceAdmin
-    * Updated: Jan 29 2024 with Bootstrap v5.3.2
-    * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-    * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
-    ======================================================== -->
     <!-- DataTables CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
     <!-- Custom CSS for DataTables container -->
     <style>
         div.dt-container {
@@ -48,8 +42,8 @@
             display: block; /* Block display to allow width and overflow styling */
         }
     </style>
+
     <title>IMAGE NARRATOR</title>
-    <!-- Additional meta tags and links remain unchanged -->
 
     <!-- Initialize Database Connection -->
     <?php
@@ -100,225 +94,158 @@
     $resultUser = mysqli_stmt_get_result($stmtUser);
     $user = mysqli_fetch_assoc($resultUser);
     $userID = $user['userID'];
-
-    // 使用 userID 查詢 profile表獲取使用者的個人資料
-    
-    //$sqlProfile = "SELECT * FROM profile WHERE userID = ?";
-    //$stmtProfile = mysqli_prepare($link, $sqlProfile);
-    //mysqli_stmt_bind_param($stmtProfile, "i", $userID);
-    //mysqli_stmt_execute($stmtProfile);
-    //$resultProfile = mysqli_stmt_get_result($stmtProfile);
-    //$profileInfo = mysqli_fetch_assoc($resultProfile);
-
-    // 现在 $profileInfo 包含了使用者的個人資料，可以在下面的 HTML 中使用
-
 ?>
 <body>
-    <!-- HTML content remains unchanged -->
-    <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-
-<div class="d-flex align-items-center justify-content-between">
-  <a href="pages-dashboard.php" class="logo d-flex align-items-center">
-    <img src="assets/img/imageNarrator logo.png" alt="">
-    <span class="d-none d-lg-block">IMAGE NARRATOR</span>
-  </a>
-  <i class="bi bi-list toggle-sidebar-btn"></i>
-</div><!-- End Logo -->
-
-<nav class="header-nav ms-auto">
-    <ul class="d-flex align-items-center">
-
-        <li>
-            <a class="nav-link nav-icon" href="https://chrome.google.com/webstore/detail/summary-for-google-with-c/cmnlolelipjlhfkhpohphpedmkfbobjc">
-                <i class="bx bxl-google"></i>
-
-            </a><!-- End chrome Icon -->
-        </li>
-
-        
-
-        <li class="nav-item dropdown pe-3">
-
-            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($_SESSION['email']); ?></span>
-            </a><!-- End Profile Iamge Icon -->
-
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                <li class="dropdown-header">
-                    <h6><?php echo htmlspecialchars($_SESSION['email']); ?></h6>
-                    <span>user</span>
-                </li>
+    <!-- Header -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="pages-dashboard.php" class="logo d-flex align-items-center">
+                <img src="assets/img/imageNarrator logo.png" alt="">
+                <span class="d-none d-lg-block">IMAGE NARRATOR</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div>
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
                 <li>
-                    <hr class="dropdown-divider">
-                </li>
-
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-
-                <li>
-                    <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                        <i class="bi bi-question-circle"></i>
-                        <span>Need Help?</span>
+                    <a class="nav-link nav-icon" href="https://chrome.google.com/webstore/detail/summary-for-google-with-c/cmnlolelipjlhfkhpohphpedmkfbobjc">
+                        <i class="bx bxl-google"></i>
                     </a>
                 </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-
-                <li>
-                    <a class="dropdown-item d-flex align-items-center" href="phpcontrol/logout.php">
-                        <i class="bi bi-box-arrow-right"></i>
-                        <span>Sign Out</span>
+                <li class="nav-item dropdown pe-3">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars($_SESSION['email']); ?></span>
                     </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6><?php echo htmlspecialchars($_SESSION['email']); ?></h6>
+                            <span>user</span>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item d-flex align-items-center" href="pages-faq.html"><i class="bi bi-question-circle"></i><span>Need Help?</span></a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item d-flex align-items-center" href="phpcontrol/logout.php"><i class="bi bi-box-arrow-right"></i><span>Sign Out</span></a></li>
+                    </ul>
                 </li>
-
-            </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-    </ul>
-</nav><!-- End Icons Navigation -->
-
-</header><!-- End Header -->
-    <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-dashboard.php">
-                <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
-            </a>
-        </li><!-- End Dashboard Nav -->
-
-        <li class="nav-heading">Pages</li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="pages-video.php">
-                <i class="bi bi-person"></i>
-                <span>Videos</span>
-            </a>
-            <a class="nav-link  collapsed"  href="pages-FAQ.php">
-                <i class="bi bi-person"></i>
-                <span>Tutorial/FAQ</span>
-            </a>
-        </li><!-- End Video Page Nav -->
-     
-    
-</aside><!-- End Sidebar-->
+            </ul>
+        </nav>
+    </header>
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item"><a class="nav-link collapsed" href="pages-dashboard.php"><i class="bi bi-grid"></i><span>Dashboard</span></a></li>
+            <li class="nav-heading">Pages</li>
+            <li class="nav-item">
+                <a class="nav-link" href="pages-video.php"><i class="bi bi-person"></i><span>video</span></a>
+            </li>
+        </ul>
+    </aside>
+    <!-- Main Content -->
     <main id="main" class="main">
-        <!-- Page title and Breadcrumb remain unchanged -->
         <div class="pagetitle">
-          <h1>Videos</h1>
-
-          <nav>
-
-              <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="pages-dashboard.html">Home</a></li>
-                  <li class="breadcrumb-item active">Videos</li>
-              </ol>
-
-          </nav>
-          <!-- End Page Title -->
-
-      </div>
+            <h1>Video List</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="pages-dashboard.php">Home</a></li>
+                    <li class="breadcrumb-item active">Video</li>
+                </ol>
+            </nav>
+        </div>
         <section class="section">
-            <div class="card">
-                
-                    <!-- DataTable HTML -->
-<table id="example" class="display nowrap" style="width:100%">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Summary</th>
-            <th>Tags</th>
-            <th>Duration</th>
-            
-            <th>Delete</th>
-            <th>Recognition</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        $stmt = $pdo->prepare('SELECT videoID, videoTitle, videoSummary, tags, videoURL, duration, userID
-        FROM video
-        WHERE userID = :userId
-        ORDER BY videoID DESC;
-        ');
-        $stmt->execute(['userId' => $userID]);
-        while ($row = $stmt->fetch()) {
-            echo "<tr>
-                <td><a href='{$row['videoURL']}' target='_blank'>{$row['videoTitle']}</a></td>
-                <td><div class='summary-cell'>{$row['videoSummary']}</div></td>
-                <td>{$row['tags']}</td>
-                <td>" . ($row['duration'] > 0 ? gmdate("i:s", $row['duration']) : 'N/A') . "</td>
-                
-                <td><button class='btn' aria-label='Delete' onclick='deleteVideo(\"{$row['videoID']}\")'><i class='ri-delete-bin-6-line'></i></button></td>
-                <td><button class='btn' aria-label='Go To Recognition Page' onclick='goToRecognition(\"{$row['videoID']}\")'><i class='bi bi-arrow-right-square'></i></button></td>
-            </tr>";
-        }
-        ?>
-    </tbody>
-</table>
-
-                
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">video list</h5>
+                            <!-- Table with video list -->
+                            <div class="dt-container">
+                                <table id="dataTable" class="display">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Summary</th>
+                                            <th>Tags</th>
+                                            <th>Duration</th>
+                                            <th>Delete</th>
+                                            <th>Recognition Page</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $stmt = $pdo->prepare('
+                                            SELECT v.videoID, v.videoTitle, v.videoSummary, v.tags, v.videoURL, v.duration, v.userID, ir.latestDate
+                                            FROM video v
+                                            LEFT JOIN (
+                                                SELECT videoID, MAX(dateCreated) AS latestDate
+                                                FROM imagerecognition
+                                                GROUP BY videoID
+                                            ) ir ON v.videoID = ir.videoID
+                                            WHERE v.userID = :userId
+                                            ORDER BY ir.latestDate DESC, v.videoID DESC;
+                                        ');
+                                        $stmt->execute(['userId' => $userID]);
+                                        while ($row = $stmt->fetch()) {
+                                            echo "<tr>
+                                                <td><a href='{$row['videoURL']}' target='_blank'>{$row['videoTitle']}</a></td>
+                                                <td><div class='summary-cell'>{$row['videoSummary']}</div></td>
+                                                <td>{$row['tags']}</td>
+                                                <td>" . ($row['duration'] > 0 ? gmdate("i:s", $row['duration']) : 'N/A') . "</td>
+                                                <td><button class='btn' aria-label='Delete' onclick='deleteVideo(\"{$row['videoID']}\")'><i class='ri-delete-bin-6-line'></i></button></td>
+                                                <td><button class='btn' aria-label='Go To Recognition Page' onclick='goToRecognition(\"{$row['videoID']}\")'><i class='bi bi-arrow-right-square'></i></button></td>
+                                            </tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
-    <script>
-        function deleteVideo(videoID) {
-        console.log("Attempting to delete video with ID:", videoID); // Useful for debugging
-        if(confirm('Are you sure you want to delete this video?')) {
-            fetch('phpcontrol/delete_video.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'videoID=' + encodeURIComponent(videoID)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);  // Alert the user about the result
-                window.location.reload();
-            })
-            .catch(error => {
-                console.error('Error deleting video:', error);
-            });
-        }
-    }
-
-    function goToRecognition(videoID) {
-        console.log("Navigating to recognition page for video with ID:", videoID); // Useful for debugging
-        window.location.href = "pages-videorecognition.php?videoID=" + encodeURIComponent(videoID);
-    }
-    </script>
-
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
-    <!-- Initialize DataTables -->
-    <script>
-        $(document).ready(function () {
-            $('#example').DataTable({ // Use '#' for ID selectors with jQuery
-                scrollX: true
-            });
-        });
-
-    </script>
     <!-- Vendor JS Files -->
-    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/chart.js/chart.umd.js"></script>
-    <script src="assets/vendor/echarts/echarts.min.js"></script>
-    <script src="assets/vendor/quill/quill.min.js"></script>
     <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
-        
+
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- Initialize DataTable -->
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                "order": [[ 5, "desc" ]] // Order by the 6th column (latestDate)
+            });
+        });
+    </script>
+    <!-- Custom Functions -->
+    <script>
+        function deleteVideo(videoID) {
+            if (confirm('Are you sure you want to delete this video?')) {
+                // Send AJAX request to delete video
+                $.ajax({
+                    url: 'delete_video.php',
+                    method: 'POST',
+                    data: { videoID: videoID },
+                    success: function(response) {
+                        // Reload the page after successful deletion
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Failed to delete video:', error);
+                    }
+                });
+            }
+        }
+
+        function goToRecognition(videoID) {
+            window.location.href = 'recognition_page.php?videoID=' + videoID;
+        }
+    </script>
 </body>
 </html>
