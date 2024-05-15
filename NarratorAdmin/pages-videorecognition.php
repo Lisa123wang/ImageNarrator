@@ -248,7 +248,6 @@ mysqli_close($connection);
   <!-- Breadcrumb navigation -->
 </div><!-- End Page Title -->
 
-<!-- Image Recognition Section -->
 <section class="image-recognition">
   <?php
   // Database connection
@@ -297,9 +296,26 @@ mysqli_close($connection);
 
   mysqli_close($connection);
   ?>
+
+  <!-- Include DataTables CSS and JS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+  <script type="text/javascript">
+    $(document).ready( function () {
+        $('.data-table').DataTable();
+    });
+  </script>
 </section><!-- End Image Recognition Section -->
 
+
+
 </main><!-- End #main -->
+<script type="text/javascript">
+$(document).ready( function () {
+    $('.data-table').DataTable();
+} );
+</script>
 
 
   <!-- ======= Footer ======= -->
@@ -320,6 +336,9 @@ mysqli_close($connection);
   <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
