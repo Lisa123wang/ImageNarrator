@@ -135,6 +135,17 @@ if ($stmtVideoInfo) {
 
 mysqli_close($connection);
 ?>
+<!-- Custom CSS for White Theme with Original Green Table Headers -->
+<style>
+  .data-table,
+  .data-table td {
+    background-color: white; /* White background for the table and cells */
+    color: black; /* Black text for readability */
+    border: 1px solid #ccc; /* Light grey borders */
+  }
+ 
+</style>
+
 <body>
 
   <!-- ======= Header ======= -->
