@@ -247,7 +247,7 @@
         }
 
         function goToRecognition(videoID) {
-            window.location.href = 'recognition_page.php?videoID=' + videoID;
+            window.location.href = 'pages-videorecognition.php?videoID=' + videoID;
         }
     </script>
 </body>
