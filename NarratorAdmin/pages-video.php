@@ -132,14 +132,30 @@
     </header>
     <!-- Sidebar -->
     <aside id="sidebar" class="sidebar">
-        <ul class="sidebar-nav" id="sidebar-nav">
-            <li class="nav-item"><a class="nav-link collapsed" href="pages-dashboard.php"><i class="bi bi-grid"></i><span>Dashboard</span></a></li>
-            <li class="nav-heading">Pages</li>
-            <li class="nav-item">
-                <a class="nav-link" href="pages-video.php"><i class="bi bi-person"></i><span>video</span></a>
-            </li>
-        </ul>
-    </aside>
+
+<ul class="sidebar-nav" id="sidebar-nav">
+
+    <li class="nav-item">
+        <a class="nav-link  collapsed" href="pages-dashboard.php">
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
+        </a>
+    </li><!-- End Dashboard Nav -->
+
+    <li class="nav-heading">Pages</li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="pages-video.php">
+            <i class="bi bi-person"></i>
+            <span>Videos</span>
+        </a>
+        <a class="nav-link  collapsed"  href="pages-FAQ.php">
+            <i class="bi bi-person"></i>
+            <span>Tutorial/FAQ</span>
+        </a>
+    </li><!-- End Video Page Nav -->
+    
+</aside><!-- End Sidebar-->
     <!-- Main Content -->
     <main id="main" class="main">
         <div class="pagetitle">
