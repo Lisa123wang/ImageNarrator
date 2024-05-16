@@ -166,7 +166,7 @@
                                             <th>Summary</th>
                                             <th>Tags</th>
                                             <th>Duration</th>
-                                            <th>Delete</th>
+                                            <th>Last Viewed Date</th>
                                             <th>Recognition Page</th>
                                         </tr>
                                     </thead>
@@ -185,17 +185,20 @@
                                         ');
                                         $stmt->execute(['userId' => $userID]);
                                         while ($row = $stmt->fetch()) {
+                                            $latestDate = $row['latestDate'] ? date('Y-m-d', strtotime($row['latestDate'])) : 'N/A';
                                             echo "<tr>
                                                 <td><a href='{$row['videoURL']}' target='_blank'>{$row['videoTitle']}</a></td>
                                                 <td><div class='summary-cell'>{$row['videoSummary']}</div></td>
                                                 <td>{$row['tags']}</td>
                                                 <td>" . ($row['duration'] > 0 ? gmdate("i:s", $row['duration']) : 'N/A') . "</td>
-                                                <td><button class='btn' aria-label='Delete' onclick='deleteVideo(\"{$row['videoID']}\")'><i class='ri-delete-bin-6-line'></i></button></td>
+                                                <td>{$latestDate}</td>
                                                 <td><button class='btn' aria-label='Go To Recognition Page' onclick='goToRecognition(\"{$row['videoID']}\")'><i class='bi bi-arrow-right-square'></i></button></td>
                                             </tr>";
                                         }
                                         ?>
                                     </tbody>
+
+
                                 </table>
                             </div>
                         </div>
