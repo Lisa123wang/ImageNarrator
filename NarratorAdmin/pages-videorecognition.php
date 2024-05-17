@@ -68,6 +68,41 @@
         .data-table tbody tr:last-of-type {
             border-bottom: 2px solid #009879;
         }
+
+        #chatbox {
+            width: 300px;
+            height: 400px;
+            border: 1px solid #ccc;
+            padding: 5px;
+            overflow-y: scroll;
+        }
+        #inputBox {
+            width: 294px;
+        }
+        .ai-chatbox {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+        }
+        #chatInput {
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: calc(100% - 22px); /* Adjust width to account for padding and border */
+        }
+
     </style>
 
 </head>
@@ -134,6 +169,37 @@ if ($stmtVideoInfo) {
 }
 
 mysqli_close($connection);
+?>
+<?php
+// Check if there is a POST request to interact with the AI
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['message'])) {
+    echo askAI($_POST['message']);
+    exit;  // Important to stop further processing since it's an AJAX request
+}
+
+// Function to send requests to the AI API
+function askAI($prompt) {
+    $apiKey = 'API'; // Replace with your actual API key
+    $apiUrl = 'https://api.openai.com/v1/chat/completions';
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $apiUrl);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Authorization: Bearer ' . $apiKey
+    ]);
+    $data = json_encode([
+        'prompt' => $prompt,
+        'max_tokens' => 150
+    ]);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    return $result;
+}
 ?>
 <!-- Custom CSS for White Theme with Original Green Table Headers -->
 <style>
@@ -245,83 +311,133 @@ mysqli_close($connection);
 </aside><!-- End Sidebar-->
 
 <main id="main" class="main">
+    <div class="pagetitle">
+        <nav>
+        <ol class="breadcrumb">       
+            <li class="breadcrumb-item active">Dashboard</li>
+            <li class="breadcrumb-item active">Videos</li>
+            <li class="breadcrumb-item active"><?php echo htmlspecialchars($videoTitle); ?></li>
+        </ol>
+        </nav>
+        <h1><a href="<?php echo htmlspecialchars($videoURL); ?>" target="_blank"><?php echo htmlspecialchars($videoTitle); ?></a></h1>
+    </div><!-- End Page Title -->
 
-<div class="pagetitle">
-    <nav>
+    <section class="image-recognition">
+        <?php
+        // Database connection
+        $host = 'localhost';
+        $dbname = 'narratordb_test1';
+        $username = 'root';
+        $password = '';
+        $connection = mysqli_connect($host, $username, $password, $dbname);
 
-    <ol class="breadcrumb">       
-        <li class="breadcrumb-item active">Dashboard</li>
-        <li class="breadcrumb-item active">Videos</li>
-        <li class="breadcrumb-item active"><?php echo htmlspecialchars($videoTitle); ?></li>
-    </ol>
-    </nav>
-    <h1><a href="<?php echo htmlspecialchars($videoURL); ?>" target="_blank"><?php echo htmlspecialchars($videoTitle); ?></a></h1>
-  <!-- Breadcrumb navigation -->
-</div><!-- End Page Title -->
+        if (!$connection) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
 
-<section class="image-recognition">
-  <?php
-  // Database connection
-  $host = 'localhost';
-  $dbname = 'narratordb_test1';
-  $username = 'root';
-  $password = '';
-  $connection = mysqli_connect($host, $username, $password, $dbname);
+        $videoID = $_GET['videoID'] ?? 1; // Default videoID to 1 if not specified
 
-  if (!$connection) {
-      die("Connection failed: " . mysqli_connect_error());
-  }
+        $query = "SELECT userID, videoID, videoTimestamp, OCRText, imagedescription, aiquestion, dateCreated FROM imagerecognition WHERE videoID = ? ORDER BY videoTimestamp ASC";
+        $stmt = mysqli_prepare($connection, $query);
 
-  $videoID = $_GET['videoID'] ?? 1; // Default videoID to 1 if not specified
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "i", $videoID);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
 
-  $query = "SELECT userID, videoID, videoTimestamp, OCRText, imagedescription, aiquestion, dateCreated FROM imagerecognition WHERE videoID = ? ORDER BY videoTimestamp ASC";
-  $stmt = mysqli_prepare($connection, $query);
+            if (mysqli_num_rows($result) > 0) {
+                echo "<table class='data-table'>";
+                echo "<thead><tr><th>Video Timestamp</th><th>OCR Text</th><th>Image Description</th><th>AI Question</th></tr></thead>";
+                echo "<tbody>";
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    
+                    echo "<td>" . htmlspecialchars($row['videoTimestamp']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['OCRText']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['imagedescription']) . "</td>";
+                    echo "<td>" . htmlspecialchars($row['aiquestion']) . "</td>";
+                    
+                    echo "</tr>";
+                }
+                echo "</tbody></table>";
+            } else {
+                echo "<p>No data available for the specified video ID.</p>";
+            }
+            mysqli_stmt_close($stmt);
+        } else {
+            echo "Error preparing the statement: " . mysqli_error($connection);
+        }
 
-  if ($stmt) {
-      mysqli_stmt_bind_param($stmt, "i", $videoID);
-      mysqli_stmt_execute($stmt);
-      $result = mysqli_stmt_get_result($stmt);
+        mysqli_close($connection);
+        ?>
 
-      if (mysqli_num_rows($result) > 0) {
-          echo "<table class='data-table'>";
-          echo "<thead><tr><th>Video Timestamp</th><th>OCR Text</th><th>Image Description</th><th>AI Question</th></tr></thead>";
-          echo "<tbody>";
-          while ($row = mysqli_fetch_assoc($result)) {
-              echo "<tr>";
-              
-              echo "<td>" . htmlspecialchars($row['videoTimestamp']) . "</td>";
-              echo "<td>" . htmlspecialchars($row['OCRText']) . "</td>";
-              echo "<td>" . htmlspecialchars($row['imagedescription']) . "</td>";
-              echo "<td>" . htmlspecialchars($row['aiquestion']) . "</td>";
-              
-              echo "</tr>";
-          }
-          echo "</tbody></table>";
-      } else {
-          echo "<p>No data available for the specified video ID.</p>";
-      }
-      mysqli_stmt_close($stmt);
-  } else {
-      echo "Error preparing the statement: " . mysqli_error($connection);
-  }
-
-  mysqli_close($connection);
-  ?>
-
-  <!-- Include DataTables CSS and JS -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-  <script type="text/javascript">
-    $(document).ready( function () {
-        $('.data-table').DataTable();
-    });
-  </script>
-</section><!-- End Image Recognition Section -->
-
-
+        <!-- Include DataTables CSS and JS -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+        <script type="text/javascript">
+            $(document).ready( function () {
+                $('.data-table').DataTable();
+            });
+        </script>
+    </section><!-- End Image Recognition Section -->
 
 </main><!-- End #main -->
+
+<div id="aiChatbox" class="ai-chatbox">
+    <div id="chatMessages" class="chat-messages"></div>
+    <input type="text" id="chatInput" placeholder="Ask me anything..." onkeypress="checkEnterKey(event)">
+    <button onclick="sendChatMessage()">Send</button>
+</div>
+
+<script>
+    function checkEnterKey(event) {
+        if (event.keyCode === 13) { // Enter key code
+            sendChatMessage();
+        }
+    }
+
+    function sendChatMessage() {
+    var inputBox = document.getElementById('chatInput');
+    var message = inputBox.value;
+    if (!message.trim()) return;
+    inputBox.value = ''; // Clear input box
+
+    displayMessage('You: ' + message, 'right'); // Display user's message
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'ai_assistant.php', true); // Update to your PHP file that processes the AI request
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Display AI's response from server
+            displayMessage('AI: ' + xhr.responseText, 'left');
+        } else {
+            // Handle error or no response
+            displayMessage('AI: Sorry, there was an error processing your request.', 'left');
+        }
+    };
+
+    xhr.onerror = function() {
+        // Handle network errors
+        displayMessage('AI: Network error, please try again later.', 'left');
+    };
+
+    xhr.send('message=' + encodeURIComponent(message)); // Send the message to the server
+}
+
+function displayMessage(message, align) {
+    var chatMessages = document.getElementById('chatMessages');
+    var newMessage = document.createElement('div');
+    newMessage.style.textAlign = align;
+    newMessage.textContent = message;
+    chatMessages.appendChild(newMessage);
+    chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
+}
+
+</script>
+
 <script type="text/javascript">
 $(document).ready( function () {
     $('.data-table').DataTable();
