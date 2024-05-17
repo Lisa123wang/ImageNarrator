@@ -384,11 +384,25 @@ function askAI($prompt) {
 
 </main><!-- End #main -->
 
-<div id="aiChatbox" class="ai-chatbox">
-    <div id="chatMessages" class="chat-messages"></div>
-    <input type="text" id="chatInput" placeholder="Ask me anything..." onkeypress="checkEnterKey(event)">
-    <button onclick="sendChatMessage()">Send</button>
+<div id="aiChatbox" class="ai-chatbox" aria-label="AI Chat Assistant" role="complementary">
+    <div id="chatMessages" class="chat-messages" tabindex="0" aria-label="Chat messages" aria-live="polite" aria-atomic="true" role="log">
+        <!-- Messages will be dynamically inserted here -->
+    </div>
+    <label for="chatInput" class="visually-hidden">Type your message here</label>
+    <input type="text" id="chatInput" placeholder="Ask me anything..." aria-labelledby="chatInput">
+    <button onclick="sendChatMessage()" aria-label="Send message">Send</button>
 </div>
+
+
+<script>
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.shiftKey && event.key === 'A') {
+        event.preventDefault();
+        document.getElementById('chatInput').focus();
+    }
+});
+</script>
+
 
 <script>
     function checkEnterKey(event) {
@@ -406,12 +420,12 @@ function askAI($prompt) {
     displayMessage('You: ' + message, 'right'); // Display user's message
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'ai_assistant.php', true); // Update to your PHP file that processes the AI request
+    xhr.open('POST', 'ai_assistant.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
     xhr.onload = function() {
         if (xhr.status === 200) {
-            // Display AI's response from server
+            // Display AI's response and ensure it's read by screen readers
             displayMessage('AI: ' + xhr.responseText, 'left');
         } else {
             // Handle error or no response
@@ -424,7 +438,7 @@ function askAI($prompt) {
         displayMessage('AI: Network error, please try again later.', 'left');
     };
 
-    xhr.send('message=' + encodeURIComponent(message)); // Send the message to the server
+    xhr.send('message=' + encodeURIComponent(message));
 }
 
 function displayMessage(message, align) {
@@ -432,9 +446,23 @@ function displayMessage(message, align) {
     var newMessage = document.createElement('div');
     newMessage.style.textAlign = align;
     newMessage.textContent = message;
+
+    // Set this message as the only live region temporarily
+    newMessage.setAttribute('aria-live', 'polite');
+    newMessage.setAttribute('role', 'alert'); // Role alert ensures it gets announced immediately but politely
+
     chatMessages.appendChild(newMessage);
     chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
+
+    // After appending and potentially being read by the screen reader, remove the aria-live to avoid repeats
+    setTimeout(() => {
+        newMessage.removeAttribute('aria-live');
+        newMessage.removeAttribute('role');
+    }, 500); // Timeout can be adjusted based on expected reading time and response speed
 }
+
+
+
 
 </script>
 
@@ -444,6 +472,7 @@ $(document).ready( function () {
 } );
 </script>
 
+    </script>
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
