@@ -384,6 +384,7 @@ function askAI($prompt) {
 
             <button id="summarize-btn">Summarize</button>
             <div id="summary-result"></div>
+            <div style="height:200px"></div>
         </section><!-- End Image Recognition Section -->
 
         <!-- Include DataTables JS and jQuery -->
