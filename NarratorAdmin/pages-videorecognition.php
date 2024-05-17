@@ -103,6 +103,16 @@
             width: calc(100% - 22px); /* Adjust width to account for padding and border */
         }
 
+        #summary-result {
+            display: none; /* Initially hidden */
+            background-color: white;
+            height: 400px;
+            width: 400px;
+            overflow-y: auto; /* Allows scrolling if content exceeds height */
+            padding: 10px; /* Adds some padding for better readability */
+            border: 1px solid #ddd; /* Adds a border for better visibility */
+        }
+
     </style>
 
 </head>
@@ -311,78 +321,97 @@ function askAI($prompt) {
 </aside><!-- End Sidebar-->
 
 <main id="main" class="main">
-    <div class="pagetitle">
-        <nav>
-        <ol class="breadcrumb">       
-            <li class="breadcrumb-item active">Dashboard</li>
-            <li class="breadcrumb-item active">Videos</li>
-            <li class="breadcrumb-item active"><?php echo htmlspecialchars($videoTitle); ?></li>
-        </ol>
-        </nav>
-        <h1><a href="<?php echo htmlspecialchars($videoURL); ?>" target="_blank"><?php echo htmlspecialchars($videoTitle); ?></a></h1>
-    </div><!-- End Page Title -->
+        <div class="pagetitle">
+            <nav>
+                <ol class="breadcrumb">       
+                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item active">Videos</li>
+                    <li class="breadcrumb-item active"><?php echo htmlspecialchars($videoTitle); ?></li>
+                </ol>
+            </nav>
+            <h1><a href="<?php echo htmlspecialchars($videoURL); ?>" target="_blank"><?php echo htmlspecialchars($videoTitle); ?></a></h1>
+        </div><!-- End Page Title -->
 
-    <section class="image-recognition">
-        <?php
-        // Database connection
-        $host = 'localhost';
-        $dbname = 'narratordb_test1';
-        $username = 'root';
-        $password = '';
-        $connection = mysqli_connect($host, $username, $password, $dbname);
+        <section class="image-recognition">
+            <?php
+            // Database connection
+            $host = 'localhost';
+            $dbname = 'narratordb_test1';
+            $username = 'root';
+            $password = '';
+            $connection = mysqli_connect($host, $username, $password, $dbname);
 
-        if (!$connection) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-
-        $videoID = $_GET['videoID'] ?? 1; // Default videoID to 1 if not specified
-
-        $query = "SELECT userID, videoID, videoTimestamp, OCRText, imagedescription, aiquestion, dateCreated FROM imagerecognition WHERE videoID = ? ORDER BY videoTimestamp ASC";
-        $stmt = mysqli_prepare($connection, $query);
-
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "i", $videoID);
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-
-            if (mysqli_num_rows($result) > 0) {
-                echo "<table class='data-table'>";
-                echo "<thead><tr><th>Video Timestamp</th><th>OCR Text</th><th>Image Description</th><th>AI Question</th></tr></thead>";
-                echo "<tbody>";
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<tr>";
-                    
-                    echo "<td>" . htmlspecialchars($row['videoTimestamp']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['OCRText']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['imagedescription']) . "</td>";
-                    echo "<td>" . htmlspecialchars($row['aiquestion']) . "</td>";
-                    
-                    echo "</tr>";
-                }
-                echo "</tbody></table>";
-            } else {
-                echo "<p>No data available for the specified video ID.</p>";
+            if (!$connection) {
+                die("Connection failed: " . mysqli_connect_error());
             }
-            mysqli_stmt_close($stmt);
-        } else {
-            echo "Error preparing the statement: " . mysqli_error($connection);
-        }
 
-        mysqli_close($connection);
-        ?>
+            $videoID = $_GET['videoID'] ?? 1; // Default videoID to 1 if not specified
+            $userID = $_GET['userID'] ?? 1; // Default userID to 1 if not specified
 
-        <!-- Include DataTables CSS and JS -->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+            $query = "SELECT userID, videoID, videoTimestamp, OCRText, imagedescription, aiquestion, dateCreated FROM imagerecognition WHERE videoID = ? AND userID = ? ORDER BY videoTimestamp ASC";
+            $stmt = mysqli_prepare($connection, $query);
+
+            if ($stmt) {
+                mysqli_stmt_bind_param($stmt, "ii", $videoID, $userID);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+
+                if (mysqli_num_rows($result) > 0) {
+                    echo "<table class='data-table'>";
+                    echo "<thead><tr><th>Video Timestamp</th><th>OCR Text</th><th>Image Description</th><th>AI Question</th></thead>";
+                    echo "<tbody>";
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr>";
+                        
+                        echo "<td>" . htmlspecialchars($row['videoTimestamp']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['OCRText']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['imagedescription']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['aiquestion']) . "</td>";
+                        
+                        echo "</tr>";
+                    }
+                    echo "</tbody></table>";
+                } else {
+                    echo "<p>No data available for the specified video ID.</p>";
+                }
+                mysqli_stmt_close($stmt);
+            } else {
+                echo "Error preparing the statement: " . mysqli_error($connection);
+            }
+
+            mysqli_close($connection);
+            ?>
+
+            <button id="summarize-btn">Summarize</button>
+            <div id="summary-result"></div>
+        </section><!-- End Image Recognition Section -->
+
+        <!-- Include DataTables JS and jQuery -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
         <script type="text/javascript">
-            $(document).ready( function () {
+            $(document).ready(function () {
                 $('.data-table').DataTable();
             });
-        </script>
-    </section><!-- End Image Recognition Section -->
 
-</main><!-- End #main -->
+            $('#summarize-btn').click(function() {
+                $.ajax({
+                    url: 'summarize.php',
+                    type: 'POST',
+                    data: { 
+                        videoID: <?php echo $videoID; ?>,
+                        userID: <?php echo $userID; ?>
+                    },
+                    success: function(response) {
+                        $('#summary-result').html(response);
+                        $('#summary-result').show(); // Show the div when the response is received
+                    }
+                });
+            });
+        </script>
+    </main><!-- End #main -->
+
+
 
 <div id="aiChatbox" class="ai-chatbox" aria-label="AI Chat Assistant" role="complementary">
     <div id="chatMessages" class="chat-messages" tabindex="0" aria-label="Chat messages" aria-live="polite" aria-atomic="true" role="log">
