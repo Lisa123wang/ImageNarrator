@@ -84,7 +84,7 @@
             bottom: 20px;
             right: 20px;
             width: 300px;
-            height: 400px;
+            height: 200px;
             border: 1px solid #ddd;
             background-color: #fff;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
