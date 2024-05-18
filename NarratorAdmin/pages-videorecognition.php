@@ -148,7 +148,7 @@
     $resultScreenshotCount = mysqli_stmt_get_result($stmtScreenshotCount);
 ?>
 <?php
-// Database connection
+// Database connection for breadcrumb
 $host = 'localhost';
 $dbname = 'narratordb_test1';
 $username = 'root';
@@ -333,54 +333,57 @@ function askAI($prompt) {
         </div><!-- End Page Title -->
 
         <section class="image-recognition">
-            <?php
-            // Database connection
-            $host = 'localhost';
-            $dbname = 'narratordb_test1';
-            $username = 'root';
-            $password = '';
-            $connection = mysqli_connect($host, $username, $password, $dbname);
+        <?php
+// Database connection
+$host = 'localhost';
+$dbname = 'narratordb_test1';
+$username = 'root';
+$password = '';
+$connection = mysqli_connect($host, $username, $password, $dbname);
 
-            if (!$connection) {
-                die("Connection failed: " . mysqli_connect_error());
-            }
+if (!$connection) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
-            $videoID = $_GET['videoID'] ?? 1; // Default videoID to 1 if not specified
-            $userID = $_GET['userID'] ?? 1; // Default userID to 1 if not specified
+$videoID = $_GET['videoID'] ?? 1; // Default videoID to 1 if not specified
+$userID = $_GET['userID'] ?? 1; // Default userID to 1 if not specified
 
-            $query = "SELECT userID, videoID, videoTimestamp, OCRText, imagedescription, aiquestion, dateCreated FROM imagerecognition WHERE videoID = ? AND userID = ? ORDER BY videoTimestamp ASC";
-            $stmt = mysqli_prepare($connection, $query);
+$query = "SELECT userID, videoID, videoTimestamp, OCRText, imagedescription, aiquestion, dateCreated FROM imagerecognition WHERE videoID = ? AND userID = ? ORDER BY videoTimestamp ASC";
+$stmt = mysqli_prepare($connection, $query);
 
-            if ($stmt) {
-                mysqli_stmt_bind_param($stmt, "ii", $videoID, $userID);
-                mysqli_stmt_execute($stmt);
-                $result = mysqli_stmt_get_result($stmt);
+if ($stmt) {
+    mysqli_stmt_bind_param($stmt, "ii", $videoID, $userID);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
-                if (mysqli_num_rows($result) > 0) {
-                    echo "<table class='data-table'>";
-                    echo "<thead><tr><th>Video Timestamp</th><th>OCR Text</th><th>Image Description</th><th>AI Question</th></thead>";
-                    echo "<tbody>";
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<tr>";
-                        
-                        echo "<td>" . htmlspecialchars($row['videoTimestamp']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['OCRText']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['imagedescription']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['aiquestion']) . "</td>";
-                        
-                        echo "</tr>";
-                    }
-                    echo "</tbody></table>";
-                } else {
-                    echo "<p>No data available for the specified video ID.</p>";
-                }
-                mysqli_stmt_close($stmt);
-            } else {
-                echo "Error preparing the statement: " . mysqli_error($connection);
-            }
+    if (mysqli_num_rows($result) > 0) {
+        echo "<table class='data-table'>";
+        echo "<thead><tr><th>Video Timestamp</th><th>OCR Text</th><th>Image Description</th><th>AI Question</th></thead>";
+        echo "<tbody>";
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr>";
+            
+            echo "<td>" . htmlspecialchars($row['videoTimestamp']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['OCRText']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['imagedescription']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['aiquestion']) . "</td>";
+            
+            echo "</tr>";
+        }
+        echo "</tbody></table>";
+        echo "<a href='download_csv.php?videoID=$videoID&userID=$userID'>Download as CSV</a>";
+    } else {
+        echo "<p>No data available for the specified video ID.</p>";
+    }
+    mysqli_stmt_close($stmt);
+} else {
+    echo "Error preparing the statement: " . mysqli_error($connection);
+}
 
-            mysqli_close($connection);
-            ?>
+mysqli_close($connection);
+?>
+
+
 
             <button id="summarize-btn">Summarize</button>
             <div id="summary-result"></div>
