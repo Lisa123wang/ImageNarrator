@@ -364,9 +364,9 @@ if ($stmt) {
             echo "<tr>";
             
             echo "<td>" . htmlspecialchars($row['videoTimestamp']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['OCRText']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['imagedescription']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['aiquestion']) . "</td>";
+            echo "<td>" . nl2br(htmlspecialchars($row['OCRText'])) . "</td>";
+            echo "<td>" . nl2br(htmlspecialchars($row['imagedescription'])) . "</td>";
+            echo "<td>" . nl2br(htmlspecialchars($row['aiquestion'])) . "</td>";
             
             echo "</tr>";
         }
@@ -382,6 +382,7 @@ if ($stmt) {
 
 mysqli_close($connection);
 ?>
+
 
 
 
