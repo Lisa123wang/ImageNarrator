@@ -201,7 +201,8 @@
             </a>
             <a class="nav-link  "  href="pages-FAQ.php">
                 <i class="bi bi-person"></i>
-                <span>Tutorial/FAQ</span>
+                <span>Tutorial/FAQ 
+                    <br>User terms</span>
             </a>
         </li><!-- End Video Page Nav -->
      
@@ -210,12 +211,46 @@
     <main id="main" class="main">
         <!-- Page title and Breadcrumb remain unchanged -->
         <div class="pagetitle">
+          <h1>Installation Steps and User Guide</h1>
+
+          <nav>
+
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="pages-dashboard.php">Home</a></li>
+                  <li class="breadcrumb-item ">Tutorial_FAQ_User terms</li>
+                  <li class="breadcrumb-item active">Installation Steps and User Guide</li>
+              </ol>
+
+          </nav>
+          <!-- End Page Title -->
+
+      </div>
+        <section class="section">
+            <div class="card">
+            <p>1. Open the Google Chrome browser.<br>
+2. Visit the system website to register for an account.<br>
+3. Navigate to the Chrome Web Store / our system’s website.<br>
+4. Enter "Image Narrator" in the search box / click the <a href="https://chromewebstore.google.com/detail/glarity-%E4%BD%BF%E7%94%A8chatgpt4%E7%94%9F%E6%88%90%E6%91%98%E8%A6%81%E5%92%8C%E7%BF%BB%E8%AD%AF/cmnlolelipjlhfkhpohphpedmkfbobjc">[add to chrome]</a> link to find our extension.<br>
+5. Click on "Add to Chrome" and follow the prompts to complete the installation.<br>
+6. After installation, the extension icon will appear in the browser toolbar.<br>
+7. Log in to the extension using your registered account.<br>
+8. Open YouTube and play any instructional video.<br>
+9. Use the shortcut key [ctrl+6] to take a screenshot of the video.<br>
+10. The system will automatically recognize the information on the screen and provide feedback to the user.</p>
+                    
+
+                
+            </div>
+        </section>
+        <br>
+        <div class="pagetitle">
           <h1>FAQ</h1>
 
           <nav>
 
               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="pages-dashboard.html">Home</a></li>
+                  <li class="breadcrumb-item"><a href="pages-dashboard.php">Home</a></li>
+                  <li class="breadcrumb-item ">Tutorial_FAQ_User terms</li>
                   <li class="breadcrumb-item active">FAQ</li>
               </ol>
 
@@ -242,6 +277,80 @@
 
             <!-- You can add more problem entries here -->
         </div>
+                    
+
+                
+            </div>
+        </section>
+        <br>
+        <div class="pagetitle">
+          <h1>User Terms and Conditions</h1>
+
+          <nav>
+
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="pages-dashboard.php">Home</a></li>
+                  <li class="breadcrumb-item ">Tutorial_FAQ_User terms</li>
+                  <li class="breadcrumb-item active">User Terms and Conditions</li>
+              </ol>
+
+          </nav>
+          <!-- End Page Title -->
+
+      </div>
+        <section class="section">
+            <div class="card">
+            <div class="modal-body">
+               
+                <ul>
+                    <li><strong>Copyright Statement</strong>
+                        <ul>
+                            <li>This website ("Website") contains content, including text, images, videos, trademarks, graphics, and software ("Content"). The Content is owned by the Website operator and its content providers, protected by Taiwanese and international copyright laws.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Copyright Protection</strong>
+                        <ul>
+                            <li>All rights are reserved by the Website operator. Without express written permission, you may not copy, modify, adapt, translate, publish, license, resell, create derivative works from, transmit, download, display, or distribute any part of the Content.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Authorized Use</strong>
+                        <ul>
+                            <li>You are granted a personal, non-exclusive, non-transferable, limited license to access, display, and use the Website and its Content for personal use. This does not permit any commercial use, derivative use, or data mining of the Website or its Content.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Unauthorized Use</strong>
+                        <ul>
+                            <li>Unauthorized use of the Website's Content may violate copyright, trademark, and other laws.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Disclaimer of Information</strong>
+                        <ul>
+                            <li>All information provided by this system, including text, images, audio, video, links, or other materials, is for reference only. We strive to ensure the information is accurate, but make no guarantees regarding its accuracy, timeliness, or completeness. The information may become outdated, and we do not commit to updating it. We advise against making significant decisions based solely on this information without further verification.</li>
+                            <li>The system and its content providers will not be liable for any losses or damages arising from direct or indirect use or reliance on the system's information, including loss of profits, data, or other damages.</li>
+                            <li>This disclaimer does not exclude or limit liability for death or personal injury resulting from negligence, fraud, or other liabilities that cannot be excluded or limited under applicable law.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Service Interruption and Termination Statement</strong>
+                        <ul>
+                            <li><strong>Service Interruption</strong>
+                                <ul>
+                                    <li>The service may be temporarily interrupted for maintenance, upgrades, emergency repairs, or due to force majeure (such as natural disasters, cyber attacks, or system failures). While we strive to maintain the service's stability and availability, we cannot guarantee uninterrupted service. For foreseeable interruptions, we will notify users in advance via website announcements, emails, or other communication channels. However, in emergencies, such notice may not be possible.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Service Termination</strong>
+                                <ul>
+                                    <li>We reserve the right to terminate a user's service access at any time for any reason, including but not limited to violations of these terms and conditions. Users wishing to terminate their accounts may stop using the service and notify us. Upon termination, the user's access will be revoked, and we may remove or delete the user's account information, data, and files.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Limitation of Liability</strong>
+                                <ul>
+                                    <li>We are not responsible for any direct or indirect losses resulting from service interruption, suspension, or termination. Users understand and agree that any data downloaded or obtained through this service is at their own discretion and risk, and they are solely responsible for any damage to their computer systems or data loss resulting from such downloads.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
                     
 
                 
