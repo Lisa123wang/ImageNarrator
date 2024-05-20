@@ -82,8 +82,28 @@
     <img src="assets/img/imageNarrator logo.png" alt="">
     <span class="d-none d-lg-block">IMAGE NARRATOR</span>
   </a>
-  <i class="bi bi-list toggle-sidebar-btn"></i>
+  <i class="bi bi-list toggle-sidebar-btn" tabindex="0" role="button" aria-pressed="false"></i>
+
 </div><!-- End Logo -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const toggleButton = document.querySelector('.toggle-sidebar-btn');
+
+    toggleButton.addEventListener('click', function () {
+        const isPressed = toggleButton.getAttribute('aria-pressed') === 'true';
+        toggleButton.setAttribute('aria-pressed', !isPressed);
+        // Add your sidebar toggle logic here
+    });
+
+    toggleButton.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleButton.click();
+        }
+    });
+});
+
+    </script>
 
 <nav class="header-nav ms-auto">
     <ul class="d-flex align-items-center">
