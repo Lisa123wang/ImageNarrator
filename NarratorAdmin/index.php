@@ -152,7 +152,7 @@
         max-height: 250px; /* Ensures scrollable area if content is too long */
     }
 </style>
-    
+<meta name="google-site-verification" content="QoTrLf3ZsVlVZ4tXhl9k_wLYMkByixC38PRHOBCM05E" />
 </head>
 <body>
     <!-- ======= Header ======= -->
