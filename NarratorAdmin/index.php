@@ -202,7 +202,9 @@
         <a class="btn btn-sm btn-outline-primary example-btn"  href="#example">
             Example
         </a>
-        
+        <a class="btn btn-sm btn-outline-primary userterm-btn"  href="#userterm">
+            Userterm
+        </a>
     </div>
 
     <div class="features-grid">
@@ -431,7 +433,79 @@ When executed, this script will output `45`, which is the sum of numbers 0 throu
             </table>
         </div>
     </div>
-    
+    <div class="pagetitle" id="userterm">
+          <h1>User Terms and Conditions</h1>
+
+          <nav>
+
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="pages-dashboard.php">Home</a></li>
+                  <li class="breadcrumb-item ">Tutorial_FAQ_User terms</li>
+                  <li class="breadcrumb-item active">User Terms and Conditions</li>
+              </ol>
+
+          </nav>
+          <!-- End Page Title -->
+
+      </div>
+        <section class="section">
+            <div class="card">
+            <div class="modal-body">
+               
+                <ul>
+                    <li><strong>Copyright Statement</strong>
+                        <ul>
+                            <li>This website ("Website") contains content, including text, images, videos, trademarks, graphics, and software ("Content"). The Content is owned by the Website operator and its content providers, protected by Taiwanese and international copyright laws.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Copyright Protection</strong>
+                        <ul>
+                            <li>All rights are reserved by the Website operator. Without express written permission, you may not copy, modify, adapt, translate, publish, license, resell, create derivative works from, transmit, download, display, or distribute any part of the Content.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Authorized Use</strong>
+                        <ul>
+                            <li>You are granted a personal, non-exclusive, non-transferable, limited license to access, display, and use the Website and its Content for personal use. This does not permit any commercial use, derivative use, or data mining of the Website or its Content.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Unauthorized Use</strong>
+                        <ul>
+                            <li>Unauthorized use of the Website's Content may violate copyright, trademark, and other laws.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Disclaimer of Information</strong>
+                        <ul>
+                            <li>All information provided by this system, including text, images, audio, video, links, or other materials, is for reference only. We strive to ensure the information is accurate, but make no guarantees regarding its accuracy, timeliness, or completeness. The information may become outdated, and we do not commit to updating it. We advise against making significant decisions based solely on this information without further verification.</li>
+                            <li>The system and its content providers will not be liable for any losses or damages arising from direct or indirect use or reliance on the system's information, including loss of profits, data, or other damages.</li>
+                            <li>This disclaimer does not exclude or limit liability for death or personal injury resulting from negligence, fraud, or other liabilities that cannot be excluded or limited under applicable law.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Service Interruption and Termination Statement</strong>
+                        <ul>
+                            <li><strong>Service Interruption</strong>
+                                <ul>
+                                    <li>The service may be temporarily interrupted for maintenance, upgrades, emergency repairs, or due to force majeure (such as natural disasters, cyber attacks, or system failures). While we strive to maintain the service's stability and availability, we cannot guarantee uninterrupted service. For foreseeable interruptions, we will notify users in advance via website announcements, emails, or other communication channels. However, in emergencies, such notice may not be possible.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Service Termination</strong>
+                                <ul>
+                                    <li>We reserve the right to terminate a user's service access at any time for any reason, including but not limited to violations of these terms and conditions. Users wishing to terminate their accounts may stop using the service and notify us. Upon termination, the user's access will be revoked, and we may remove or delete the user's account information, data, and files.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Limitation of Liability</strong>
+                                <ul>
+                                    <li>We are not responsible for any direct or indirect losses resulting from service interruption, suspension, or termination. Users understand and agree that any data downloaded or obtained through this service is at their own discretion and risk, and they are solely responsible for any damage to their computer systems or data loss resulting from such downloads.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+                    
+
+                
+            </div>
+        </section>
     <!-- Vendor JS Files -->
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/vendor/php-email-form/validate.js"></script>

@@ -237,36 +237,82 @@
 
         <!-- Display the screenshot count table -->
         <div style="display: flex; justify-content: space-between;">
-            <div style="width: 100%; background-color: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <h5><b>Total Daily Screenshot Count</b></h5>
-                <table id="screenshotTable" class="display" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Count</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            while ($rowScshot = mysqli_fetch_assoc($resultScreenshotCount)) {
-                                echo "<tr>";
-                                echo "<td>" . htmlspecialchars($rowScshot['date']) . "</td>";
-                                echo "<td>" . htmlspecialchars($rowScshot['scshotCount']) . "</td>";
-                                echo "</tr>";
-                            }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </main>
+    <div style="width: 100%; background-color: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h5><b>Videos Watched Today</b></h5>
+        <table id="dataTable" class="display" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Summary</th>
+                    <th>Tags</th>
+                    <th>Duration</th>
+                    
+                    <th>Recognition Page</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $host = 'localhost'; // or other host
+                $db = 'narratordb_test1';
+                $user = 'root';
+                $pass = '';
+                $charset = 'utf8mb4';
+            
+                $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+                $options = [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                    PDO::ATTR_EMULATE_PREPARES => false,
+                ];
+                try {
+                    $pdo = new PDO($dsn, $user, $pass, $options);
+                } catch (\PDOException $e) {
+                    throw new \PDOException($e->getMessage(), (int)$e->getCode());
+                }
+                // Prepare the query to fetch videos watched today
+                $stmt = $pdo->prepare('
+                    SELECT v.videoID, v.videoTitle, v.videoSummary, v.tags, v.videoURL, v.duration, v.userID, ir.latestDate
+                    FROM video v
+                    LEFT JOIN (
+                        SELECT videoID, MAX(dateCreated) AS latestDate
+                        FROM imagerecognition
+                        WHERE dateCreated >= CURDATE()
+                        GROUP BY videoID
+                    ) ir ON v.videoID = ir.videoID
+                    WHERE v.userID = :userId AND ir.latestDate >= CURDATE()
+                    ORDER BY ir.latestDate DESC, v.videoID DESC;
+                ');
+                $stmt->execute(['userId' => $userID]);
+                while ($row = $stmt->fetch()) {
+                    $latestDate = $row['latestDate'] ? date('Y-m-d', strtotime($row['latestDate'])) : 'N/A';
+                    echo "<tr>
+                        <td><a href='{$row['videoURL']}' target='_blank'>{$row['videoTitle']}</a></td>
+                        <td><div class='summary-cell'>{$row['videoSummary']}</div></td>
+                        <td>{$row['tags']}</td>
+                        <td>" . ($row['duration'] > 0 ? gmdate("i:s", $row['duration']) : 'N/A') . "</td>
+                        
+                        <td><button class='btn' aria-label='Go To Recognition Page' onclick='goToRecognition(\"{$row['videoID']}\")'><i class='bi bi-arrow-right-square'></i></button></td>
+                    </tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+</main>
 
-    <script>
-        $(document).ready(function () {
-            // Initialize DataTable
-            $('#screenshotTable').DataTable();
-        });
-    </script>
+<script>
+    $(document).ready(function () {
+        // Initialize DataTable
+        $('#dataTable').DataTable();
+    });
+
+    function goToRecognition(videoID) {
+        // Replace with actual logic to go to the recognition page
+        window.location.href = 'pages-videorecognition.php?videoID=' + videoID;
+    }
+</script>
+
 
 <script>
         $(document).ready(function () {
