@@ -103,7 +103,7 @@
                 <img src="assets/img/imageNarrator logo.png" alt="">
                 <span class="d-none d-lg-block">IMAGE NARRATOR</span>
             </a>
-            <i class="bi bi-list toggle-sidebar-btn" tabindex="0" role="button" aria-pressed="false"></i>
+            <i class="bi bi-list toggle-sidebar-btn" tabindex="0" role="button" aria-pressed="false" aria-label="Toggle sidebar"></i>
 
 </div><!-- End Logo -->
 <script>
