@@ -232,8 +232,28 @@ function askAI($prompt) {
         <img src="assets/img/imageNarrator logo.png" alt="">
         <span class="d-none d-lg-block">IMAGE NARRATOR</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
+      <i class="bi bi-list toggle-sidebar-btn" tabindex="0" role="button" aria-pressed="false"></i>
+
+</div><!-- End Logo -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const toggleButton = document.querySelector('.toggle-sidebar-btn');
+
+    toggleButton.addEventListener('click', function () {
+        const isPressed = toggleButton.getAttribute('aria-pressed') === 'true';
+        toggleButton.setAttribute('aria-pressed', !isPressed);
+        // Add your sidebar toggle logic here
+    });
+
+    toggleButton.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleButton.click();
+        }
+    });
+});
+
+    </script>
 
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
@@ -314,8 +334,8 @@ function askAI($prompt) {
             </a>
             <a class="nav-link  collapsed"  href="pages-FAQ.php">
                 <i class="bi bi-person"></i>
-                <span>Tutorial/FAQ</span>
-            </a>
+                <span>Tutorial/FAQ 
+                    <br>User terms</span>
         </li><!-- End Video Page Nav -->
         
 </aside><!-- End Sidebar-->
@@ -334,7 +354,32 @@ function askAI($prompt) {
 
         <section class="image-recognition">
         <?php
-// Database connection
+//session_start();
+$link = mysqli_connect('localhost', 'root', '', 'narratordb_test1');
+
+if (!isset($_SESSION['email'])) {
+    header("Location: pages-login.php");
+    exit;
+}
+
+//cho "welcome, " . htmlspecialchars($_SESSION['email']);
+
+
+
+$email = $_SESSION['email'];
+$sqlUser = "SELECT userID FROM user WHERE email = ?";
+$stmtUser = mysqli_prepare($link, $sqlUser);
+mysqli_stmt_bind_param($stmtUser, "s", $email);
+mysqli_stmt_execute($stmtUser);
+$resultUser = mysqli_stmt_get_result($stmtUser);
+$user = mysqli_fetch_assoc($resultUser);
+$userID = $user['userID'];
+
+mysqli_close($link);
+?>
+
+<?php
+// Database connection for the main query
 $host = 'localhost';
 $dbname = 'narratordb_test1';
 $username = 'root';
@@ -346,9 +391,11 @@ if (!$connection) {
 }
 
 $videoID = $_GET['videoID'] ?? 1; // Default videoID to 1 if not specified
-$userID = $_GET['userID'] ?? 1; // Default userID to 1 if not specified
 
-$query = "SELECT userID, videoID, videoTimestamp, OCRText, imagedescription, aiquestion, dateCreated FROM imagerecognition WHERE videoID = ? AND userID = ? ORDER BY videoTimestamp ASC";
+// Check and sanitize the inputs
+$videoID = intval($videoID);
+
+$query = "SELECT videoTimestamp, OCRText, imagedescription, aiquestion FROM imagerecognition WHERE videoID = ? AND userID = ? ORDER BY videoTimestamp ASC";
 $stmt = mysqli_prepare($connection, $query);
 
 if ($stmt) {
@@ -358,16 +405,14 @@ if ($stmt) {
 
     if (mysqli_num_rows($result) > 0) {
         echo "<table class='data-table'>";
-        echo "<thead><tr><th>Video Timestamp</th><th>OCR Text</th><th>Image Description</th><th>AI Question</th></thead>";
+        echo "<thead><tr><th>Video Timestamp</th><th>OCR Text</th><th>Image Description</th><th>AI Question</th></tr></thead>";
         echo "<tbody>";
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
-            
             echo "<td>" . htmlspecialchars($row['videoTimestamp']) . "</td>";
             echo "<td>" . nl2br(htmlspecialchars($row['OCRText'])) . "</td>";
             echo "<td>" . nl2br(htmlspecialchars($row['imagedescription'])) . "</td>";
             echo "<td>" . nl2br(htmlspecialchars($row['aiquestion'])) . "</td>";
-            
             echo "</tr>";
         }
         echo "</tbody></table>";
@@ -382,6 +427,7 @@ if ($stmt) {
 
 mysqli_close($connection);
 ?>
+
 
 
 
